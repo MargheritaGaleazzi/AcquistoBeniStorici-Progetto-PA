@@ -51,6 +51,12 @@ La seguente tabella mostra le richieste possibili:
 | GET | /InterrogaMagazzino |
 | POST | /CreaRicetta |
 
+### Creazione di un nuovo ordine (CreaOrdine)
+Mediante l'utilizzo di questa rotta si può creare un nuovo ordine. Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
+
+### Verifica dello stato di un ordine (VerificaStato)
+Mediante l'utilizzo di questa rotta si può verificare lo stato di un ordine. Questa rotta può essere richiamata sia dall'utente admin che dagli utenti user.
+
 ## Diagrammi UML
 ### Use case
 <p align="center">

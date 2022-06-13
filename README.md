@@ -41,7 +41,9 @@ Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le qu
 
 ## Diagrammi UML
 ### Use case
-<img src=(https://github.com/MargheritaGaleazzi/Alimentazione-Animali--Progetto-PA/blob/main/img/UseCase.jpg) class="center">
+<p align="center">
+  <img width="1020" src="https://github.com/MargheritaGaleazzi/Alimentazione-Animali--Progetto-PA/blob/main/img/UseCase.jpg">
+</p>
 ## Pattern utilizzati
 ### Middleware
 

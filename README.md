@@ -48,4 +48,5 @@ Il progetto consiste in un sistema che consenta di gestire il processo di alimen
 
 ## Autori
 :woman_technologist: [Chiara Amalia Caporusso](https://github.com/ChiaraAmalia) 
+
 :woman_technologist: [Margherita Galeazzi](https://github.com/MargheritaGaleazzi)

@@ -5,8 +5,8 @@ Il progetto consiste in un sistema che consenta di gestire il processo di alimen
  In particolare si vuole gestire un workflow  secondo il quale l’operatore effettui delle operazioni nella giusta sequenza caricando le quantità desiderate di alcuni alimenti, come se seguisse una "ricetta".
  
 ## Funzioni del sistema
-
-<table class="center">
+<p align="center">
+<table>
     <thead>
         <tr>
             <th>Ruolo</th>
@@ -36,6 +36,7 @@ Il progetto consiste in un sistema che consenta di gestire il processo di alimen
         </tr>
     </tbody>
 </table>
+</p>
 
 Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le quali è prevista un'autenticazione tramite token JWT.
 

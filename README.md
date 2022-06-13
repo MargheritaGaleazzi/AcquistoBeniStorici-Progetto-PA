@@ -39,6 +39,18 @@ Il progetto consiste in un sistema che consenta di gestire il processo di alimen
 
 Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le quali è prevista un'autenticazione tramite token JWT.
 
+## Rotte
+La seguente tabella mostra le richieste possibili:
+
+
+
+
+
+
+
+
+
+
 ## Diagrammi UML
 ### Use case
 <p align="center">

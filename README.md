@@ -44,6 +44,7 @@ Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le qu
 <p align="center">
   <img width="1020" src="https://github.com/MargheritaGaleazzi/Alimentazione-Animali--Progetto-PA/blob/main/img/UseCase.jpg">
 </p>
+
 ## Pattern utilizzati
 ### Middleware
 

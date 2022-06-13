@@ -37,6 +37,8 @@ Il progetto consiste in un sistema che consenta di gestire il processo di alimen
     </tbody>
 </table>
 
+Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le quali è prevista un'autenticazione tramite token JWT.
+
 ## Diagrammi UML
 
 ## Pattern utilizzati

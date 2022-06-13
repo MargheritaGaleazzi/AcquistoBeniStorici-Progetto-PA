@@ -43,22 +43,13 @@ Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le qu
 ## Rotte
 La seguente tabella mostra le richieste possibili:
 
-
 | Tipo | Rotta |
-
 |--|--|
-
-| POST | /CreaRicetta |
-
 | POST | /CreaOrdine |
-
-
-
-
-
-
-
-
+| GET | /VerificaStato |
+| POST | /AggiornaMagazzino |
+| GET | /InterrogaMagazzino |
+| POST | /CreaRicetta |
 
 ## Diagrammi UML
 ### Use case

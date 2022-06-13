@@ -44,6 +44,14 @@ Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le qu
 La seguente tabella mostra le richieste possibili:
 
 
+| Tipo | Rotta |
+
+|--|--|
+
+| POST | /CreaRicetta |
+
+| POST | /CreaOrdine |
+
 
 
 

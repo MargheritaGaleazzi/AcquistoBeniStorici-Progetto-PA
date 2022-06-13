@@ -6,7 +6,7 @@ Il progetto consiste in un sistema che consenta di gestire il processo di alimen
  
 ## Funzioni del sistema
 
-<table>
+<table class="center">
     <thead>
         <tr>
             <th>Ruolo</th>

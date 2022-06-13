@@ -72,6 +72,10 @@ Mediante l'utilizzo di questa rotta si può interrogare la quantità disponibile
 ## Pattern utilizzati
 ### Middleware
 
+### Singleton
+
+### Observer
+
 ## Come avviare il progetto
 
 ## Testing

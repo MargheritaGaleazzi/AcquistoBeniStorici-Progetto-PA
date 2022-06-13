@@ -57,6 +57,12 @@ Mediante l'utilizzo di questa rotta si può creare un nuovo ordine. Questa rotta
 ### Verifica dello stato di un ordine (VerificaStato)
 Mediante l'utilizzo di questa rotta si può verificare lo stato di un ordine. Questa rotta può essere richiamata sia dall'utente admin che dagli utenti user.
 
+### Aggiorna le disponibilità di magazzino (AggiornaMagazzino)
+Mediante l'utilizzo di questa rotta si può aggiornare la quantità disponibile di un dato prodotto. Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
+
+### Interroga le disponibilità di magazzino (InterrogaMagazzino)
+Mediante l'utilizzo di questa rotta si può interrogare la quantità disponibile in magazzino, filtrando per alimento (tutti, uno, alcuni). Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
+
 ## Diagrammi UML
 ### Use case
 <p align="center">

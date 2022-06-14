@@ -1,8 +1,17 @@
 import { Singleton } from "../Singleton";
 import { DataTypes, Sequelize } from 'sequelize';
 
+//Ci si connette al database
 const sequelize: Sequelize = Singleton.getConnessione();
 
+/*
+ * Di seguito vi è l'ORM, che altro non è che il pattern che
+ * ci consentirà di interagire con il database.
+ * Viene utilizzata, come esplicitamente richiesto, la libreria
+ * Sequelize.
+ */
+
+//Modella l'utente
 export const Utente = sequelize.define('utente',{
     email: {
         type: DataTypes.STRING(25),
@@ -36,6 +45,7 @@ export const Utente = sequelize.define('utente',{
     freezeTableName: true
 });
 
+//Modella la ricetta
 export const Ricetta = sequelize.define('ricetta', {
     id:{
         type: DataTypes.INTEGER,
@@ -65,6 +75,7 @@ export const Ricetta = sequelize.define('ricetta', {
     freezeTableName: true
 });
 
+//Modella l'ordine
 export const Ordine = sequelize.define('ordine', {
     id:{
         type: DataTypes.INTEGER,
@@ -89,9 +100,10 @@ export const Ordine = sequelize.define('ordine', {
     timestamps: false,
     freezeTableName: true
 });
-
+//mette in relazione l'ordine con una ricetta
 Ordine.hasOne(Ricetta);
 
+//modella il magazzino
 export const Magazzino = sequelize.define('magazzino', {
     alimento:{
         type: DataTypes.STRING,

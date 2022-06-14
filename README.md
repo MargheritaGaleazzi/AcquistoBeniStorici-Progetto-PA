@@ -74,16 +74,28 @@ La seguente tabella mostra le richieste possibili:
          <td> /AcquistaBene </td>
         </tr>
          <tr>
-         <td> POST </td>
-         <td> /AggiornaMagazzino </td>
+         <td> GET </td>
+         <td> /ScaricaBene </td>
         </tr>
          <tr>
          <td> GET </td>
-         <td> /InterrogaMagazzino </td>
+         <td> /VediAcquisti </td>
         </tr>
          <tr>
          <td> POST </td>
-         <td> /CreaRicetta </td>
+         <td> /AcquistaMultiplo </td>
+        </tr>
+        <tr>
+         <td> POST </td>
+         <td> /Regalo </td>
+        </tr>
+        <tr>
+         <td> GET </td>
+         <td> /VisualizzaCredito </td>
+        </tr>
+        <tr>
+         <td> POST </td>
+         <td> /Ricarica </td>
         </tr>
     </tbody>
  </table>

@@ -77,6 +77,10 @@ La seguente tabella mostra le richieste possibili:
          <td> GET </td>
          <td> /ScaricaBene </td>
         </tr>
+        <tr>
+         <td> POST </td>
+         <td> /NuovoLink </td>
+        </tr>
          <tr>
          <td> GET </td>
          <td> /VediAcquisti </td>
@@ -100,36 +104,52 @@ La seguente tabella mostra le richieste possibili:
     </tbody>
  </table>
  
-### Creazione di un nuovo ordine (CreaOrdine)
-Mediante l'utilizzo di questa rotta si può creare un nuovo ordine. Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
+### Visualizzazione dei beni (ListaBeni)
+Mediante l'utilizzo di questa rotta si può visualizzare la lista di tutti i beni presenti. Questa rotta può essere richiamata da chiunque.
 
-Per creare un nuovo ordine si deve specificare, partendo da una ricetta, la massa totale.
+I filtri possono andare in AND, e si può filtrare per:
+ - tipologia (manoscritti, cartografie storiche);
+ - anno (relativo al bene di interesse storico).
 
-Se la disponibilità degli alimenti è inferiore a quella richiesta per il soddisfacimento dell'ordine si incorre in un errore e l'ordine viene rifiutato.
+### Effettuare l'acquisto di uno specifico bene (AcquistaBene)
+Mediante l'utilizzo di questa rotta si può acquistare un bene, specificandone l'id. Questa rotta può essere richiamata dall'utente autenticato, con il ruolo di user.
 
-### Verifica dello stato di un ordine (VerificaStato)
-Mediante l'utilizzo di questa rotta si può verificare lo stato di un ordine. Questa rotta può essere richiamata sia dall'utente admin che dagli utenti user.
+Se il credito è sufficiente viene restituito il bene sotto forma di immagine.
 
-Lo stato dell'ordine può essere visualizzato solamente dallo user che lo ha effettuato a dall'admin.
+Nella richiesta deve essere specificato il formato di uscita, che può essere:
+1. **Jpg**;
+2. **Tiff**;
+3. **Png**.
 
-I possibili stati sono 4:
-1. CREATO;
-2. FALLITO;
-3. IN ESECUZIONE (L’ordine creato passa nello stato IN ESECUZIONE nel momento in cui si riceve l’evento “preso in carico ordine Z”);
-4. COMPLETATO.
+### Scaricare il bene acquistato (ScaricaBene)
+Mediante l'utilizzo di questa rotta si può scaricare il bene acquistato se il pagamento è effettuato con successo. Questa rotta può essere richiamata solamente dagli utenti autenticati con ruolo user.
 
-### Aggiorna le disponibilità di magazzino (AggiornaMagazzino)
-Mediante l'utilizzo di questa rotta si può aggiornare la quantità disponibile di un dato prodotto. Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
+Nota che il bene acquistato può essere scaricato solamente 1 volta; le richieste successive verranno rifiutate.
 
-### Interroga le disponibilità di magazzino (InterrogaMagazzino)
-Mediante l'utilizzo di questa rotta si può interrogare la quantità disponibile in magazzino, filtrando per alimento (tutti, uno, alcuni). Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
+### Richiedi nuovo link (NuovoLink)
+Mediante l'utilizzo di questa rotta si può richiedere un nuovo link per un bene già scaricato. Il costo di questa operazione è di 1 token. Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
 
-### Creazione di una ricetta (CreaRicetta)
-Mediante l'utilizzo di questa rotta si può creare una nuova ricetta. Questa rotta può essere richiamata solamente solamente dall'admin.
+### Visualizzazione dei beni acquistati (VediAcquisti)
+Mediante l'utilizzo di questa rotta si può visualizzare l’elenco degli acquisti effettuati per ogni utente. 
+Gli acquisti saranno divisi per tipologia (download originale vs downloads aggiuntivi).
 
-Per creare una nuova ricetta si deve specificare una lista di alimenti, l'ordine di esecuzione, e la quantità di ciascun alimento espressa in %.
+Questa rotta può essere richiamata solamente dall'utente autenticato.
 
-Se gli alimenti non sono presenti nel DB, se la somma di essi non è pari al 100% o se un alimento è presente più volte si incorre in un errore.
+### Effettuare un acquisto multiplo (AcquistaMultiplo)
+Mediante l'utilizzo di questa rotta si possono effettuare acquisti multipli. L'output sarà in questo caso uno zip.
+Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
+
+### Fare un regalo ad un amico (Regalo)
+Mediante l'utilizzo di questa rotta si ha a possibilità di effettuare un regalo ad un “amico”, fornendo il suo indirizzo mail.
+Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
+
+### Visualizzare il credito (VisualizzaCredito)
+Mediante l'utilizzo di questa rotta si può visualizzare  il credito residuo di un utente.
+Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
+
+### Effettuare la ricarica dei crediti (Ricarica)
+Mediante l'utilizzo di questa rotta si può ricaricare  il credito di un utente.
+Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
 
 ## Diagrammi UML
 ### Use case
@@ -142,15 +162,12 @@ Se gli alimenti non sono presenti nel DB, se la somma di essi non è pari al 100
 ### Factory Method
 Il factory method  è un pattern di progettazione creazionale che fornisce un’interfaccia per la creazione di og-getti in una superclasse, ma consente alle sottoclassi di modificare il tipo di oggetti che verranno creati.
 
-Nel nostro progetto utilizziamo questo pattern quando si creano ordini e/o ricette, in quanto se la creazione va a buon fine verrà segnalato un successo, altrimenti un errore.
+**DA MODIFICARE** Nel nostro progetto utilizziamo questo pattern quando si creano ordini e/o ricette, in quanto se la creazione va a buon fine verrà segnalato un successo, altrimenti un errore.
 
 ### Singleton
 Il singleton è un design pattern creazionale che ha lo scopo di garantire che di una determinata classe venga creata una e una sola istanza, e di fornire un punto di accesso globale a tale istanza. 
 
-Nel nostro progetto lo utilizziamo per effettuare la coneesione al database, in maniera tale che di essa vi sia una sola istanza così da non consumare iutilmente risorse computazionali.
-
-### Observer
-Il pattern Observer (noto anche col nome Publish-Subscribe) permette di definire una dipendenza uno a molti fra oggetti, in modo tale che se un oggetto cambia il suo stato interno, ciascuno degli oggetti dipendenti da esso viene notificato e aggiornato automaticamente. Ovvero l'Observer trova applicazione nei casi in cui diversi oggetti (**Observer**) devono conoscere lo stato di un oggetto (**Subject**).
+Nel nostro progetto lo utilizziamo per effettuare la conNesione al database, in maniera tale che di essa vi sia una sola istanza così da non consumare iutilmente risorse computazionali.
 
 ### Chain Of Responsability & Middleware
 La **catena di responsabilità** è un pattern comportamentale che consente di passare le richie-ste lungo una catena di gestori.
@@ -163,7 +180,7 @@ La Catena di Responsabilità è formata da degli handler (funzioni o metodi), ch
 Le funzioni **middleware** sono funzioni che hanno accesso all'oggetto richiesta (req), all'oggetto risposta (res) e alla successiva funzione middleware nel ciclo richiesta-risposta dell'applicazione.
 La funzione middleware successiva è comunemente indicata da una variabile denominata next.
 
-Nel progetto utilizziamo la catena di responsabilità insieme al middleware nella creazione di una ricetta, di un ordine e nell'aggiornamento del magazzino, per verificare, prima di creare un nuovo oggetto o di aggiornarlo, che siano rispettati tutti i requisiti.
+**DA MODIFICARE** Nel progetto utilizziamo la catena di responsabilità insieme al middleware nella creazione di una ricetta, di un ordine e nell'aggiornamento del magazzino, per verificare, prima di creare un nuovo oggetto o di aggiornarlo, che siano rispettati tutti i requisiti.
 
 ## Come avviare il progetto
 

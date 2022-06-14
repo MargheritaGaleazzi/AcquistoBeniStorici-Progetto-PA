@@ -1,4 +1,4 @@
-import { Singleton } from "../Singleton";
+import { Singleton } from "../singleton";
 import { DataTypes, Sequelize } from 'sequelize';
 
 //Ci si connette al database

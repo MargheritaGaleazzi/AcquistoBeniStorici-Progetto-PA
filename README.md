@@ -2,7 +2,9 @@
 ## Descrizione del progetto
 Il progetto consiste in un sistema che consenta di gestire il processo di alimentazione di animali all’interno di una stalla.
 
- In particolare si vuole gestire un workflow  secondo il quale l’operatore effettui delle operazioni nella giusta sequenza caricando le quantità desiderate di alcuni alimenti, come se seguisse una "ricetta".
+In particolare si vuole gestire un workflow  secondo il quale l’operatore effettui delle operazioni nella giusta sequenza caricando le quantità desiderate di alcuni alimenti, come se seguisse una "ricetta".
+ 
+In sostanza il sistema deve dare la possibilità di creare un “ordine” con una precisa “ricetta” che poi verrà messo in esecuzione da un operatore che provvederà a prelevare nelle giuste quantità e nel giusto ordine i vari alimenti per soddisfare la ricetta richiesta.
  
 ## Funzioni del sistema
 <table align="center">
@@ -76,14 +78,33 @@ La seguente tabella mostra le richieste possibili:
 ### Creazione di un nuovo ordine (CreaOrdine)
 Mediante l'utilizzo di questa rotta si può creare un nuovo ordine. Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
 
+Per creare un nuovo ordine si deve specificare, partendo da una ricetta, la massa totale.
+
+Se la disponibilità degli alimenti è inferiore a quella richiesta per il soddisfacimento dell'ordine si incorre in un errore e l'ordine viene rifiutato.
+
 ### Verifica dello stato di un ordine (VerificaStato)
 Mediante l'utilizzo di questa rotta si può verificare lo stato di un ordine. Questa rotta può essere richiamata sia dall'utente admin che dagli utenti user.
+
+Lo stato dell'ordine può essere visualizzato solamente dallo user che lo ha effettuato a dall'admin.
+
+I possibili stati sono 4:
+1. CREATO;
+2. FALLITO;
+3. IN ESECUZIONE (L’ordine creato passa nello stato IN ESECUZIONE nel momento in cui si riceve l’evento “preso in carico ordine Z”);
+4. COMPLETATO.
 
 ### Aggiorna le disponibilità di magazzino (AggiornaMagazzino)
 Mediante l'utilizzo di questa rotta si può aggiornare la quantità disponibile di un dato prodotto. Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
 
 ### Interroga le disponibilità di magazzino (InterrogaMagazzino)
 Mediante l'utilizzo di questa rotta si può interrogare la quantità disponibile in magazzino, filtrando per alimento (tutti, uno, alcuni). Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
+
+### Creazione di una ricetta (CreaRicetta)
+Mediante l'utilizzo di questa rotta si può creare una nuova ricetta. Questa rotta può essere richiamata solamente solamente dall'admin.
+
+Per creare una nuova ricetta si deve specificare una lista di alimenti, l'ordine di esecuzione, e la quantità di ciascun alimento espressa in %.
+
+Se gli alimenti non sono presenti nel DB, se la somma di essi non è pari al 100% o se un alimento è presente più volte si incorre in un errore.
 
 ## Diagrammi UML
 ### Use case

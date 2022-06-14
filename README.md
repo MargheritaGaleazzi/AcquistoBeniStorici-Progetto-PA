@@ -113,13 +113,32 @@ Se gli alimenti non sono presenti nel DB, se la somma di essi non è pari al 100
 </p>
 
 ## Pattern utilizzati
-### Middleware
+
+### Factory Method
+Il factory method  è un pattern di progettazione creazionale che fornisce un’interfaccia per la creazione di og-getti in una superclasse, ma consente alle sottoclassi di modificare il tipo di oggetti che verranno creati.
+
+Nel nostro progetto utilizziamo questo pattern quando si creano ordini e/o ricette, in quanto se la creazione va a buon fine verrà segnalato un successo, altrimenti un errore.
 
 ### Singleton
-Il singleton è un design pattern creazionale che ha lo scopo di garantire che di una determinata classe venga creata una e una sola istanza, e di fornire un punto di accesso globale a tale istanza. Nel nostro progetto lo utilizziamo per effettuare la coneesione al database, in maniera tale che di essa vi sia una sola istanza così da non consumare iutilmente risorse computazionali.
+Il singleton è un design pattern creazionale che ha lo scopo di garantire che di una determinata classe venga creata una e una sola istanza, e di fornire un punto di accesso globale a tale istanza. 
+
+Nel nostro progetto lo utilizziamo per effettuare la coneesione al database, in maniera tale che di essa vi sia una sola istanza così da non consumare iutilmente risorse computazionali.
 
 ### Observer
 Il pattern Observer (noto anche col nome Publish-Subscribe) permette di definire una dipendenza uno a molti fra oggetti, in modo tale che se un oggetto cambia il suo stato interno, ciascuno degli oggetti dipendenti da esso viene notificato e aggiornato automaticamente. Ovvero l'Observer trova applicazione nei casi in cui diversi oggetti (**Observer**) devono conoscere lo stato di un oggetto (**Subject**).
+
+### Chain Of Responsability & Middleware
+La **catena di responsabilità** è un pattern comportamentale che consente di passare le richie-ste lungo una catena di gestori.
+Alla ricezione di una richiesta, ciascun handler decide di elaborare la richiesta o di passarla al successivo hand-ler della catena.
+
+È molto simile ad un decoratore ma a differenza di quest’ultimo, la catena di responsabilità può essere inter-rotta.
+
+La Catena di Responsabilità è formata da degli handler (funzioni o metodi), che hanno lo scopo di verificare se quello che gli viene passato soddisfa o meno dei criteri. Se il criterio è soddisfatto, non si ritorna, come avve-niva nel Proxy, ma si va avanti passando il controllo all’handler successivo.
+
+Le funzioni **middleware** sono funzioni che hanno accesso all'oggetto richiesta (req), all'oggetto risposta (res) e alla successiva funzione middleware nel ciclo richiesta-risposta dell'applicazione.
+La funzione middleware successiva è comunemente indicata da una variabile denominata next.
+
+Nel progetto utilizziamo la catena di responsabilità insieme al middleware nella creazione di una ricetta, di un ordine e nell'aggiornamento del magazzino, per verificare, prima di creare un nuovo oggetto o di aggiornarlo, che siano rispettati tutti i requisiti.
 
 ## Come avviare il progetto
 

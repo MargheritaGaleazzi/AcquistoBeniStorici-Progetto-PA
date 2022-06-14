@@ -1,39 +1,52 @@
 # Acquisto beni di interesse storico :framed_picture:	⛲  (Progetto PA)
 ## Descrizione del progetto
-Il progetto consiste in un sistema che consenta di gestire il processo di alimentazione di animali all’interno di una stalla.
-
-In particolare si vuole gestire un workflow  secondo il quale l’operatore effettui delle operazioni nella giusta sequenza caricando le quantità desiderate di alcuni alimenti, come se seguisse una "ricetta".
+Il progetto consiste in un sistema che consenta di gestire l’acquisto di un prodotto digitale sotto forma di immagine relativo ad acquisizioni di bene di interesse storico (es. manoscritto, cartografia storica; ogni documento è caratterizzato da un preciso anno).
  
-In sostanza il sistema deve dare la possibilità di creare un “ordine” con una precisa “ricetta” che poi verrà messo in esecuzione da un operatore che provvederà a prelevare nelle giuste quantità e nel giusto ordine i vari alimenti per soddisfare la ricetta richiesta.
+Ogni bene ha associato un costo in termini di token.
  
 ## Funzioni del sistema
 <table align="center">
     <thead>
         <tr>
-            <th>Ruolo</th>
+            <th>Token</th>
             <th>Funzioni</th>
+            <th>Ruolo</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td rowspan=4>user</td>
-            <td>Creazione ordine</td>
+            <td>senza token</td>
+            <td>Ottenere la lista dei beni disponibili (per tipologia o per anno)</td>
+         <td>general</td>
         </tr>
         <tr>
-            <td>Verificare lo stato di un ordine</td>
+            <td rowspan=7>con token</td>
+            <td>Effettuare l’acquisto di uno specifico bene </td>
+         <td>user</td>
         </tr>
         <tr>
-            <td>Aggiornare la quantità disponibile in magazzino di un alimento</td>
+            <td>Scaricare il bene acquistato</td>
+         <td>user</td>
         </tr>
-                <tr>
-            <td>Interrogare la disponibilità del magazzino </td>
+     <tr>
+            <td>Visualizzare l’elenco degli acquisti effettuati</td>
+      <td>user</td>
         </tr>
-        <tr>
-            <td rowspan=2>admin</td>
-            <td>Creazione ricetta</td>
+          <tr>
+            <td>Effettuare acquisti multipli</td>
+           <td>user</td>
         </tr>
-        <tr>
-            <td>Verificare lo stato di un ordine</td>
+          <tr>
+            <td>Fare un regalo ad un amico</td>
+           <td>user</td>
+        </tr>
+          <tr>
+            <td>Visualizzare il credito</td>
+           <td>user</td>
+        </tr>
+          <tr>
+            <td>Ricaricare i crediti</td>
+           <td>admin</td>
         </tr>
     </tbody>
 </table>

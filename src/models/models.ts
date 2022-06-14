@@ -59,6 +59,13 @@ export const Bene = sequelize.define('bene', {
     nome:{
         type: DataTypes.STRING(20),
         allowNull:false
+    },
+    tipo:{
+        type: DataTypes.ENUM('manoscritto','cartografia storica'),
+        allowNull: false
+    },
+    anno:{
+        type: DataTypes.INTEGER
     }
 },
 {

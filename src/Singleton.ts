@@ -14,7 +14,7 @@ export class Singleton{
         this.connessione = new Sequelize(process.env.DATABASE, process.env.USER_DB, process.env.PASSWORD_DB,{
             host: process.env.HOST_DB,
             port: Number(process.env.PORT_DB),
-            dialect: //tipo di database che sceglieremo
+            dialect: 'mysql'
         });
     }
 

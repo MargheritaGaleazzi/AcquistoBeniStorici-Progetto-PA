@@ -1,11 +1,11 @@
 //VANNO AGGIUNTI GLI ALTRi
 
-interface ErrObj {
-    getErroreObj():{stato: number, msg: string};
+interface MsgObj {
+    getMsgObj():{stato: number, msg: string};
 }
 
-class ErrNoAuth implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrNoAuth implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 400,
             msg: "Richiesta Errata - Nessuna autenticazione"
@@ -13,8 +13,8 @@ class ErrNoAuth implements ErrObj {
     }
 }
 
-class ErrNoPayload implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrNoPayload implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 400,
             msg: "Richiesta Errata - Non è presente il JSON di payload nell'header"
@@ -22,8 +22,8 @@ class ErrNoPayload implements ErrObj {
     }
 }
 
-class ErrTokenMancante implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrTokenMancante implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return{
             stato: 400,
             msg: "Richiesta Errata - Token JWT mancante"
@@ -31,8 +31,8 @@ class ErrTokenMancante implements ErrObj {
     }
 }
 
-class ErrTokenInvalido implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrTokenInvalido implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato:403,
             msg: "Proibito - Token JWT invalido"
@@ -40,8 +40,8 @@ class ErrTokenInvalido implements ErrObj {
     }
 }
 
-class ErrPaylodMalformato implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrPaylodMalformato implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 400,
             msg: "Richiesta Errata - Payload non formato in maniera corretta"
@@ -49,8 +49,8 @@ class ErrPaylodMalformato implements ErrObj {
     }
 }
 
-class ErrRottaNonTrovata implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrRottaNonTrovata implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 404,
             msg: "Non Trovato - Rotta non trovata"
@@ -58,8 +58,8 @@ class ErrRottaNonTrovata implements ErrObj {
     }
 }
 
-class ErrNonAutorizzato implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrNonAutorizzato implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 401,
             msg: "ERRORE - Non autorizzato"
@@ -67,8 +67,8 @@ class ErrNonAutorizzato implements ErrObj {
     }
 }
 
-class ErrProibito implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrProibito implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 403,
             msg: "ERRORE - Proibito"
@@ -76,8 +76,8 @@ class ErrProibito implements ErrObj {
     }
 }
 
-class ErrNonTrovato implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrNonTrovato implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 404,
             msg: "ERRORE - Non trovato"
@@ -85,8 +85,8 @@ class ErrNonTrovato implements ErrObj {
     }
 }
 
-class ErrServer implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrServer implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 500,
             msg: "ERRORE - Errore interno al server"
@@ -94,8 +94,8 @@ class ErrServer implements ErrObj {
     }
 }
 
-class ErrServizioNonDisp implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrServizioNonDisp implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 503,
             msg: "ERRORE - Servizio non disponibile"
@@ -103,8 +103,8 @@ class ErrServizioNonDisp implements ErrObj {
     }
 }
 
-class ErrRichiestaErrata implements ErrObj {
-    getErroreObj(): { stato: number; msg: string; } {
+class ErrRichiestaErrata implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
         return {
             stato: 400,
             msg: "ERRORE - Richiesta errata"
@@ -112,7 +112,16 @@ class ErrRichiestaErrata implements ErrObj {
     }
 }
 
-export enum EnumErr {
+class ListaBeni implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
+        return {
+            stato: 200,
+            msg: "SUCCESSO - La lista è stata visualizzata correttamente"
+        }
+    }
+}
+
+export enum MsgEnum {
     ErrNoAuth,
     ErrNoPayload,
     ErrTokenMancante,
@@ -124,47 +133,51 @@ export enum EnumErr {
     ErrNonTrovato,
     ErrServer,
     ErrServizioNonDisp,
-    ErrRichiestaErrata
+    ErrRichiestaErrata,
+    ListaBeni
 }
 
-export function getErrore (tipoErrore: EnumErr): ErrObj{
-    let val: ErrObj;
+export function getMsg (tipoErrore: MsgEnum): MsgObj{
+    let val: MsgObj;
     switch (tipoErrore){
-        case EnumErr.ErrNoAuth:
+        case MsgEnum.ErrNoAuth:
             val = new ErrNoAuth();
             break;
-        case EnumErr.ErrNoPayload:
+        case MsgEnum.ErrNoPayload:
             val = new ErrNoPayload();
             break;
-        case EnumErr.ErrNonAutorizzato:
+        case MsgEnum.ErrNonAutorizzato:
             val = new ErrNonAutorizzato();
             break;
-        case EnumErr.ErrNonTrovato:
+        case MsgEnum.ErrNonTrovato:
             val = new ErrNonTrovato();
             break;
-        case EnumErr.ErrPaylodMalformato:
+        case MsgEnum.ErrPaylodMalformato:
             val = new ErrPaylodMalformato();
             break;
-        case EnumErr.ErrProibito:
+        case MsgEnum.ErrProibito:
             val = new ErrProibito();
             break;
-        case EnumErr.ErrRichiestaErrata:
+        case MsgEnum.ErrRichiestaErrata:
             val = new ErrRichiestaErrata();
             break;
-        case EnumErr.ErrRottaNonTrovata:
+        case MsgEnum.ErrRottaNonTrovata:
             val = new ErrRottaNonTrovata();
             break;
-        case EnumErr.ErrServer:
+        case MsgEnum.ErrServer:
             val = new ErrServer();
             break;
-        case EnumErr.ErrServizioNonDisp:
+        case MsgEnum.ErrServizioNonDisp:
             val = new ErrServizioNonDisp();
             break;
-        case EnumErr.ErrTokenInvalido:
+        case MsgEnum.ErrTokenInvalido:
             val = new ErrTokenInvalido();
             break;
-        case EnumErr.ErrTokenMancante:
+        case MsgEnum.ErrTokenMancante:
             val = new ErrTokenMancante();
+            break;
+        case MsgEnum.ListaBeni:
+            val = new ListaBeni();
             break;
     }
     return val;

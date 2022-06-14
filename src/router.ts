@@ -4,43 +4,75 @@ import * as express from 'express';
 const applicazione = express();
 
 /*
- * Rotta per la creazione di un ordine
+ * Rotta per la visualizzazione della lista dei beni
  */
 
-applicazione.post('/CreaOrdine'), /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.creaOrdine(req.body, res);
+applicazione.get('/ListaBeni'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.listaBeni(req.body, res);
 });
 
 /*
- * Rotta per verificare lo stato di un ordine
+ * Rotta per acquistare un bene
  */
 
-applicazione.get('/VerificaStato'), /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.verificaStato(req.body.utente, res);
+applicazione.post('/AcquistaBene'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.acquistaBene(req.body, res);
 });
 
 /*
- * Rotta per l'aggiornamento del magazzino
+ * Rotta per scaricare un bene acquistato
  */
 
-applicazione.post('/AggiornaMagazzino'), /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.aggiornaMagazzino(req.body.alimento, res);
+applicazione.get('/ScaricaBene'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.scaricaBene(req.body, res);
 });
 
 /*
- * Rotta per interrogare il magazzino
+ * Rotta per richiedere un nuovo link per un bene già scaricato
  */
 
-applicazione.get('/InterrogaMagazzino'), /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.intertogaMagazzino(req.body, res);
+applicazione.post('/NuovoLink'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.nuovoLink(req.body, res);
 });
 
 /*
- * Rotta per la creazione di una ricetta
+ * Rotta per la visualizzazione di tutti gli acquisti
  */
 
-applicazione.post('/CreaRicetta'), /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.creaRicetta(req.body, res);
+applicazione.get('/VediAcquisti'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.vediAcquisti(req.body, res);
+});
+
+/*
+ * Rotta per effettuare acquisti multipli
+ */
+
+applicazione.post('/AcquistaMultiplo'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.acquistaMultiplo(req.body, res);
+});
+
+/*
+ * Rotta per la effettuare un regalo ad un amico
+ */
+
+applicazione.post('/Regalo'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.regalo(req.body, res);
+});
+
+/*
+ * Rotta per la visualizzazione dei crediti rimasti
+ */
+
+applicazione.get('/VisualizzaCredito'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.visualizzaCredito(req.body, res);
+});
+
+/*
+ * Rotta per la ricaricare i crediti
+ */
+
+applicazione.post('/Ricarica'), /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.ricarica(req.body, res);
 });
 
 /*

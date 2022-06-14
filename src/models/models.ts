@@ -37,6 +37,10 @@ export const Utente = sequelize.define('utente',{
     tokenJWT: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    credito: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 },
 {
@@ -45,8 +49,8 @@ export const Utente = sequelize.define('utente',{
     freezeTableName: true
 });
 
-//Modella la ricetta
-export const Ricetta = sequelize.define('ricetta', {
+//Modella il bene
+export const Bene = sequelize.define('bene', {
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -55,67 +59,27 @@ export const Ricetta = sequelize.define('ricetta', {
     nome:{
         type: DataTypes.STRING(20),
         allowNull:false
-    },
-    alimenti:{
-        type: DataTypes.ARRAY(DataTypes.STRING(20)),
-        allowNull:false
-    },
-    ordEsec:{
-        type: DataTypes.ARRAY(DataTypes.STRING(20)),
-        allowNull:false
-    },
-    quant:{
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull:false
-    },
+    }
 },
 {
-    modelName: 'ricetta',
+    modelName: 'bene',
     timestamps: false,
     freezeTableName: true
 });
 
-//Modella l'ordine
-export const Ordine = sequelize.define('ordine', {
+//modella l'acquisto
+export const Acquisto = sequelize.define('acquisto',{
     id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    utente:{
-        type: DataTypes.STRING(25),
-        allowNull:false
-    },
-    quantTot:{
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
-        allowNull:false
-    },
-    stato:{
-        type: DataTypes.ENUM("creato","fallito","in esecuzione","completato"),
-        defaultValue: "in attesa",
-    },
 },
 {
-    modelName: 'ordine',
-    timestamps: false,
+    modelName: 'acquisto',
+    timestamps: true,
     freezeTableName: true
 });
-//mette in relazione l'ordine con una ricetta
-Ordine.hasOne(Ricetta);
 
-//modella il magazzino
-export const Magazzino = sequelize.define('magazzino', {
-    alimento:{
-        type: DataTypes.STRING,
-        primaryKey: true,
-    },
-    disponibilita:{
-        type: DataTypes.INTEGER,
-        allowNull:false
-    },
-},
-{
-    modelName: 'magazzino',
-    timestamps: false,
-    freezeTableName: true
-});
+Acquisto.hasMany(Bene);
+Acquisto.hasOne(Utente);

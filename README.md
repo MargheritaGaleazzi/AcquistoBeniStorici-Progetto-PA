@@ -41,7 +41,7 @@ Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le qu
 
 ## Rotte
 La seguente tabella mostra le richieste possibili:
-
+<p align="center">
 | Tipo | Rotta |
 |--|--|
 | POST | /CreaOrdine |
@@ -49,6 +49,7 @@ La seguente tabella mostra le richieste possibili:
 | POST | /AggiornaMagazzino |
 | GET | /InterrogaMagazzino |
 | POST | /CreaRicetta |
+</p>
 
 ### Creazione di un nuovo ordine (CreaOrdine)
 Mediante l'utilizzo di questa rotta si può creare un nuovo ordine. Questa rotta può essere richiamata solamente dagli utenti con ruolo user.

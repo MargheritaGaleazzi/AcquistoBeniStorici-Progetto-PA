@@ -41,6 +41,22 @@ Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per le qu
 
 ## Rotte
 La seguente tabella mostra le richieste possibili:
+
+<table align="center">
+    <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Rotta</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+         <td> POST </td>
+         <td> /CreaOrdine </td>
+        </tr>
+    </tbody>
+ </table>
+ 
 <p align="center">
  
 | Tipo | Rotta |

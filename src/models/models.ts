@@ -50,6 +50,10 @@ export const Ricetta = sequelize.define('ricetta', {
         type: DataTypes.ARRAY(DataTypes.STRING(20)),
         allowNull:false
     },
+    ordEsec:{
+        type: DataTypes.ARRAY(DataTypes.STRING(20)),
+        allowNull:false
+    },
     quant:{
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull:false
@@ -57,6 +61,49 @@ export const Ricetta = sequelize.define('ricetta', {
 },
 {
     modelName: 'ricetta',
+    timestamps: false,
+    freezeTableName: true
+});
+
+export const Ordine = sequelize.define('ordine', {
+    id:{
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    utente:{
+        type: DataTypes.STRING(25),
+        allowNull:false
+    },
+    ricetta:{
+        // completare chave esterna
+    },
+    quantTot:{
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        allowNull:false
+    },
+    stato:{
+        //aggiungere lo stato
+    },
+},
+{
+    modelName: 'ordine',
+    timestamps: false,
+    freezeTableName: true
+});
+
+export const Magazzino = sequelize.define('magazzino', {
+    alimento:{
+        type: DataTypes.STRING,
+        primaryKey: true,
+    },
+    disponibilita:{
+        type: DataTypes.INTEGER,
+        allowNull:false
+    },
+},
+{
+    modelName: 'magazzino',
     timestamps: false,
     freezeTableName: true
 });

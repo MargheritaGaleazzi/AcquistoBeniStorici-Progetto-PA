@@ -1,7 +1,7 @@
 import { Singleton } from "../Singleton";
 import { DataTypes, Sequelize } from 'sequelize';
 
-const sequelize: Sequelize = Singleton.getConnessione;
+const sequelize: Sequelize = Singleton.getConnessione();
 
 export const Utente = sequelize.define('utente',{
     email: {
@@ -22,8 +22,8 @@ export const Utente = sequelize.define('utente',{
         allowNull: false
     },
     ruolo: {
-        type: DataTypes.STRING(5),
-        allowNull: false
+        type: DataTypes.ENUM("user","admin"),
+        defaultValue: "user",
     },
     tokenJWT: {
         type: DataTypes.INTEGER,
@@ -75,15 +75,13 @@ export const Ordine = sequelize.define('ordine', {
         type: DataTypes.STRING(25),
         allowNull:false
     },
-    ricetta:{
-        // completare chave esterna
-    },
     quantTot:{
         type: DataTypes.ARRAY(DataTypes.INTEGER),
         allowNull:false
     },
     stato:{
-        //aggiungere lo stato
+        type: DataTypes.ENUM("creato","fallito","in esecuzione","completato"),
+        defaultValue: "in attesa",
     },
 },
 {
@@ -91,6 +89,8 @@ export const Ordine = sequelize.define('ordine', {
     timestamps: false,
     freezeTableName: true
 });
+
+Ordine.hasOne(Ricetta);
 
 export const Magazzino = sequelize.define('magazzino', {
     alimento:{

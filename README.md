@@ -1,4 +1,4 @@
-# Alimentazione Animali :paw_prints:  (Progetto PA)
+# Acquisto beni di interesse storico :framed_picture:	⛲  (Progetto PA)
 ## Descrizione del progetto
 Il progetto consiste in un sistema che consenta di gestire il processo di alimentazione di animali all’interno di una stalla.
 

@@ -54,21 +54,25 @@ La seguente tabella mostra le richieste possibili:
          <td> POST </td>
          <td> /CreaOrdine </td>
         </tr>
+         <tr>
+         <td> GET </td>
+         <td> /VerificaStato </td>
+        </tr>
+         <tr>
+         <td> POST </td>
+         <td> /AggiornaMagazzino </td>
+        </tr>
+         <tr>
+         <td> GET </td>
+         <td> /InterrogaMagazzino </td>
+        </tr>
+         <tr>
+         <td> POST </td>
+         <td> /CreaRicetta </td>
+        </tr>
     </tbody>
  </table>
  
-<p align="center">
- 
-| Tipo | Rotta |
-|--|--|
-| POST | /CreaOrdine |
-| GET | /VerificaStato |
-| POST | /AggiornaMagazzino |
-| GET | /InterrogaMagazzino |
-| POST | /CreaRicetta |
- 
-</p>
-
 ### Creazione di un nuovo ordine (CreaOrdine)
 Mediante l'utilizzo di questa rotta si può creare un nuovo ordine. Questa rotta può essere richiamata solamente dagli utenti con ruolo user.
 

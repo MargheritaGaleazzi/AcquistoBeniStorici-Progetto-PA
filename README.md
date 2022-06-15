@@ -154,7 +154,7 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 ## Diagrammi UML
 ### Use case
 <p align="center">
-  <img width="1020" src="https://github.com/MargheritaGaleazzi/Alimentazione-Animali--Progetto-PA/blob/main/img/UseCase.jpg">
+  <img width="1020" src="https://github.com/MargheritaGaleazzi/AcquistoBeniStorici-Progetto-PA/blob/main/img_doc/UseCase.jpg">
 </p>
 
 ## Pattern utilizzati

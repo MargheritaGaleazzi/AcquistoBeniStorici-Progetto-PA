@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.acquistaBene = exports.ricarica = exports.visualizzaCredito = exports.regalo = exports.acquistaMultiplo = exports.vediAcquisti = exports.nuovoLink = exports.listaBeni = void 0;
+exports.acquistaBene = exports.PresenzaImmagini = exports.ricarica = exports.visualizzaCredito = exports.regalo = exports.acquistaMultiplo = exports.vediAcquisti = exports.nuovoLink = exports.listaBeni = void 0;
 var models_1 = require("./models/models");
 var messaggi_1 = require("./factory/messaggi");
 var path = require("path");
@@ -77,33 +77,22 @@ exports.ricarica = ricarica;
 /***
  * Funzione per verificare la presenza delle immagini
  */
-/*
-export function PresenzaImmagini(curr_path: string, url) {
-    
-    //var exist_zip = path.join(curr_path, "/ImmaginiPA.zip")
+function PresenzaImmagini(curr_path, url) {
     console.log("pippo2");
-    fs.open(path.join(curr_path, "/ImmaginiPA.zip"),'r',function(err,fd){
-        if (err && err.code=='ENOENT') {
-            console.log("Download delle immagini in corso...");
-        
-            var XMLHttpRequest = require('xhr2');
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-            xhr.responseType = "blob";
-
-            xhr.onload = function () {
-                saveAs(this.response, 'ImmaginiPA.zip'); // saveAs is a part of FileSaver.js
-            };
-            xhr.send();
-
-
+    fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), function (exists) {
+        if (exists == null) {
         }
-            
-            
+        else if (exists.code === 'ENOENT') {
+            console.log("Download delle immagini in corso...");
+            var http = require('https');
+            var file_1 = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
+            var req = http.get(url, function (response) {
+                response.pipe(file_1);
+            });
+        }
     });
 }
- 
-
+exports.PresenzaImmagini = PresenzaImmagini;
 /***
  * Funzione per estrarre le immagini dallo zip
 */
@@ -124,16 +113,7 @@ export function EstrazioneImmagini(curr_path: string) {
         console.log("zip non trovato");
     }
 }
-function getDownloadFile(url:string, file:string) {
-    this.http.get(url).subscribe(
-        (response) => {
-            var blob = new Blob([response._body], {type: "application/text"});
-            var filename = file;
-            saveAs(blob, filename);
-        });
-}
- 
-
+*/
 /*
  * Funzione che permette di acquistare un bene
  */
@@ -200,12 +180,7 @@ console.log(curr_path);
 console.log("print3");
 // File .zip contenente le immagini, salvato su DropBox
 var url = "https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
-var http = require('https');
-var file = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
-var req = http.get(url, function (response) {
-    response.pipe(file);
-});
-//PresenzaImmagini(curr_path,url);
+PresenzaImmagini(curr_path, url);
 //EstrazioneImmagini(curr_path);
 /*
  * Funzione per creare il link ed aggiungere la filigrana

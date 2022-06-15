@@ -98,31 +98,25 @@ export function ricarica(id:number,risp:any){}
 /***
  * Funzione per verificare la presenza delle immagini
  */ 
-/*
+
 export function PresenzaImmagini(curr_path: string, url) {
     
-    //var exist_zip = path.join(curr_path, "/ImmaginiPA.zip")
     console.log("pippo2");
-    fs.open(path.join(curr_path, "/ImmaginiPA.zip"),'r',function(err,fd){
-        if (err && err.code=='ENOENT') { 
+    fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), (exists) => {
+        if (exists == null) {
+        } else if (exists.code === 'ENOENT') {
             console.log("Download delle immagini in corso...");
         
-            var XMLHttpRequest = require('xhr2');
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", url);
-            xhr.responseType = "blob";
-
-            xhr.onload = function () {
-                saveAs(this.response, 'ImmaginiPA.zip'); // saveAs is a part of FileSaver.js
-            };
-            xhr.send();
-
+            const http = require('https');
+            const file = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
+            const req = http.get(url, function(response) {
+              response.pipe(file);
+            });
+        }
+    });
 
         }
             
-            
-    });
-}
  
 
 /***
@@ -145,15 +139,7 @@ export function EstrazioneImmagini(curr_path: string) {
         console.log("zip non trovato");
     }
 }
-function getDownloadFile(url:string, file:string) {
-    this.http.get(url).subscribe(
-        (response) => {
-            var blob = new Blob([response._body], {type: "application/text"});
-            var filename = file;
-            saveAs(blob, filename);
-        });
-} 
- 
+*/
 
 /*
  * Funzione che permette di acquistare un bene
@@ -224,13 +210,8 @@ console.log("print3")
 // File .zip contenente le immagini, salvato su DropBox
 var url ="https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
 
-const http = require('https');
-const file = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
-const req = http.get(url, function(response) {
-  response.pipe(file);
-});
 
-//PresenzaImmagini(curr_path,url);
+PresenzaImmagini(curr_path,url);
 //EstrazioneImmagini(curr_path);
 
 /*

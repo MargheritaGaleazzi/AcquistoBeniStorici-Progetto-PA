@@ -23,6 +23,7 @@ CREATE TABLE acquisto (
     formato enum("jpg","tiff","png"),
     email_compr varchar(35) NOT NULL,
     PRIMARY KEY(id)
+    FOREIGN KEY(email_compr) REFERENCES utente(email)
 );
 
 CREATE TABLE modo (
@@ -31,6 +32,8 @@ CREATE TABLE modo (
     id_bene int() NOT NULL,
     tipo_acq enum("da scaricare","download originale", "download aggiuntivo"),
     PRIMARY KEY(id)
+    FOREIGN KEY(id_acquisto) REFERENCES acquisto(id)
+    FOREIGN KEY(id_bene) REFERENCES bene(id)
 );
 
 
@@ -43,12 +46,19 @@ INSERT INTO utente (email, username, nome, cognome, ruolo, credito) VALUES
     ("giovi@alice.it", "Giova", "Giovanni", "Saluti","user",23),
     ("babiFre@alice.it", "Barbara", "Barbara", "Frescati", "admin",999);
 
-INSERT INTO bene (nome,tipo,anno,prezzo,id_acquisto) VALUES 
-    ("Aristotle_latin_manuscript.jpg","manoscritto",28,NULL),
+INSERT INTO bene (nome,tipo,anno,prezzo,nDownload) VALUES 
+    ("Aristotle_latin_manuscript.jpg","manoscritto",28,0),
     ("cart_Roma_Capitale.jpg","cartografia storica",36,1),
-    ("fiume_PO.jpg","cartografia storica",10,NULL),
-    ("Karl-VI-Praesentirt-per-notarium.jpg","manoscritto",120,NULL),
+    ("fiume_PO.jpg","cartografia storica",10,0),
+    ("Karl-VI-Praesentirt-per-notarium.jpg","manoscritto",120,0),
     ("Tibullo-Albio-cavaliere-Romano-elogio1°-tradotto-dal-latino.jpg","manoscritto",85,2);
 
 INSERT INTO acquisto (formato,tipo_acq,email_compr) VALUES
-    ("jpg","download originale",)
+    ("jpg","rossiMario@gmail.com"),
+    ("png","giovi@alice.it"),
+    ("jpg","giovi@alice.it");
+
+INSERT INTO modo (id_acquisto,id_bene,tipo_acq) VALUES 
+    (0,1,"download origiale"),
+    (1,4,"download originale"),
+    (2,4,"download aggiuntivo");

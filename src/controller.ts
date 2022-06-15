@@ -1,11 +1,16 @@
 import {Sequelize} from "sequelize";
-import { Utente,Bene,Acquisto } from "./models/models";
+import { Utente,Bene,Acquisto, Modo } from "./models/models";
 import { MsgEnum, getMsg } from "./factory/messaggi";
 import * as path from 'path';
 import { saveAs } from 'file-saver';
 
+<<<<<<< Updated upstream
 const request = require('superagent');
 var fs_extra = require('fs-extra'); 
+=======
+
+
+>>>>>>> Stashed changes
 var fs = require('fs'),
     gm = require('gm'),
     imageMagick = gm.subClass({imageMagick: true});
@@ -96,7 +101,21 @@ export function EstrazioneImmagini(curr_path: string) {
 /*
  * Funzione che permette di acquistare un bene
  */
+<<<<<<< Updated upstream
 //export function acquistaBene(id:number)
+=======
+export function acquistaBene(id_bene:number,formato_bene:string,compr:string, risp:any):void{
+    Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
+    Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download originale"});
+    Bene.findByPk(id_bene).then((bene:any)=>{
+        Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
+        bene.nDownload+=1;
+        bene.save();
+        scarica(bene,"DownloadOriginale",acquisto)
+    })
+    });
+}
+>>>>>>> Stashed changes
 
 
 /*
@@ -109,9 +128,21 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     }).then((risultato:any)=>{
         risultato.tipo_acq="download originale";
         
+<<<<<<< Updated upstream
     // passing a downloadable image by url 
     var request = require('request');
     var url = "www.codinggirl.com/"+ id_acquisto.toString +"OrigDwld."+risultato.formato
+=======
+    // creazione dell'url per scaricare l'immagine
+    scarica(id_acquisto,risultato,"DownloadOriginale")
+    const nuova_risp = getMsg(MsgEnum.ScaricaBene).getMsgObj();
+    var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
+        risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
+    }).catch((error) => {
+        controllerErrori(MsgEnum.ErrServer, error, risp);
+    })
+}
+>>>>>>> Stashed changes
 
     
     var pathToImg="../img/"+risultato.Bene.nome
@@ -147,4 +178,30 @@ var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
 
 PresenzaImmagini(curr_path,url);
 
+<<<<<<< Updated upstream
 EstrazioneImmagini(curr_path);
+=======
+EstrazioneImmagini(curr_path);
+
+/*
+ * Funzione per creare il link ed aggiungere la filigrana
+ *
+ */
+function scarica(bene:any, tipo:string,acquisto:any):void{
+    var request = require('request');
+    var url = "www.codinggirl.com/"+tipo+bene.nome+bene.nDownload.toString()+"."+acquisto.formato
+    
+    var pathToImg="../img/"+bene.nome
+    var nomeBene=bene.nome.split(".")[0]
+    gm(request(url))
+    .command('composite')
+    .gravity('Center')
+    .in('../img_doc/filigrana.png')
+    .command('covert')
+    .in(bene.nome)
+    .out(nomeBene+"."+acquisto.formato)
+    .write(pathToImg, function (err) {
+    if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
+    });
+}
+>>>>>>> Stashed changes

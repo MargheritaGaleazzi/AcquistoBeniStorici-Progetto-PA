@@ -66,10 +66,9 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
     });
     const new_res = getMsg(MsgEnum.ScaricaBene).getMsgObj();
-        risp.status(new_res.stato).json({message:new_res.msg, //risultato:risultato});
+    var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
+        risp.status(new_res.stato).json({message:new_res.msg, risultato:link});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
-
-    })
     })
 }

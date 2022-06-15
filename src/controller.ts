@@ -60,9 +60,16 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     var request = require('request');
     var url = "www.codinggirl.com/"+ id_acquisto.toString +"OrigDwld."+risultato.formato
     
-    var pathToImg="../img/"+risultato.Bene.nome+risultato.formato
-
-    gm(request(url)).write(pathToImg, function (err) {
+    var pathToImg="../img/"+risultato.Bene.nome
+    var nomeBene=risultato.Bene.nome.split(".")[0]
+    gm(request(url))
+    .command('composite')
+    .gravity('Center')
+    .in('../img_doc/filigrana.png')
+    .command('covert')
+    .in(risultato.Bene.nome)
+    .out(nomeBene+risultato.formato)
+    .write(pathToImg, function (err) {
     if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
     });
     const new_res = getMsg(MsgEnum.ScaricaBene).getMsgObj();

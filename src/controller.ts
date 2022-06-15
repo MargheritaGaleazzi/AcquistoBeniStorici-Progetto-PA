@@ -4,13 +4,10 @@ import { MsgEnum, getMsg } from "./factory/messaggi";
 import * as path from 'path';
 import { saveAs } from 'file-saver';
 
-<<<<<<< Updated upstream
 const request = require('superagent');
 var fs_extra = require('fs-extra'); 
-=======
 
 
->>>>>>> Stashed changes
 var fs = require('fs'),
     gm = require('gm'),
     imageMagick = gm.subClass({imageMagick: true});
@@ -48,9 +45,60 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
     });
 }
 
+/*
+ * Funzione che permette di ottenere un nuovo link per il bene
+ * acquistato
+ */
+export function nuovoLink(id:number,risp:any){}
+
+/*
+ * Funzione che permette di vedere gli acquisti
+ * di un dato utente
+ */
+export function vediAcquisti(id:number,risp:any){}
+
+/*
+ * Funzione che permette di acquistare più beni in
+ * una volta
+ */
+export function acquistaMultiplo(id:number,risp:any){}
+
+/*
+ * Funzione che permette di fare un regalo ad un amico
+ */
+export function regalo(id:number,risp:any){}
+
+/*
+ * Funzione che permette di visualizzare il credito
+ * residuo di un dato utente
+ */
+export function visualizzaCredito(id:number,risp:any){}
+
+/*
+ * Funzione che permette all'amministratore di ricaricare
+ * il credito di un dato utente
+ */
+export function ricarica(id:number,risp:any){}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /***
  * Funzione per verificare la presenza delle immagini
  */ 
+
 export function PresenzaImmagini(curr_path: string, url) {
     
     //var exist_zip = path.join(curr_path, "/ImmaginiPA.zip")
@@ -80,6 +128,7 @@ export function PresenzaImmagini(curr_path: string, url) {
 /***
  * Funzione per estrarre le immagini dallo zip
 */  
+
 export function EstrazioneImmagini(curr_path: string) {
 
     var unzip = require('unzip-stream');
@@ -96,14 +145,19 @@ export function EstrazioneImmagini(curr_path: string) {
         console.log("zip non trovato");
     }
 }
+function getDownloadFile(url:string, file:string) {
+    this.http.get(url).subscribe(
+        (response) => {
+            var blob = new Blob([response._body], {type: "application/text"});
+            var filename = file;
+            saveAs(blob, filename);
+        });
+} 
  
 
 /*
  * Funzione che permette di acquistare un bene
  */
-<<<<<<< Updated upstream
-//export function acquistaBene(id:number)
-=======
 export function acquistaBene(id_bene:number,formato_bene:string,compr:string, risp:any):void{
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
     Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download originale"});
@@ -115,12 +169,12 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
     })
     });
 }
->>>>>>> Stashed changes
 
 
 /*
  * Funzione che permette di scaricare un bene precedentemente acquistato
  */
+/*
 export function scaricaBene(id_acquisto:number, risp:any): void{
     Acquisto.findOne({
         where:{id:id_acquisto},
@@ -128,11 +182,6 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     }).then((risultato:any)=>{
         risultato.tipo_acq="download originale";
         
-<<<<<<< Updated upstream
-    // passing a downloadable image by url 
-    var request = require('request');
-    var url = "www.codinggirl.com/"+ id_acquisto.toString +"OrigDwld."+risultato.formato
-=======
     // creazione dell'url per scaricare l'immagine
     scarica(id_acquisto,risultato,"DownloadOriginale")
     const nuova_risp = getMsg(MsgEnum.ScaricaBene).getMsgObj();
@@ -142,7 +191,6 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
         controllerErrori(MsgEnum.ErrServer, error, risp);
     })
 }
->>>>>>> Stashed changes
 
     
     var pathToImg="../img/"+risultato.Bene.nome
@@ -163,7 +211,7 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     })
-}
+}*/
 
 process.chdir(__dirname);
 var e = __dirname;
@@ -174,14 +222,10 @@ var curr_path = e.slice(0,-4);
 console.log(curr_path)
 console.log("print3")
 // File .zip contenente le immagini, salvato su DropBox
-var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
+var url ="https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
 
-PresenzaImmagini(curr_path,url);
-
-<<<<<<< Updated upstream
-EstrazioneImmagini(curr_path);
-=======
-EstrazioneImmagini(curr_path);
+//PresenzaImmagini(curr_path,url);
+//EstrazioneImmagini(curr_path);
 
 /*
  * Funzione per creare il link ed aggiungere la filigrana
@@ -204,4 +248,3 @@ function scarica(bene:any, tipo:string,acquisto:any):void{
     if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
     });
 }
->>>>>>> Stashed changes

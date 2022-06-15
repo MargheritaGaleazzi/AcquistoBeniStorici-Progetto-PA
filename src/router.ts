@@ -16,16 +16,16 @@ applicazione.get('/ListaBeni', /*aggiungi middleware,*/ function (req: any, res:
  */
 
 applicazione.post('/AcquistaBene', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.acquistaBene(req.body, res);
+    Controller.acquistaBene(req.body.id_bene,req.body.formato,req.body.cons, res);
 });
 
 /*
  * Rotta per scaricare un bene acquistato
  */
-
-applicazione.get('/ScaricaBene', /*aggiungi middleware,*/ function (req: any, res: any) {    
+/*
+applicazione.get('/ScaricaBene', /*aggiungi middleware, function (req: any, res: any) {    
     Controller.scaricaBene(req.body, res);
-});
+});*/
 
 /*
  * Rotta per richiedere un nuovo link per un bene già scaricato

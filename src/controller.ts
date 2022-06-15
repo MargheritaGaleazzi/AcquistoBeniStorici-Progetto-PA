@@ -1,6 +1,7 @@
-import {Sequelize } from "sequelize";
+import {Sequelize} from "sequelize";
 import { Utente,Bene,Acquisto } from "./models/models";
 import { MsgEnum, getMsg } from "./factory/messaggi";
+import * as os from 'os';
 
 
 var fs = require('fs'),
@@ -40,6 +41,18 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
     });
 }
 
+/***
+ * Funzione per verificare la presenza delle immagini
+ * 
+ * export function PresenzaImmagini(path: string, url: string) {}
+ */
+
+/***
+ * Funzione per estrarre le immagini dallo zip
+ * 
+ * export function EstrazioneImmagini() {}
+ */
+
 /*
  * Funzione che permette di acquistare un bene
  */
@@ -59,6 +72,11 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     // passing a downloadable image by url 
     var request = require('request');
     var url = "www.codinggirl.com/"+ id_acquisto.toString +"OrigDwld."+risultato.formato
+
+    var path = os.homedir();
+    process.chdir(path);
+
+    console.log(path);
     
     var pathToImg="../img/"+risultato.Bene.nome
     var nomeBene=risultato.Bene.nome.split(".")[0]
@@ -79,3 +97,14 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
         controllerErrori(MsgEnum.ErrServer, error, risp);
     })
 }
+
+var path = __dirname;
+process.chdir(path);
+console.log(path);
+
+// File .zip contenente le immagini, salvato su DropBox
+var url ='https://www.dropbox.com/s/z69a02qihjffndx/ImmaginiPA.zip?dl=0';
+
+//PresenzaImmagini(path,url);
+
+//EstrazioneImmagini();

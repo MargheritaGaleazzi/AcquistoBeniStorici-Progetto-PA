@@ -80,7 +80,7 @@ export function EstrazioneImmagini(curr_path: string) {
 /*
  * Funzione che permette di acquistare un bene
  */
-//export function acquistaBene(id:number)
+export function acquistaBene(id:number, risp:any){}
 
 
 /*
@@ -117,6 +117,43 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
         controllerErrori(MsgEnum.ErrServer, error, risp);
     })
 }
+
+/*
+ * Funzione che permette di ottenere un nuovo link per il bene
+ * acquistato
+ */
+export function nuovoLink(id:number,risp:any){}
+
+/*
+ * Funzione che permette di vedere gli acquisti
+ * di un dato utente
+ */
+export function vediAcquisti(id:number,risp:any){}
+
+/*
+ * Funzione che permette di acquistare più beni in
+ * una volta
+ */
+export function acquistaMultiplo(id:number,risp:any){}
+
+/*
+ * Funzione che permette di fare un regalo ad un amico
+ */
+export function regalo(id:number,risp:any){}
+
+/*
+ * Funzione che permette di visualizzare il credito
+ * residuo di un dato utente
+ */
+export function visualizzaCredito(id:number,risp:any){}
+
+/*
+ * Funzione che permette all'amministratore di ricaricare
+ * il credito di un dato utente
+ */
+export function ricarica(id:number,risp:any){}
+
+
 
 process.chdir(__dirname);
 var e = __dirname;

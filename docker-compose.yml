@@ -1,0 +1,19 @@
+services:
+    dbmysql:
+        image: mysql
+        restart: always
+        ports:
+          - 3306:3306
+        env_file:
+          - .env
+        volumes:
+          - ./seed:/docker-entrypoint-initdb.d        
+    node:
+        build: .
+        restart: always
+        ports:
+          - 8080:8080
+        env_file:
+          - .env
+        depends_on:
+          - dbmysql

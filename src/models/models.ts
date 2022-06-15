@@ -65,7 +65,8 @@ export const Bene = sequelize.define('bene', {
         allowNull: false
     },
     anno:{
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 },
 {

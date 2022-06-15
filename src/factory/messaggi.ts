@@ -121,6 +121,15 @@ class ListaBeni implements MsgObj {
     }
 }
 
+class ScaricaBene implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
+        return {
+            stato:201,
+            msg: "SUCCESSO - Il link del tuo acquisto è pronto"
+        }
+    }
+}
+
 export enum MsgEnum {
     ErrNoAuth,
     ErrNoPayload,
@@ -134,7 +143,8 @@ export enum MsgEnum {
     ErrServer,
     ErrServizioNonDisp,
     ErrRichiestaErrata,
-    ListaBeni
+    ListaBeni,
+    ScaricaBene
 }
 
 export function getMsg (tipoErrore: MsgEnum): MsgObj{
@@ -178,6 +188,9 @@ export function getMsg (tipoErrore: MsgEnum): MsgObj{
             break;
         case MsgEnum.ListaBeni:
             val = new ListaBeni();
+            break;
+        case MsgEnum.ScaricaBene:
+            val = new ScaricaBene();
             break;
     }
     return val;

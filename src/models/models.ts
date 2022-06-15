@@ -81,6 +81,14 @@ export const Acquisto = sequelize.define('acquisto',{
         primaryKey: true,
         autoIncrement: true
     },
+    formato:{
+        type: DataTypes.ENUM("jpg","tiff","png"),
+        allowNull: false
+    },
+    tipo_acq:{
+        type:DataTypes.ENUM("da scaricare","download originale", "download aggiuntivo"),
+        defaultValue: "da scaricare"
+    }
 },
 {
     modelName: 'acquisto',

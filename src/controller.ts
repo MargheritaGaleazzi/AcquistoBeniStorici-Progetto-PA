@@ -78,13 +78,16 @@ export function EstrazioneImmagini(curr_path: string) {
  
 
 /*
- * Funzione che permette di acquistare un bene
+ * Funzione che permette di acquistare un bene.
  */
 export function acquistaBene(id:number, risp:any){}
 
 
 /*
- * Funzione che permette di scaricare un bene precedentemente acquistato
+ * Funzione che permette di scaricare un bene precedentemente acquistato.
+ *
+ * @param id_acquisto -> riporta il numero identificati dell'acquisto del quale si vuole scaricare il bene
+ * @param risp -> la risposta che darà il server (se positiva il link altrimenti un errore)
  */
 export function scaricaBene(id_acquisto:number, risp:any): void{
     Acquisto.findOne({
@@ -93,26 +96,12 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     }).then((risultato:any)=>{
         risultato.tipo_acq="download originale";
         
-    // passing a downloadable image by url 
-    var request = require('request');
-    var url = "www.codinggirl.com/"+ id_acquisto.toString +"OrigDwld."+risultato.formato
+    // creazione dell'url per scaricare l'immagine
+    scarica(id_acquisto,risultato,"DownloadOriginale")
 
-    
-    var pathToImg="../img/"+risultato.Bene.nome
-    var nomeBene=risultato.Bene.nome.split(".")[0]
-    gm(request(url))
-    .command('composite')
-    .gravity('Center')
-    .in('../img_doc/filigrana.png')
-    .command('covert')
-    .in(risultato.Bene.nome)
-    .out(nomeBene+risultato.formato)
-    .write(pathToImg, function (err) {
-    if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
-    });
-    const new_res = getMsg(MsgEnum.ScaricaBene).getMsgObj();
+    const nuova_risp = getMsg(MsgEnum.ScaricaBene).getMsgObj();
     var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
-        risp.status(new_res.stato).json({message:new_res.msg, risultato:link});
+        risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     })
@@ -122,7 +111,20 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
  * Funzione che permette di ottenere un nuovo link per il bene
  * acquistato
  */
-export function nuovoLink(id:number,risp:any){}
+export function nuovoLink(id_acquisto:number,risp:any):void{
+    Acquisto.findOne({
+        where:{id:id_acquisto},
+        raw:true
+    }).then((risultato:any)=>{
+        risultato.tipo_acq="download aggiuntivo"
+        scarica(id_acquisto,risultato,"DownloadAggiuntivo")
+        const nuova_risp = getMsg(MsgEnum.ScaricaBene).getMsgObj();
+    var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
+        risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
+    }).catch((error) => {
+        controllerErrori(MsgEnum.ErrServer, error, risp);
+    })
+}
 
 /*
  * Funzione che permette di vedere gli acquisti
@@ -169,3 +171,25 @@ var url ='https://www.dropbox.com/s/z69a02qihjffndx/ImmaginiPA.zip?dl=0';
 PresenzaImmagini(curr_path,url);
 
 EstrazioneImmagini(curr_path);
+
+/*
+ * Funzione per creare il link ed aggiungere la filigrana
+ *
+ */
+function scarica(id_acquisto:number, risultato:any, tipo:string):void{
+    var request = require('request');
+    var url = "www.codinggirl.com/"+ id_acquisto.toString +tipo+"."+risultato.formato
+    
+    var pathToImg="../img/"+risultato.Bene.nome
+    var nomeBene=risultato.Bene.nome.split(".")[0]
+    gm(request(url))
+    .command('composite')
+    .gravity('Center')
+    .in('../img_doc/filigrana.png')
+    .command('covert')
+    .in(risultato.Bene.nome)
+    .out(nomeBene+risultato.formato)
+    .write(pathToImg, function (err) {
+    if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
+    });
+}

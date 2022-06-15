@@ -11,6 +11,32 @@ const sequelize: Sequelize = Singleton.getConnessione();
  * Sequelize.
  */
 
+
+export const Modo = sequelize.define('modo',{
+    id:{
+        type:DataTypes.INTEGER,
+        primaryKey:true,
+        autoIncrement:true
+    },
+    id_acquisto:{
+        type:DataTypes.INTEGER,
+        allowNull: false
+    },
+    id_bene:{
+        type:DataTypes.INTEGER,
+        allowNull:false
+    },
+    tipo_acq:{
+        type:DataTypes.ENUM("download originale", "download aggiuntivo"),
+        defaultValue: "download originale"
+    }
+},
+{
+    modelName: 'modo',
+    timestamps:true,
+    freezeTableName:true
+});
+
 //Modella il bene
 export const Bene = sequelize.define('bene', {
     id:{
@@ -30,9 +56,13 @@ export const Bene = sequelize.define('bene', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    id_acquisto:{
+    prezzo:{ 
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false
+    },
+    nDownload:{
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 },
 {
@@ -40,6 +70,12 @@ export const Bene = sequelize.define('bene', {
     timestamps: false,
     freezeTableName: true
 });
+Bene.hasMany(Modo);
+Modo.belongsTo(Bene, {
+    foreignKey: {
+      name: 'id_bene'
+    }
+  });
 
 //modella l'acquisto
 export const Acquisto = sequelize.define('acquisto',{
@@ -52,10 +88,6 @@ export const Acquisto = sequelize.define('acquisto',{
         type: DataTypes.ENUM("jpg","tiff","png"),
         allowNull: false
     },
-    tipo_acq:{
-        type:DataTypes.ENUM("da scaricare","download originale", "download aggiuntivo"),
-        defaultValue: "da scaricare"
-    },
     email_compr:{
         type:DataTypes.STRING(35),
         allowNull: false
@@ -67,8 +99,8 @@ export const Acquisto = sequelize.define('acquisto',{
     freezeTableName: true
 });
 
-Acquisto.hasMany(Bene);
-Bene.belongsTo(Acquisto, {
+Acquisto.hasMany(Modo);
+Modo.belongsTo(Acquisto, {
     foreignKey: {
       name: 'id_acquisto'
     }

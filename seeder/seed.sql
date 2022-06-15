@@ -13,17 +13,27 @@ CREATE TABLE bene (
     nome varchar(20) NOT NULL,
     tipo enum('manoscritto','cartografia storica'),
     anno int(4) NOT NULL,
-    id_acquisto int(),
+    prezzo int() NOT NULL,
+    nDownload int(),
     PRIMARY KEY(id)
 );
 
 CREATE TABLE acquisto (
     id int NOT NULL AUTO_INCREMENT,
     formato enum("jpg","tiff","png"),
-    tipo_acq enum("da scaricare","download originale", "download aggiuntivo"),
     email_compr varchar(35) NOT NULL,
     PRIMARY KEY(id)
 );
+
+CREATE TABLE modo (
+    id int NOT NULL AUTO_INCREMENT,
+    id_acquisto int() NOT NULL,
+    id_bene int() NOT NULL,
+    tipo_acq enum("da scaricare","download originale", "download aggiuntivo"),
+    PRIMARY KEY(id)
+);
+
+
 
 INSERT INTO utente (email, username, nome, cognome, ruolo, credito) VALUES
     ("rossiMario@gmail.com", "RosMar", "Mario", "Rossi", "user",150),
@@ -33,9 +43,12 @@ INSERT INTO utente (email, username, nome, cognome, ruolo, credito) VALUES
     ("giovi@alice.it", "Giova", "Giovanni", "Saluti","user",23),
     ("babiFre@alice.it", "Barbara", "Barbara", "Frescati", "admin",999);
 
-INSERT INTO bene (nome,tipo,anno,id_acquisto) VALUES 
-("Aristotle_latin_manuscript.jpg",)
-("cart_Roma_Capitale.jpg")
-("fiume_PO.jpg")
-("Karl-VI-Praesentirt-per-notarium.jpg")
-("Tibullo-Albio-cavaliere-Romano-elogio1°-tradotto-dal-latino.jpg")
+INSERT INTO bene (nome,tipo,anno,prezzo,id_acquisto) VALUES 
+    ("Aristotle_latin_manuscript.jpg","manoscritto",28,NULL),
+    ("cart_Roma_Capitale.jpg","cartografia storica",36,1),
+    ("fiume_PO.jpg","cartografia storica",10,NULL),
+    ("Karl-VI-Praesentirt-per-notarium.jpg","manoscritto",120,NULL),
+    ("Tibullo-Albio-cavaliere-Romano-elogio1°-tradotto-dal-latino.jpg","manoscritto",85,2);
+
+INSERT INTO acquisto (formato,tipo_acq,email_compr) VALUES
+    ("jpg","download originale",)

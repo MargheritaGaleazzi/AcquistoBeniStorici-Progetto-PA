@@ -33,4 +33,9 @@ INSERT INTO utente (email, username, nome, cognome, ruolo, credito) VALUES
     ("giovi@alice.it", "Giova", "Giovanni", "Saluti","user",23),
     ("babiFre@alice.it", "Barbara", "Barbara", "Frescati", "admin",999);
 
-INSERT INTO bene (formato,tipo_acq) VALUES
+INSERT INTO bene (nome,tipo,anno,id_acquisto) VALUES 
+("Aristotle_latin_manuscript",)
+("cart_Roma_Capitale")
+("fiume_PO")
+("Karl-VI-Praesentirt-per-notarium")
+("Tibullo-Albio-cavaliere-Romano-elogio1°-tradotto-dal-latino")

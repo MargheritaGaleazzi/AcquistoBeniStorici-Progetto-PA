@@ -58,7 +58,7 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
         
     // passing a downloadable image by url 
     var request = require('request');
-    var url = "www.codinggirl.com/"+ id_acquisto.toString +"OrigDwld"+risultato.formato
+    var url = "www.codinggirl.com/"+ id_acquisto.toString +"OrigDwld."+risultato.formato
     
     var pathToImg="../img/"+risultato.Bene.nome+risultato.formato
 

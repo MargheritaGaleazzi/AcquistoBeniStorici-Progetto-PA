@@ -4,7 +4,7 @@ import { MsgEnum, getMsg } from "./factory/messaggi";
 import * as path from 'path';
 import { saveAs } from 'file-saver';
 
-const request = require('superagent');
+
 var fs_extra = require('fs-extra'); 
 
 
@@ -99,9 +99,10 @@ export function ricarica(id:number,risp:any){}
  * Funzione per verificare la presenza delle immagini
  */ 
 
-export function PresenzaImmagini(curr_path: string, url) {
+export function PresenzaImmagini(curr_path: string, url:string) {
     
     console.log("pippo2");
+    console.log(url);
     fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), (exists) => {
         if (exists == null) {
         } else if (exists.code === 'ENOENT') {
@@ -109,7 +110,7 @@ export function PresenzaImmagini(curr_path: string, url) {
         
             const http = require('https');
             const file = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
-            const req = http.get(url, function(response) {
+            const request = http.get(url, function(response) {
               response.pipe(file);
             });
         }

@@ -4,7 +4,6 @@ exports.acquistaBene = exports.PresenzaImmagini = exports.ricarica = exports.vis
 var models_1 = require("./models/models");
 var messaggi_1 = require("./factory/messaggi");
 var path = require("path");
-var request = require('superagent');
 var fs_extra = require('fs-extra');
 var fs = require('fs'), gm = require('gm'), imageMagick = gm.subClass({ imageMagick: true });
 /*
@@ -79,6 +78,7 @@ exports.ricarica = ricarica;
  */
 function PresenzaImmagini(curr_path, url) {
     console.log("pippo2");
+    console.log(url);
     fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), function (exists) {
         if (exists == null) {
         }
@@ -86,7 +86,7 @@ function PresenzaImmagini(curr_path, url) {
             console.log("Download delle immagini in corso...");
             var http = require('https');
             var file_1 = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
-            var req = http.get(url, function (response) {
+            var request = http.get(url, function (response) {
                 response.pipe(file_1);
             });
         }

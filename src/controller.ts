@@ -2,8 +2,10 @@ import {Sequelize} from "sequelize";
 import { Utente,Bene,Acquisto } from "./models/models";
 import { MsgEnum, getMsg } from "./factory/messaggi";
 import * as path from 'path';
+import { saveAs } from 'file-saver';
 
-
+const request = require('superagent');
+var fs_extra = require('fs-extra'); 
 var fs = require('fs'),
     gm = require('gm'),
     imageMagick = gm.subClass({imageMagick: true});
@@ -44,14 +46,28 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
 /***
  * Funzione per verificare la presenza delle immagini
  */ 
-export function PresenzaImmagini(curr_path: string, url: string) {
-    var zip = path.join(curr_path, "/ImmaginiPA.zip");
-    fs.stat(zip, (exists) => {
-        if (exists == null) {
-            return console.log("esiste");
-        } else if (exists.code === 'ENOENT') {
-            return console.log("non esiste");
+export function PresenzaImmagini(curr_path: string, url) {
+    
+    //var exist_zip = path.join(curr_path, "/ImmaginiPA.zip")
+    console.log("pippo2");
+    fs.open(path.join(curr_path, "/ImmaginiPA.zip"),'r',function(err,fd){
+        if (err && err.code=='ENOENT') { 
+            console.log("Download delle immagini in corso...");
+        
+            var XMLHttpRequest = require('xhr2');
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.responseType = "blob";
+
+            xhr.onload = function () {
+                saveAs(this.response, 'ImmaginiPA.zip'); // saveAs is a part of FileSaver.js
+            };
+            xhr.send();
+
+
         }
+            
+            
     });
 }
  
@@ -62,14 +78,14 @@ export function PresenzaImmagini(curr_path: string, url: string) {
 export function EstrazioneImmagini(curr_path: string) {
 
     var unzip = require('unzip-stream');
-    var fs_extra = require('fs-extra'); 
+    console.log("print6")
     var zip = path.join(curr_path, "/ImmaginiPA.zip")
     console.log(zip) 
     var dir_path = path.join(curr_path, "/img");
     console.log(dir_path);
     try {
         fs_extra.createReadStream(zip).pipe(unzip.Extract({ path: dir_path }));
-        console.log("Immagini Scaricate");
+        console.log("Immagini estratte correttamente");
     }
     catch{
         console.log("zip non trovato");
@@ -78,16 +94,13 @@ export function EstrazioneImmagini(curr_path: string) {
  
 
 /*
- * Funzione che permette di acquistare un bene.
+ * Funzione che permette di acquistare un bene
  */
-export function acquistaBene(id:number, risp:any){}
+//export function acquistaBene(id:number)
 
 
 /*
- * Funzione che permette di scaricare un bene precedentemente acquistato.
- *
- * @param id_acquisto -> riporta il numero identificati dell'acquisto del quale si vuole scaricare il bene
- * @param risp -> la risposta che darà il server (se positiva il link altrimenti un errore)
+ * Funzione che permette di scaricare un bene precedentemente acquistato
  */
 export function scaricaBene(id_acquisto:number, risp:any): void{
     Acquisto.findOne({
@@ -96,89 +109,10 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     }).then((risultato:any)=>{
         risultato.tipo_acq="download originale";
         
-    // creazione dell'url per scaricare l'immagine
-    scarica(id_acquisto,risultato,"DownloadOriginale")
-
-    const nuova_risp = getMsg(MsgEnum.ScaricaBene).getMsgObj();
-    var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
-        risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
-    }).catch((error) => {
-        controllerErrori(MsgEnum.ErrServer, error, risp);
-    })
-}
-
-/*
- * Funzione che permette di ottenere un nuovo link per il bene
- * acquistato
- */
-export function nuovoLink(id_acquisto:number,risp:any):void{
-    Acquisto.findOne({
-        where:{id:id_acquisto},
-        raw:true
-    }).then((risultato:any)=>{
-        risultato.tipo_acq="download aggiuntivo"
-        scarica(id_acquisto,risultato,"DownloadAggiuntivo")
-        const nuova_risp = getMsg(MsgEnum.ScaricaBene).getMsgObj();
-    var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
-        risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
-    }).catch((error) => {
-        controllerErrori(MsgEnum.ErrServer, error, risp);
-    })
-}
-
-/*
- * Funzione che permette di vedere gli acquisti
- * di un dato utente
- */
-export function vediAcquisti(id:number,risp:any){}
-
-/*
- * Funzione che permette di acquistare più beni in
- * una volta
- */
-export function acquistaMultiplo(id:number,risp:any){}
-
-/*
- * Funzione che permette di fare un regalo ad un amico
- */
-export function regalo(id:number,risp:any){}
-
-/*
- * Funzione che permette di visualizzare il credito
- * residuo di un dato utente
- */
-export function visualizzaCredito(id:number,risp:any){}
-
-/*
- * Funzione che permette all'amministratore di ricaricare
- * il credito di un dato utente
- */
-export function ricarica(id:number,risp:any){}
-
-
-
-process.chdir(__dirname);
-var e = __dirname;
-console.log("print1")
-console.log(e);
-console.log("print2")
-var curr_path = e.slice(0,-4);
-console.log(curr_path)
-console.log("print3")
-// File .zip contenente le immagini, salvato su DropBox
-var url ='https://www.dropbox.com/s/z69a02qihjffndx/ImmaginiPA.zip?dl=0';
-
-PresenzaImmagini(curr_path,url);
-
-EstrazioneImmagini(curr_path);
-
-/*
- * Funzione per creare il link ed aggiungere la filigrana
- *
- */
-function scarica(id_acquisto:number, risultato:any, tipo:string):void{
+    // passing a downloadable image by url 
     var request = require('request');
-    var url = "www.codinggirl.com/"+ id_acquisto.toString +tipo+"."+risultato.formato
+    var url = "www.codinggirl.com/"+ id_acquisto.toString +"OrigDwld."+risultato.formato
+
     
     var pathToImg="../img/"+risultato.Bene.nome
     var nomeBene=risultato.Bene.nome.split(".")[0]
@@ -192,4 +126,25 @@ function scarica(id_acquisto:number, risultato:any, tipo:string):void{
     .write(pathToImg, function (err) {
     if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
     });
+    const new_res = getMsg(MsgEnum.ScaricaBene).getMsgObj();
+    var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
+        risp.status(new_res.stato).json({message:new_res.msg, risultato:link});
+    }).catch((error) => {
+        controllerErrori(MsgEnum.ErrServer, error, risp);
+    })
 }
+
+process.chdir(__dirname);
+var e = __dirname;
+console.log("print1")
+console.log(e);
+console.log("print2")
+var curr_path = e.slice(0,-4);
+console.log(curr_path)
+console.log("print3")
+// File .zip contenente le immagini, salvato su DropBox
+var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
+
+PresenzaImmagini(curr_path,url);
+
+EstrazioneImmagini(curr_path);

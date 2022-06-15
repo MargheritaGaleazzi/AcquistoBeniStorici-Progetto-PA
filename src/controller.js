@@ -4,6 +4,9 @@ exports.scaricaBene = exports.EstrazioneImmagini = exports.PresenzaImmagini = ex
 var models_1 = require("./models/models");
 var messaggi_1 = require("./factory/messaggi");
 var path = require("path");
+var file_saver_1 = require("file-saver");
+var request = require('superagent');
+var fs_extra = require('fs-extra');
 var fs = require('fs'), gm = require('gm'), imageMagick = gm.subClass({ imageMagick: true });
 /*
  * Funzione che viene richiamata dalle altr funzioni del Controller in caso di errori.
@@ -41,13 +44,19 @@ exports.listaBeni = listaBeni;
  * Funzione per verificare la presenza delle immagini
  */
 function PresenzaImmagini(curr_path, url) {
-    var zip = path.join(curr_path, "/ImmaginiPA.zip");
-    fs.stat(zip, function (exists) {
-        if (exists == null) {
-            return console.log("esiste");
-        }
-        else if (exists.code === 'ENOENT') {
-            return console.log("non esiste");
+    //var exist_zip = path.join(curr_path, "/ImmaginiPA.zip")
+    console.log("pippo2");
+    fs.open(path.join(curr_path, "/ImmaginiPA.zip"), 'r', function (err, fd) {
+        if (err && err.code == 'ENOENT') {
+            console.log("Download delle immagini in corso...");
+            var XMLHttpRequest = require('xhr2');
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
+            xhr.responseType = "blob";
+            xhr.onload = function () {
+                (0, file_saver_1.saveAs)(url, '\ImmaginiPA.zip'); // saveAs is a part of FileSaver.js
+            };
+            xhr.send();
         }
     });
 }
@@ -57,14 +66,14 @@ exports.PresenzaImmagini = PresenzaImmagini;
 */
 function EstrazioneImmagini(curr_path) {
     var unzip = require('unzip-stream');
-    var fs_extra = require('fs-extra');
+    console.log("print6");
     var zip = path.join(curr_path, "/ImmaginiPA.zip");
     console.log(zip);
     var dir_path = path.join(curr_path, "/img");
     console.log(dir_path);
     try {
         fs_extra.createReadStream(zip).pipe(unzip.Extract({ path: dir_path }));
-        console.log("Immagini Scaricate");
+        console.log("Immagini estratte correttamente");
     }
     catch (_a) {
         console.log("zip non trovato");
@@ -115,6 +124,6 @@ var curr_path = e.slice(0, -4);
 console.log(curr_path);
 console.log("print3");
 // File .zip contenente le immagini, salvato su DropBox
-var url = 'https://www.dropbox.com/s/z69a02qihjffndx/ImmaginiPA.zip?dl=0';
+var url = "https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
 PresenzaImmagini(curr_path, url);
 EstrazioneImmagini(curr_path);

@@ -4,7 +4,8 @@ import { MsgEnum, getMsg } from "./factory/messaggi";
 
 
 var fs = require('fs'),
-    gm = require('gm');
+    gm = require('gm'),
+    imageMagick = gm.subClass({imageMagick: true});
 
 /*
  * Funzione che viene richiamata dalle altr funzioni del Controller in caso di errori. 
@@ -61,8 +62,7 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     
     var pathToImg="../img/"+risultato.Bene.nome+risultato.formato
 
-    gm(request(url))
-    .write(pathToImg, function (err) {
+    gm(request(url)).write(pathToImg, function (err) {
     if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
     });
     const new_res = getMsg(MsgEnum.ScaricaBene).getMsgObj();

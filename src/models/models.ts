@@ -14,7 +14,7 @@ const sequelize: Sequelize = Singleton.getConnessione();
 //Modella l'utente
 export const Utente = sequelize.define('utente',{
     email: {
-        type: DataTypes.STRING(25),
+        type: DataTypes.STRING(35),
         primaryKey: true,
         autoIncrement: true
     },

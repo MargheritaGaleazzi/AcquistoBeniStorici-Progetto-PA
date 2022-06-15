@@ -1,10 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.acquistaBene = exports.listaBeni = void 0;
+exports.acquistaBene = exports.ricarica = exports.visualizzaCredito = exports.regalo = exports.acquistaMultiplo = exports.vediAcquisti = exports.nuovoLink = exports.listaBeni = void 0;
 var models_1 = require("./models/models");
 var messaggi_1 = require("./factory/messaggi");
 var path = require("path");
-var file_saver_1 = require("file-saver");
 var request = require('superagent');
 var fs_extra = require('fs-extra');
 var fs = require('fs'), gm = require('gm'), imageMagick = gm.subClass({ imageMagick: true });
@@ -40,6 +39,41 @@ function listaBeni(tipo, anno, risp) {
     });
 }
 exports.listaBeni = listaBeni;
+/*
+ * Funzione che permette di ottenere un nuovo link per il bene
+ * acquistato
+ */
+function nuovoLink(id, risp) { }
+exports.nuovoLink = nuovoLink;
+/*
+ * Funzione che permette di vedere gli acquisti
+ * di un dato utente
+ */
+function vediAcquisti(id, risp) { }
+exports.vediAcquisti = vediAcquisti;
+/*
+ * Funzione che permette di acquistare più beni in
+ * una volta
+ */
+function acquistaMultiplo(id, risp) { }
+exports.acquistaMultiplo = acquistaMultiplo;
+/*
+ * Funzione che permette di fare un regalo ad un amico
+ */
+function regalo(id, risp) { }
+exports.regalo = regalo;
+/*
+ * Funzione che permette di visualizzare il credito
+ * residuo di un dato utente
+ */
+function visualizzaCredito(id, risp) { }
+exports.visualizzaCredito = visualizzaCredito;
+/*
+ * Funzione che permette all'amministratore di ricaricare
+ * il credito di un dato utente
+ */
+function ricarica(id, risp) { }
+exports.ricarica = ricarica;
 /***
  * Funzione per verificare la presenza delle immagini
  */
@@ -89,14 +123,17 @@ export function EstrazioneImmagini(curr_path: string) {
     catch{
         console.log("zip non trovato");
     }
-}*/
-function getDownloadFile(url, file) {
-    this.http.get(url).subscribe(function (response) {
-        var blob = new Blob([response._body], { type: "application/text" });
-        var filename = file;
-        (0, file_saver_1.saveAs)(blob, filename);
-    });
 }
+function getDownloadFile(url:string, file:string) {
+    this.http.get(url).subscribe(
+        (response) => {
+            var blob = new Blob([response._body], {type: "application/text"});
+            var filename = file;
+            saveAs(blob, filename);
+        });
+}
+ 
+
 /*
  * Funzione che permette di acquistare un bene
  */
@@ -163,8 +200,12 @@ console.log(curr_path);
 console.log("print3");
 // File .zip contenente le immagini, salvato su DropBox
 var url = "https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
+var http = require('https');
+var file = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
+var req = http.get(url, function (response) {
+    response.pipe(file);
+});
 //PresenzaImmagini(curr_path,url);
-getDownloadFile(url, path.join(curr_path, "/ImmaginiPA.zip"));
 //EstrazioneImmagini(curr_path);
 /*
  * Funzione per creare il link ed aggiungere la filigrana

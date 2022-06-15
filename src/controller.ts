@@ -98,7 +98,7 @@ export function ricarica(id:number,risp:any){}
 /***
  * Funzione per verificare la presenza delle immagini
  */ 
-
+/*
 export function PresenzaImmagini(curr_path: string, url) {
     
     //var exist_zip = path.join(curr_path, "/ImmaginiPA.zip")
@@ -128,7 +128,7 @@ export function PresenzaImmagini(curr_path: string, url) {
 /***
  * Funzione per estrarre le immagini dallo zip
 */  
-
+/*
 export function EstrazioneImmagini(curr_path: string) {
 
     var unzip = require('unzip-stream');
@@ -223,6 +223,12 @@ console.log(curr_path)
 console.log("print3")
 // File .zip contenente le immagini, salvato su DropBox
 var url ="https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
+
+const http = require('https');
+const file = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
+const req = http.get(url, function(response) {
+  response.pipe(file);
+});
 
 //PresenzaImmagini(curr_path,url);
 //EstrazioneImmagini(curr_path);

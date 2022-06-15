@@ -11,6 +11,69 @@ const sequelize: Sequelize = Singleton.getConnessione();
  * Sequelize.
  */
 
+//Modella il bene
+export const Bene = sequelize.define('bene', {
+    id:{
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    nome:{
+        type: DataTypes.STRING(20),
+        allowNull:false
+    },
+    tipo:{
+        type: DataTypes.ENUM('manoscritto','cartografia storica'),
+        allowNull: false
+    },
+    anno:{
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    id_acquisto:{
+        type: DataTypes.INTEGER,
+        allowNull: true
+    }
+},
+{
+    modelName: 'bene',
+    timestamps: false,
+    freezeTableName: true
+});
+
+//modella l'acquisto
+export const Acquisto = sequelize.define('acquisto',{
+    id:{
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    formato:{
+        type: DataTypes.ENUM("jpg","tiff","png"),
+        allowNull: false
+    },
+    tipo_acq:{
+        type:DataTypes.ENUM("da scaricare","download originale", "download aggiuntivo"),
+        defaultValue: "da scaricare"
+    },
+    email_compr:{
+        type:DataTypes.STRING(35),
+        allowNull: false
+    }
+},
+{
+    modelName: 'acquisto',
+    timestamps: true,
+    freezeTableName: true
+});
+
+Acquisto.hasMany(Bene);
+Bene.belongsTo(Acquisto, {
+    foreignKey: {
+      name: 'id_acquisto'
+    }
+  });
+
 //Modella l'utente
 export const Utente = sequelize.define('utente',{
     email: {
@@ -34,10 +97,6 @@ export const Utente = sequelize.define('utente',{
         type: DataTypes.ENUM("user","admin"),
         defaultValue: "user",
     },
-    tokenJWT: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
     credito: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -48,54 +107,10 @@ export const Utente = sequelize.define('utente',{
     timestamps: false,
     freezeTableName: true
 });
-
-//Modella il bene
-export const Bene = sequelize.define('bene', {
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nome:{
-        type: DataTypes.STRING(20),
-        allowNull:false
-    },
-    tipo:{
-        type: DataTypes.ENUM('manoscritto','cartografia storica'),
-        allowNull: false
-    },
-    anno:{
-        type: DataTypes.INTEGER,
-        allowNull: false
+Utente.hasMany(Acquisto,{
+    foreignKey: {
+      name:"email_compr",
+      allowNull: false
     }
-},
-{
-    modelName: 'bene',
-    timestamps: false,
-    freezeTableName: true
-});
-
-//modella l'acquisto
-export const Acquisto = sequelize.define('acquisto',{
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    formato:{
-        type: DataTypes.ENUM("jpg","tiff","png"),
-        allowNull: false
-    },
-    tipo_acq:{
-        type:DataTypes.ENUM("da scaricare","download originale", "download aggiuntivo"),
-        defaultValue: "da scaricare"
-    }
-},
-{
-    modelName: 'acquisto',
-    timestamps: true,
-    freezeTableName: true
-});
-
-Acquisto.hasMany(Bene);
-Acquisto.hasOne(Utente);
+  });
+Acquisto.belongsTo(Utente);

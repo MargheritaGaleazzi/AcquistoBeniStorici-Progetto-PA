@@ -13,6 +13,7 @@ CREATE TABLE bene (
     nome varchar(20) NOT NULL,
     tipo enum('manoscritto','cartografia storica'),
     anno int(4) NOT NULL,
+    id_acquisto int(),
     PRIMARY KEY(id)
 );
 
@@ -20,6 +21,7 @@ CREATE TABLE acquisto (
     id int NOT NULL AUTO_INCREMENT,
     formato enum("jpg","tiff","png"),
     tipo_acq enum("da scaricare","download originale", "download aggiuntivo"),
+    email_compr varchar(35) NOT NULL,
     PRIMARY KEY(id)
 );
 

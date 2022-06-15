@@ -1,9 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.scaricaBene = exports.listaBeni = void 0;
+exports.scaricaBene = exports.EstrazioneImmagini = exports.PresenzaImmagini = exports.listaBeni = void 0;
 var models_1 = require("./models/models");
 var messaggi_1 = require("./factory/messaggi");
-var os = require("os");
+var path = require("path");
 var fs = require('fs'), gm = require('gm'), imageMagick = gm.subClass({ imageMagick: true });
 /*
  * Funzione che viene richiamata dalle altr funzioni del Controller in caso di errori.
@@ -39,14 +39,38 @@ function listaBeni(tipo, anno, risp) {
 exports.listaBeni = listaBeni;
 /***
  * Funzione per verificare la presenza delle immagini
- *
- * export function PresenzaImmagini(path: string, url: string) {}
  */
+function PresenzaImmagini(curr_path, url) {
+    var zip = path.join(curr_path, "/ImmaginiPA.zip");
+    fs.stat(zip, function (exists) {
+        if (exists == null) {
+            return console.log("esiste");
+        }
+        else if (exists.code === 'ENOENT') {
+            return console.log("non esiste");
+        }
+    });
+}
+exports.PresenzaImmagini = PresenzaImmagini;
 /***
  * Funzione per estrarre le immagini dallo zip
- *
- * export function EstrazioneImmagini() {}
- */
+*/
+function EstrazioneImmagini(curr_path) {
+    var unzip = require('unzip-stream');
+    var fs_extra = require('fs-extra');
+    var zip = path.join(curr_path, "/ImmaginiPA.zip");
+    console.log(zip);
+    var dir_path = path.join(curr_path, "/img");
+    console.log(dir_path);
+    try {
+        fs_extra.createReadStream(zip).pipe(unzip.Extract({ path: dir_path }));
+        console.log("Immagini Scaricate");
+    }
+    catch (_a) {
+        console.log("zip non trovato");
+    }
+}
+exports.EstrazioneImmagini = EstrazioneImmagini;
 /*
  * Funzione che permette di acquistare un bene
  */
@@ -63,11 +87,14 @@ function scaricaBene(id_acquisto, risp) {
         // passing a downloadable image by url 
         var request = require('request');
         var url = "www.codinggirl.com/" + id_acquisto.toString + "OrigDwld." + risultato.formato;
-        var path = os.homedir();
-        process.chdir(path);
-        console.log(path);
-        var pathToImg = "../img/" + risultato.Bene.nome + risultato.formato;
-        gm(request(url)).write(pathToImg, function (err) {
+        var pathToImg = "../img/" + risultato.Bene.nome;
+        var nomeBene = risultato.Bene.nome.split(".")[0];
+        gm(request(url))
+            .command('composite')
+            .gravity('Center')["in"]('../img_doc/filigrana.png')
+            .command('covert')["in"](risultato.Bene.nome)
+            .out(nomeBene + risultato.formato)
+            .write(pathToImg, function (err) {
             if (!err)
                 console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
         });
@@ -79,6 +106,15 @@ function scaricaBene(id_acquisto, risp) {
     });
 }
 exports.scaricaBene = scaricaBene;
-var path = __dirname;
-process.chdir(path);
-console.log(path);
+process.chdir(__dirname);
+var e = __dirname;
+console.log("print1");
+console.log(e);
+console.log("print2");
+var curr_path = e.slice(0, -4);
+console.log(curr_path);
+console.log("print3");
+// File .zip contenente le immagini, salvato su DropBox
+var url = 'https://www.dropbox.com/s/z69a02qihjffndx/ImmaginiPA.zip?dl=0';
+PresenzaImmagini(curr_path, url);
+EstrazioneImmagini(curr_path);

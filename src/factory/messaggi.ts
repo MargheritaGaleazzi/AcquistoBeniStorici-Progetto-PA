@@ -1,139 +1,148 @@
 //VANNO AGGIUNTI GLI ALTRi
 
-interface MsgObj {
-    getMsgObj():{stato: number, msg: string};
+interface Msg {
+    getMsg():{codice: number, msg: string};
 }
 
-class ErrNoAuth implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
+class ErrNoAuth implements Msg {
+    getMsg(): { codice: number; msg: string; } {
         return {
-            stato: 400,
+            codice: 400,
             msg: "Richiesta Errata - Nessuna autenticazione"
         }
     }
 }
 
-class ErrNoPayload implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
+class ErrNoPayload implements Msg {
+    getMsg(): { codice: number; msg: string; } {
         return {
-            stato: 400,
+            codice: 400,
             msg: "Richiesta Errata - Non è presente il JSON di payload nell'header"
         }
     }
 }
 
-class ErrTokenMancante implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
+class ErrTokenMancante implements Msg {
+    getMsg(): { codice: number; msg: string; } {
         return{
-            stato: 400,
+            codice: 400,
             msg: "Richiesta Errata - Token JWT mancante"
         }
     }
 }
 
-class ErrTokenInvalido implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
+class ErrPaylodMalformato implements Msg {
+    getMsg(): { codice: number; msg: string; } {
         return {
-            stato:403,
-            msg: "Proibito - Token JWT invalido"
-        }
-    }
-}
-
-class ErrPaylodMalformato implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
-        return {
-            stato: 400,
+            codice: 400,
             msg: "Richiesta Errata - Payload non formato in maniera corretta"
         }
     }
 }
 
-class ErrRottaNonTrovata implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
+class ErrRichiestaErrata implements Msg {
+    getMsg(): { codice: number; msg: string; } {
         return {
-            stato: 404,
-            msg: "Non Trovato - Rotta non trovata"
-        }
-    }
-}
-
-class ErrNonAutorizzato implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
-        return {
-            stato: 401,
-            msg: "ERRORE - Non autorizzato"
-        }
-    }
-}
-
-class ErrProibito implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
-        return {
-            stato: 403,
-            msg: "ERRORE - Proibito"
-        }
-    }
-}
-
-class ErrNonTrovato implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
-        return {
-            stato: 404,
-            msg: "ERRORE - Non trovato"
-        }
-    }
-}
-
-class ErrServer implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
-        return {
-            stato: 500,
-            msg: "ERRORE - Errore interno al server"
-        }
-    }
-}
-
-class ErrServizioNonDisp implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
-        return {
-            stato: 503,
-            msg: "ERRORE - Servizio non disponibile"
-        }
-    }
-}
-
-class ErrRichiestaErrata implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
-        return {
-            stato: 400,
+            codice: 400,
             msg: "ERRORE - Richiesta errata"
         }
     }
 }
 
-class ListaBeni implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
+class BadRequest implements Msg {
+    getMsg(): { codice: number,  msg: string } {
         return {
-            stato: 200,
+            codice: 400,
+            msg: "ERRORE - Impossibile elaborare la richiesta"
+        }
+    }
+}
+
+class ErrNonAutorizzato implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 401,
+            msg: "ERRORE - Non autorizzato"
+        }
+    }
+}
+
+class ErrTokenInvalido implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice:403,
+            msg: "Accesso negato - Token JWT invalido"
+        }
+    }
+}
+
+class ErrProibito implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 403,
+            msg: "ERRORE - Accesso negato"
+        }
+    }
+}
+
+class ErrRottaNonTrovata implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "Non Trovato - Rotta non trovata"
+        }
+    }
+}
+
+class ErrNonTrovato implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Non trovato"
+        }
+    }
+}
+
+class ErrServer implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 500,
+            msg: "ERRORE - Errore interno al server"
+        }
+    }
+}
+
+class ErrServizioNonDisp implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 503,
+            msg: "ERRORE - Servizio non disponibile"
+        }
+    }
+}
+
+class ListaBeni implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 200,
             msg: "SUCCESSO - La lista è stata visualizzata correttamente"
         }
     }
 }
 
-class AcquistaBene implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
+class AcquistaBene implements Msg {
+    getMsg(): { codice: number; msg: string; } {
         return {
-            stato:201,
+            codice:201,
             msg: "SUCCESSO - Il link del tuo acquisto è pronto"
         }
     }
 }
 
-class VediAcquisti implements MsgObj {
-    getMsgObj(): { stato: number; msg: string; } {
+class VediAcquisti implements Msg {
+    getMsg(): { codice: number; msg: string; } {
         return {
-            stato:201,
+            codice:201,
             msg: "SUCCESSO - Ora è possibile visualizzare la lista degli acquisti"
         }
     }
@@ -152,13 +161,14 @@ export enum MsgEnum {
     ErrServer,
     ErrServizioNonDisp,
     ErrRichiestaErrata,
+    BadRequest,
     ListaBeni,
     AcquistaBene,
     VediAcquisti
 }
 
-export function getMsg (tipoErrore: MsgEnum): MsgObj{
-    let val: MsgObj;
+export function getMsg (tipoErrore: MsgEnum): Msg{
+    let val: Msg;
     switch (tipoErrore){
         case MsgEnum.ErrNoAuth:
             val = new ErrNoAuth();
@@ -196,6 +206,9 @@ export function getMsg (tipoErrore: MsgEnum): MsgObj{
         case MsgEnum.ErrTokenMancante:
             val = new ErrTokenMancante();
             break;
+        case MsgEnum.BadRequest:
+            val = new BadRequest();
+            break;
         case MsgEnum.ListaBeni:
             val = new ListaBeni();
             break;
@@ -204,7 +217,7 @@ export function getMsg (tipoErrore: MsgEnum): MsgObj{
             break;
         case MsgEnum.VediAcquisti:
             val = new VediAcquisti();
-            break;
+            break;    
     }
     return val;
 }

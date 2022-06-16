@@ -104,6 +104,7 @@ export function PresenzaImmagini(curr_path: string, url) {
     console.log(url);
     fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), (exists) => {
         if (exists == null) {
+            EstrazioneImmagini(curr_path);
         } else if (exists.code === 'ENOENT') {
             console.log("Download delle immagini in corso...");
             const request = require('request');
@@ -111,6 +112,7 @@ export function PresenzaImmagini(curr_path: string, url) {
                 if(err) throw err;
                 fs.writeFile(path.join(curr_path, "/ImmaginiPA.zip"), body, function(err) {
                   console.log("file written!");
+                  PresenzaImmagini(curr_path,url);
                 });
               });
         }
@@ -123,7 +125,7 @@ export function PresenzaImmagini(curr_path: string, url) {
 /***
  * Funzione per estrarre le immagini dallo zip
 */  
-/*
+
 export function EstrazioneImmagini(curr_path: string) {
 
     var unzip = require('unzip-stream');
@@ -140,7 +142,7 @@ export function EstrazioneImmagini(curr_path: string) {
         console.log("zip non trovato");
     }
 }
-*/
+
 
 /*
  * Funzione che permette di acquistare un bene
@@ -209,7 +211,8 @@ var curr_path = e.slice(0,-4);
 console.log(curr_path)
 console.log("print3")
 // File .zip contenente le immagini, salvato su DropBox
-var url ="https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
+//var url ="https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
+var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
 
 
 PresenzaImmagini(curr_path,url);

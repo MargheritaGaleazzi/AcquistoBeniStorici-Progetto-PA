@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.acquistaBene = exports.PresenzaImmagini = exports.ricarica = exports.visualizzaCredito = exports.regalo = exports.acquistaMultiplo = exports.vediAcquisti = exports.nuovoLink = exports.listaBeni = void 0;
+exports.acquistaBene = exports.EstrazioneImmagini = exports.PresenzaImmagini = exports.ricarica = exports.visualizzaCredito = exports.regalo = exports.acquistaMultiplo = exports.vediAcquisti = exports.nuovoLink = exports.listaBeni = void 0;
 var models_1 = require("./models/models");
 var messaggi_1 = require("./factory/messaggi");
 var path = require("path");
@@ -81,6 +81,7 @@ function PresenzaImmagini(curr_path, url) {
     console.log(url);
     fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), function (exists) {
         if (exists == null) {
+            EstrazioneImmagini(curr_path);
         }
         else if (exists.code === 'ENOENT') {
             console.log("Download delle immagini in corso...");
@@ -90,6 +91,7 @@ function PresenzaImmagini(curr_path, url) {
                     throw err;
                 fs.writeFile(path.join(curr_path, "/ImmaginiPA.zip"), body, function (err) {
                     console.log("file written!");
+                    PresenzaImmagini(curr_path, url);
                 });
             });
         }
@@ -99,24 +101,22 @@ exports.PresenzaImmagini = PresenzaImmagini;
 /***
  * Funzione per estrarre le immagini dallo zip
 */
-/*
-export function EstrazioneImmagini(curr_path: string) {
-
+function EstrazioneImmagini(curr_path) {
     var unzip = require('unzip-stream');
-    console.log("print6")
-    var zip = path.join(curr_path, "/ImmaginiPA.zip")
-    console.log(zip)
+    console.log("print6");
+    var zip = path.join(curr_path, "/ImmaginiPA.zip");
+    console.log(zip);
     var dir_path = path.join(curr_path, "/img");
     console.log(dir_path);
     try {
         fs_extra.createReadStream(zip).pipe(unzip.Extract({ path: dir_path }));
         console.log("Immagini estratte correttamente");
     }
-    catch{
+    catch (_a) {
         console.log("zip non trovato");
     }
 }
-*/
+exports.EstrazioneImmagini = EstrazioneImmagini;
 /*
  * Funzione che permette di acquistare un bene
  */
@@ -182,7 +182,8 @@ var curr_path = e.slice(0, -4);
 console.log(curr_path);
 console.log("print3");
 // File .zip contenente le immagini, salvato su DropBox
-var url = "https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
+//var url ="https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
+var url = "https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
 PresenzaImmagini(curr_path, url);
 //EstrazioneImmagini(curr_path);
 /*

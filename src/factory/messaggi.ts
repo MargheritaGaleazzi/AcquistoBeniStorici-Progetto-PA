@@ -4,6 +4,7 @@ interface Msg {
     getMsg():{codice: number, msg: string};
 }
 
+//errore che viene lanciato quando non è stata fatta l'autenticazione
 class ErrNoAuth implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -13,6 +14,7 @@ class ErrNoAuth implements Msg {
     }
 }
 
+//errore che viene lanciato quando non è presente il payload
 class ErrNoPayload implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -22,15 +24,17 @@ class ErrNoPayload implements Msg {
     }
 }
 
-class ErrTokenMancante implements Msg {
+//errore che viene lanciato quando non sono sufficienti abbastanza token per l'acquisto
+class ErrTokenNonSufficienti implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return{
             codice: 400,
-            msg: "Richiesta Errata - Token JWT mancante"
+            msg: "Richiesta Errata - Token JWT non sufficiente"
         }
     }
 }
 
+//errore che viene lanciato quando il payload è malformato
 class ErrPaylodMalformato implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -40,6 +44,7 @@ class ErrPaylodMalformato implements Msg {
     }
 }
 
+//errore che viene lanciato quando si ha una richiesta errata
 class ErrRichiestaErrata implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -49,6 +54,7 @@ class ErrRichiestaErrata implements Msg {
     }
 }
 
+//errore che viene lanciato in caso di errore generico da parte del server
 class BadRequest implements Msg {
     getMsg(): { codice: number,  msg: string } {
         return {
@@ -58,6 +64,7 @@ class BadRequest implements Msg {
     }
 }
 
+// errore che viene lanciato quando l'utente termina i token a lui assegnati
 class ErrNonAutorizzato implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -67,6 +74,7 @@ class ErrNonAutorizzato implements Msg {
     }
 }
 
+//errore che viene lanciato quando il token inserito non risulta essere valido
 class ErrTokenInvalido implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -76,6 +84,7 @@ class ErrTokenInvalido implements Msg {
     }
 }
 
+//errore che viene lanciato in caso di accesso negato
 class ErrProibito implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -85,6 +94,7 @@ class ErrProibito implements Msg {
     }
 }
 
+//errore che viene lanciato quando non viene trovata la rotta cercata
 class ErrRottaNonTrovata implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -103,6 +113,7 @@ class ErrNonTrovato implements Msg {
     }
 }
 
+// errore che viene lanciato in caso di errore interno al server
 class ErrServer implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -151,7 +162,7 @@ class VediAcquisti implements Msg {
 export enum MsgEnum {
     ErrNoAuth,
     ErrNoPayload,
-    ErrTokenMancante,
+    ErrTokenNonSufficienti,
     ErrTokenInvalido, 
     ErrPaylodMalformato,
     ErrRottaNonTrovata,
@@ -203,8 +214,8 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
         case MsgEnum.ErrTokenInvalido:
             val = new ErrTokenInvalido();
             break;
-        case MsgEnum.ErrTokenMancante:
-            val = new ErrTokenMancante();
+        case MsgEnum.ErrTokenNonSufficienti:
+            val = new ErrTokenNonSufficienti();
             break;
         case MsgEnum.BadRequest:
             val = new BadRequest();

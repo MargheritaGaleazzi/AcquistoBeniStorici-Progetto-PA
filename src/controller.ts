@@ -18,9 +18,9 @@ const fs = require('fs'),
  * @param risp -> Risposta del server
  */
 function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
-    const nuovoErr = getMsg(enumError).getMsgObj();
+    const nuovoErr = getMsg(enumError).getMsg();
     console.log(err);
-    risp.status(nuovoErr.stato).json(nuovoErr.msg);
+    risp.status(nuovoErr.codice).json(nuovoErr.msg);
 }
 
 /*
@@ -35,8 +35,8 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
         where: { tipo : tipo, anno:anno}, 
         raw: true
     }).then((risultato: object[]) => {
-        const new_res = getMsg(MsgEnum.ListaBeni).getMsgObj();
-        risp.status(new_res.stato).json({message:new_res.msg, risultato:risultato});
+        const new_res = getMsg(MsgEnum.ListaBeni).getMsg();
+        risp.status(new_res.codice).json({message:new_res.msg, risultato:risultato});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
@@ -44,8 +44,8 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
 
 export function lista(risp: any): void{
     Bene.findAll().then((risultato: object[]) => {
-        const new_res = getMsg(MsgEnum.ListaBeni).getMsgObj();
-        risp.status(new_res.stato).json({message:new_res.msg, risultato:risultato});
+        const new_res = getMsg(MsgEnum.ListaBeni).getMsg();
+        risp.status(new_res.codice).json({message:new_res.msg, risultato:risultato});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
@@ -63,9 +63,9 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
             bene.nDownload+=1;
             bene.save();
             const urLink=scarica(bene,"DownloadAggiuntivo",acquisto);
-            const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsgObj();
+            const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
-            risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
+            risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
         }).catch((error) => {
             controllerErrori(MsgEnum.ErrServer, error, risp);
         });
@@ -79,8 +79,8 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
 export function vediAcquisti(id:number,risp:any):void{
     //Utente.findAll({include:Acquisto,order:[[Acquisto,'id','ASC']]})
     Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
-    const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsgObj();
-            risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:acquisti});
+    const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
+            risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:acquisti});
         }).catch((error) => {
             controllerErrori(MsgEnum.ErrServer, error, risp);
         });
@@ -185,9 +185,9 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
         bene.nDownload+=1;
         bene.save();
         const urLink=scarica(bene,"DownloadOriginale",acquisto);
-        const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsgObj();
+        const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
         var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
-        risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
+        risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
@@ -208,9 +208,9 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
         
     // creazione dell'url per scaricare l'immagine
     scarica(id_acquisto,risultato,"DownloadOriginale")
-    const nuova_risp = getMsg(MsgEnum.ScaricaBene).getMsgObj();
+    const nuova_risp = getMsg(MsgEnum.ScaricaBene).getMsg();
     var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
-        risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
+        risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     })
@@ -227,11 +227,11 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     .in(risultato.Bene.nome)
     .out(nomeBene+risultato.formato)
     .write(pathToImg, function (err) {
-    if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
+    if (!err) console.log('Il link è codice creato correttamente, puoi scaricare l\'immagine');
     });
-    const new_res = getMsg(MsgEnum.ScaricaBene).getMsgObj();
+    const new_res = getMsg(MsgEnum.ScaricaBene).getMsg();
     var link={bene:risultato.Bene.nome, formato:risultato.formato, link:url}
-        risp.status(new_res.stato).json({message:new_res.msg, risultato:link});
+        risp.status(new_res.codice).json({message:new_res.msg, risultato:link});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     })
@@ -271,7 +271,7 @@ function scarica(bene:any, tipo:string,acquisto:any):string{
     .in(bene.nome)
     .out(nomeBene+"."+acquisto.formato)
     .write(pathToImg, function (err:any) {
-    if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
+    if (!err) console.log('Il link è codice creato correttamente, puoi scaricare l\'immagine');
     });
     return url;
 }

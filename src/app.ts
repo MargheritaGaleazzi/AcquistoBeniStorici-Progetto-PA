@@ -1,7 +1,14 @@
+import express,{Application} from 'express';
 import * as Controller from './controller';
-import express,{ Application  } from 'express';
+//import express,{ Application  } from 'express';
 
 const applicazione:Application = express();
+const PORT = 8080;
+
+
+applicazione.get('/', function (req:any,res:any) {
+    res.send('L\'applicazione è stata avviata correttamente')
+});
 
 /*
  * Rotta per la visualizzazione della lista dei beni
@@ -81,4 +88,6 @@ applicazione.post('/Ricarica', /*aggiungi middleware,*/ function (req: any, res:
 applicazione.get('*',);
 applicazione.post('*',);
 
-applicazione.listen(8080);
+applicazione.listen(PORT,()=>{
+    console.log('Il server è in ascolto sulla porta'+PORT.toString())
+});

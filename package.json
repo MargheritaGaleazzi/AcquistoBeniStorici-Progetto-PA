@@ -16,8 +16,8 @@
     "yallist": "^4.0.0"
   },
   "scripts": {
-    "dev": "ts-node src/router.ts",
-    "start": "ts-node dist/router.js",
+    "dev": "ts-node src/app.ts",
+    "start": "ts-node dist/app.js",
     "build": "tsc -p"
   },
   "devDependencies": {

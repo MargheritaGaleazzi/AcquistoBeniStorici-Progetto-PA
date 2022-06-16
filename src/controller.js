@@ -42,7 +42,22 @@ exports.listaBeni = listaBeni;
  * Funzione che permette di ottenere un nuovo link per il bene
  * acquistato
  */
-function nuovoLink(id, risp) { }
+function nuovoLink(id_bene, formato_bene, compr, risp) {
+    models_1.Acquisto.create({ formato: formato_bene, email_compr: compr }).then(function (acquisto) {
+        models_1.Modo.create({ id_acquisto: acquisto.id, id_bene: id_bene, tipo_acq: "download aggiuntivo" });
+        models_1.Bene.findByPk(id_bene).then(function (bene) {
+            models_1.Utente.decrement("credito", { by: 1, where: { email: compr } });
+            bene.nDownload += 1;
+            bene.save();
+            var urLink = scarica(bene, "DownloadAggiuntivo", acquisto);
+            var nuova_risp = (0, messaggi_1.getMsg)(messaggi_1.MsgEnum.AcquistaBene).getMsgObj();
+            var link = { bene: bene.nome, formato: acquisto.formato, link: urLink };
+            risp.status(nuova_risp.stato).json({ message: nuova_risp.msg, risultato: link });
+        })["catch"](function (error) {
+            controllerErrori(messaggi_1.MsgEnum.ErrServer, error, risp);
+        });
+    });
+}
 exports.nuovoLink = nuovoLink;
 /*
  * Funzione che permette di vedere gli acquisti
@@ -127,7 +142,12 @@ function acquistaBene(id_bene, formato_bene, compr, risp) {
             models_1.Utente.decrement("credito", { by: bene.prezzo, where: { email: compr } });
             bene.nDownload += 1;
             bene.save();
-            scarica(bene, "DownloadOriginale", acquisto);
+            var urLink = scarica(bene, "DownloadOriginale", acquisto);
+            var nuova_risp = (0, messaggi_1.getMsg)(messaggi_1.MsgEnum.AcquistaBene).getMsgObj();
+            var link = { bene: bene.nome, formato: acquisto.formato, link: urLink };
+            risp.status(nuova_risp.stato).json({ message: nuova_risp.msg, risultato: link });
+        })["catch"](function (error) {
+            controllerErrori(messaggi_1.MsgEnum.ErrServer, error, risp);
         });
     });
 }
@@ -204,4 +224,5 @@ function scarica(bene, tipo, acquisto) {
         if (!err)
             console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
     });
+    return url;
 }

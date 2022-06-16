@@ -32,7 +32,7 @@ applicazione.get('/ScaricaBene', /*aggiungi middleware, function (req: any, res:
  */
 
 applicazione.post('/NuovoLink', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.nuovoLink(req.body, res);
+    Controller.nuovoLink(req.body.id,req.body.formato,req.body.cons, res);
 });
 
 /*

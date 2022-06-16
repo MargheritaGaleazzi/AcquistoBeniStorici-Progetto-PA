@@ -48,7 +48,22 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
  * Funzione che permette di ottenere un nuovo link per il bene
  * acquistato
  */
-export function nuovoLink(id:number,risp:any){}
+export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:any):void{
+    Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
+        Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download aggiuntivo"});
+        Bene.findByPk(id_bene).then((bene:any)=>{
+            Utente.decrement("credito",{by:1,where: { email: compr }});
+            bene.nDownload+=1;
+            bene.save();
+            const urLink=scarica(bene,"DownloadAggiuntivo",acquisto);
+            const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsgObj();
+            var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
+            risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
+        }).catch((error) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+        });
+        });
+}
 
 /*
  * Funzione che permette di vedere gli acquisti
@@ -154,10 +169,15 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
         Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
         bene.nDownload+=1;
         bene.save();
-        scarica(bene,"DownloadOriginale",acquisto)
-    })
+        const urLink=scarica(bene,"DownloadOriginale",acquisto);
+        const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsgObj();
+        var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
+        risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:link});
+    }).catch((error) => {
+        controllerErrori(MsgEnum.ErrServer, error, risp);
     });
-}
+    });
+    }
 
 
 /*
@@ -222,7 +242,7 @@ PresenzaImmagini(curr_path,url);
  * Funzione per creare il link ed aggiungere la filigrana
  *
  */
-function scarica(bene:any, tipo:string,acquisto:any):void{
+function scarica(bene:any, tipo:string,acquisto:any):string{
     var request = require('request');
     var url = "www.codinggirl.com/"+tipo+bene.nome+bene.nDownload.toString()+"."+acquisto.formato
     
@@ -238,4 +258,5 @@ function scarica(bene:any, tipo:string,acquisto:any):void{
     .write(pathToImg, function (err) {
     if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
     });
+    return url;
 }

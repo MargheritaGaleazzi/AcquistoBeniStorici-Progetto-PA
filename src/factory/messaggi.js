@@ -145,16 +145,16 @@ var ListaBeni = /** @class */ (function () {
     };
     return ListaBeni;
 }());
-var ScaricaBene = /** @class */ (function () {
-    function ScaricaBene() {
+var AcquistaBene = /** @class */ (function () {
+    function AcquistaBene() {
     }
-    ScaricaBene.prototype.getMsgObj = function () {
+    AcquistaBene.prototype.getMsgObj = function () {
         return {
             stato: 201,
             msg: "SUCCESSO - Il link del tuo acquisto è pronto"
         };
     };
-    return ScaricaBene;
+    return AcquistaBene;
 }());
 var MsgEnum;
 (function (MsgEnum) {
@@ -171,7 +171,7 @@ var MsgEnum;
     MsgEnum[MsgEnum["ErrServizioNonDisp"] = 10] = "ErrServizioNonDisp";
     MsgEnum[MsgEnum["ErrRichiestaErrata"] = 11] = "ErrRichiestaErrata";
     MsgEnum[MsgEnum["ListaBeni"] = 12] = "ListaBeni";
-    MsgEnum[MsgEnum["ScaricaBene"] = 13] = "ScaricaBene";
+    MsgEnum[MsgEnum["AcquistaBene"] = 13] = "AcquistaBene";
 })(MsgEnum = exports.MsgEnum || (exports.MsgEnum = {}));
 function getMsg(tipoErrore) {
     var val;
@@ -215,8 +215,8 @@ function getMsg(tipoErrore) {
         case MsgEnum.ListaBeni:
             val = new ListaBeni();
             break;
-        case MsgEnum.ScaricaBene:
-            val = new ScaricaBene();
+        case MsgEnum.AcquistaBene:
+            val = new AcquistaBene();
             break;
     }
     return val;

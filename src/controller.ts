@@ -109,21 +109,6 @@ export function visualizzaCredito(id:number,risp:any){}
  */
 export function ricarica(id:number,risp:any){}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /***
  * Funzione per verificare la presenza delle immagini
  */ 
@@ -144,13 +129,10 @@ export function PresenzaImmagini(curr_path: string, url:any) {
                   console.log("file written!");
                   PresenzaImmagini(curr_path,url);
                 });
-              });
+            });
         }
     });
-
-        }
-            
- 
+}
 
 /***
  * Funzione per estrarre le immagini dallo zip

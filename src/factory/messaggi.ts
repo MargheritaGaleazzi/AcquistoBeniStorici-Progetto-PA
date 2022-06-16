@@ -123,6 +123,7 @@ class ErrServer implements Msg {
     }
 }
 
+// errore che viene lanciato in caso di servizio non disponibile
 class ErrServizioNonDisp implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {

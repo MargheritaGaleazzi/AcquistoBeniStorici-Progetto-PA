@@ -13,13 +13,13 @@ export class Singleton{
     private MYSQL_ROOT_PASSWORD="root"
     private MYSQL_USER="user"
     private MYSQL_PASSWORD="password"
-    private MYSQL_HOST="dbmysql"
+    private MYSQL_HOST="localhost"
     private MYSQL_PORT=3306
 
     private constructor(){
-        this.connessione = new Sequelize(this.MYSQL_DATABASE,  this.MYSQL_USER, this.MYSQL_PASSWORD,{
+        this.connessione = new Sequelize(this.MYSQL_DATABASE,  'admin', 'root',{
             host: this.MYSQL_HOST,
-            port: Number(this.MYSQL_PORT),
+            port: this.MYSQL_PORT,
             dialect: 'mysql'
         });
     }

@@ -42,6 +42,15 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
     });
 }
 
+export function lista(risp: any): void{
+    Bene.findAll().then((risultato: object[]) => {
+        const new_res = getMsg(MsgEnum.ListaBeni).getMsgObj();
+        risp.status(new_res.stato).json({message:new_res.msg, risultato:risultato});
+    }).catch((error) => {
+        controllerErrori(MsgEnum.ErrServer, error, risp);
+    });
+}
+
 /*
  * Funzione che permette di ottenere un nuovo link per il bene
  * acquistato

@@ -1,9 +1,11 @@
 import express,{Application} from 'express';
 import * as Controller from './controller';
+
 //import express,{ Application  } from 'express';
 
 const applicazione:Application = express();
 const PORT = 8080;
+
 
 
 applicazione.get('/', function (req:any,res:any) {
@@ -16,6 +18,10 @@ applicazione.get('/', function (req:any,res:any) {
 
 applicazione.get('/ListaBeni', /*aggiungi middleware,*/ function (req: any, res: any) {    
     Controller.listaBeni(req.body.tipo,req.body.anno, res);
+});
+
+applicazione.get('/Lista', /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.lista(res);
 });
 
 /*

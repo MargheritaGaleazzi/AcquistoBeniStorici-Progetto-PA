@@ -5,10 +5,9 @@ import * as path from 'path';
 import { saveAs } from 'file-saver';
 
 
-var fs_extra = require('fs-extra'); 
+const fs_extra = require('fs-extra'); 
 
-
-var fs = require('fs'),
+const fs = require('fs'),
     gm = require('gm'),
     imageMagick = gm.subClass({imageMagick: true});
 
@@ -99,7 +98,7 @@ export function ricarica(id:number,risp:any){}
  * Funzione per verificare la presenza delle immagini
  */ 
 
-export function PresenzaImmagini(curr_path: string, url:string) {
+export function PresenzaImmagini(curr_path: string, url) {
     
     console.log("pippo2");
     console.log(url);
@@ -107,12 +106,13 @@ export function PresenzaImmagini(curr_path: string, url:string) {
         if (exists == null) {
         } else if (exists.code === 'ENOENT') {
             console.log("Download delle immagini in corso...");
-        
-            const http = require('https');
-            const file = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
-            const request = http.get(url, function(response) {
-              response.pipe(file);
-            });
+            const request = require('request');
+            request({url: url, encoding: null}, function(err, resp, body) {
+                if(err) throw err;
+                fs.writeFile(path.join(curr_path, "/ImmaginiPA.zip"), body, function(err) {
+                  console.log("file written!");
+                });
+              });
         }
     });
 

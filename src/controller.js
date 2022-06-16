@@ -84,10 +84,13 @@ function PresenzaImmagini(curr_path, url) {
         }
         else if (exists.code === 'ENOENT') {
             console.log("Download delle immagini in corso...");
-            var http = require('https');
-            var file_1 = fs.createWriteStream(path.join(curr_path, "/ImmaginiPA.zip"));
-            var request = http.get(url, function (response) {
-                response.pipe(file_1);
+            var request = require('request');
+            request({ url: url, encoding: null }, function (err, resp, body) {
+                if (err)
+                    throw err;
+                fs.writeFile(path.join(curr_path, "/ImmaginiPA.zip"), body, function (err) {
+                    console.log("file written!");
+                });
             });
         }
     });

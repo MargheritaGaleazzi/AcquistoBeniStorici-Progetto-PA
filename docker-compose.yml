@@ -7,7 +7,7 @@ services:
         env_file:
           - .env
         volumes:
-          - ./seed:/docker-entrypoint-initdb.d        
+        - ./seeder:/docker-entrypoint-initdb.d        
     node:
         build: .
         restart: always

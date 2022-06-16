@@ -11,9 +11,9 @@ export class Singleton{
     private connessione: Sequelize;
 
     private constructor(){
-        this.connessione = new Sequelize(process.env.DATABASE, process.env.USER_DB, process.env.PASSWORD_DB,{
-            host: process.env.HOST_DB,
-            port: Number(process.env.PORT_DB),
+        this.connessione = new Sequelize(process.env.MYSQL_DATABASE,  process.env.MYSQL_USER, process.env.MYSQL_PASSWORD,{
+            host: process.env.MYSQL_HOST,
+            port: Number(process.env.MYSQL_PORT),
             dialect: 'mysql'
         });
     }

@@ -1,8 +1,6 @@
-import {Sequelize} from "sequelize";
 import { Utente,Bene,Acquisto, Modo } from "./models/models";
 import { MsgEnum, getMsg } from "./factory/messaggi";
 import * as path from 'path';
-import { saveAs } from 'file-saver';
 
 
 const fs_extra = require('fs-extra'); 
@@ -121,19 +119,19 @@ export function ricarica(id:number,risp:any){}
  * Funzione per verificare la presenza delle immagini
  */ 
 
-export function PresenzaImmagini(curr_path: string, url) {
+export function PresenzaImmagini(curr_path: string, url:any) {
     
     console.log("pippo2");
     console.log(url);
-    fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), (exists) => {
+    fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), (exists:any) => {
         if (exists == null) {
             EstrazioneImmagini(curr_path);
         } else if (exists.code === 'ENOENT') {
             console.log("Download delle immagini in corso...");
             const request = require('request');
-            request({url: url, encoding: null}, function(err, resp, body) {
+            request({url: url, encoding: null}, function(err:any, resp:any, body:any) {
                 if(err) throw err;
-                fs.writeFile(path.join(curr_path, "/ImmaginiPA.zip"), body, function(err) {
+                fs.writeFile(path.join(curr_path, "/ImmaginiPA.zip"), body, function(err:any) {
                   console.log("file written!");
                   PresenzaImmagini(curr_path,url);
                 });
@@ -263,7 +261,7 @@ function scarica(bene:any, tipo:string,acquisto:any):string{
     .command('covert')
     .in(bene.nome)
     .out(nomeBene+"."+acquisto.formato)
-    .write(pathToImg, function (err) {
+    .write(pathToImg, function (err:any) {
     if (!err) console.log('Il link è stato creato correttamente, puoi scaricare l\'immagine');
     });
     return url;

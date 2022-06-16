@@ -1,7 +1,7 @@
 import * as Controller from './controller';
-import * as express from 'express';
+import express,{ Application  } from 'express';
 
-const applicazione = express();
+const applicazione:Application = express();
 
 /*
  * Rotta per la visualizzazione della lista dei beni
@@ -81,4 +81,4 @@ applicazione.post('/Ricarica', /*aggiungi middleware,*/ function (req: any, res:
 applicazione.get('*',);
 applicazione.post('*',);
 
-applicazione.listen(/*aggiungere numero porta*/);
+applicazione.listen(8080);

@@ -69,7 +69,15 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
  * Funzione che permette di vedere gli acquisti
  * di un dato utente
  */
-export function vediAcquisti(id:number,risp:any){}
+export function vediAcquisti(id:number,risp:any):void{
+    //Utente.findAll({include:Acquisto,order:[[Acquisto,'id','ASC']]})
+    Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
+    const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsgObj();
+            risp.status(nuova_risp.stato).json({message:nuova_risp.msg, risultato:acquisti});
+        }).catch((error) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+        });
+}
 
 /*
  * Funzione che permette di acquistare più beni in

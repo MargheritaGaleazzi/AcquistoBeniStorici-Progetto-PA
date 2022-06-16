@@ -130,6 +130,15 @@ class AcquistaBene implements MsgObj {
     }
 }
 
+class VediAcquisti implements MsgObj {
+    getMsgObj(): { stato: number; msg: string; } {
+        return {
+            stato:201,
+            msg: "SUCCESSO - Ora è possibile visualizzare la lista degli acquisti"
+        }
+    }
+}
+
 export enum MsgEnum {
     ErrNoAuth,
     ErrNoPayload,
@@ -144,7 +153,8 @@ export enum MsgEnum {
     ErrServizioNonDisp,
     ErrRichiestaErrata,
     ListaBeni,
-    AcquistaBene
+    AcquistaBene,
+    VediAcquisti
 }
 
 export function getMsg (tipoErrore: MsgEnum): MsgObj{
@@ -191,6 +201,9 @@ export function getMsg (tipoErrore: MsgEnum): MsgObj{
             break;
         case MsgEnum.AcquistaBene:
             val = new AcquistaBene();
+            break;
+        case MsgEnum.VediAcquisti:
+            val = new VediAcquisti();
             break;
     }
     return val;

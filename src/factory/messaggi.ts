@@ -121,7 +121,7 @@ class ListaBeni implements MsgObj {
     }
 }
 
-class ScaricaBene implements MsgObj {
+class AcquistaBene implements MsgObj {
     getMsgObj(): { stato: number; msg: string; } {
         return {
             stato:201,
@@ -144,7 +144,7 @@ export enum MsgEnum {
     ErrServizioNonDisp,
     ErrRichiestaErrata,
     ListaBeni,
-    ScaricaBene
+    AcquistaBene
 }
 
 export function getMsg (tipoErrore: MsgEnum): MsgObj{
@@ -189,8 +189,8 @@ export function getMsg (tipoErrore: MsgEnum): MsgObj{
         case MsgEnum.ListaBeni:
             val = new ListaBeni();
             break;
-        case MsgEnum.ScaricaBene:
-            val = new ScaricaBene();
+        case MsgEnum.AcquistaBene:
+            val = new AcquistaBene();
             break;
     }
     return val;

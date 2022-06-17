@@ -49,10 +49,10 @@ applicazione.post('/AcquistaBene', /*aggiungi middleware,*/  function (req: any,
 /*
  * Rotta per scaricare un bene acquistato
  */
-/*
-applicazione.get('/ScaricaBene', /*aggiungi middleware, function (req: any, res: any) {    
-    Controller.scaricaBene(req.body, res);
-});*/
+
+applicazione.get('/download/:bene/:formato/:tipoDownload/:nDownload', /*aggiungi middleware*/ function (req: any, res: any) {    
+    Controller.download(req.params.bene, res);
+});
 
 /*
  * Rotta per richiedere un nuovo link per un bene già scaricato
@@ -83,7 +83,7 @@ applicazione.post('/AcquistaMultiplo', /*aggiungi middleware,*/ function (req: a
  */
 
 applicazione.post('/Regalo', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.regalo(req.body, res);
+    Controller.regalo(req.body.email_amico,req.body.formato_bene,req.body.compr,req.body.id_bene,res);
 });
 
 /*

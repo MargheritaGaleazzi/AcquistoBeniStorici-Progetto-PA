@@ -87,12 +87,12 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
             Utente.decrement("credito",{by:1,where: { email: compr }});
             bene.nDownload+=1;
             bene.save();
-            const nome="/img/"+bene.nome.toString();
-        const daScaricare=path.join(curr_path,nome);
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo/"+bene.nDownload
+        const nome="/img/"+bene.nome.toString();
+        //const daScaricare=path.join(curr_path,nome);
         const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
-        var link={bene:bene.nome, formato:acquisto.formato/*, link:urLink*/}
-        //risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
-        risp.download(daScaricare)
+        var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
         }).catch((error) => {
             controllerErrori(MsgEnum.ErrServer, error, risp);
         });
@@ -124,8 +124,29 @@ export function acquistaMultiplo(id:number,risp:any):void{
 /*
  * Funzione che permette di fare un regalo ad un amico
  */
-export function regalo(id:number,risp:any):void{
-
+export function regalo(email_amico:string,formato_bene:string,compr:string,id_bene:number,risp:any):void{
+    Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
+        Bene.findByPk(id_bene).then((bene:any)=>{
+            if (bene.nDownload==0){
+                Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download originale"});
+            } else{
+                Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download aggiuntivo"});
+            }
+            Utente.decrement("credito",{by:bene.prezzo+0.5,where: { email: compr }});
+            bene.nDownload+=1;
+            bene.save();
+            //urLink=scarica(bene,"DownloadOriginale",acquisto);
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo/"+bene.nDownload
+            const nome="/img/"+bene.nome.toString();
+            //const daScaricare=path.join(curr_path,nome);
+            const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
+            var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
+            risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
+            //risp.download(daScaricare)
+        }).catch((error) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+        });
+        });
 }
 
 /*
@@ -214,18 +235,27 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
         bene.nDownload+=1;
         bene.save();
         //urLink=scarica(bene,"DownloadOriginale",acquisto);
-        //const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene
+        const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadOriginale/"+bene.nDownload
         const nome="/img/"+bene.nome.toString();
-        const daScaricare=path.join(curr_path,nome);
+        //const daScaricare=path.join(curr_path,nome);
         const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
-        var link={bene:bene.nome, formato:acquisto.formato/*, link:urLink*/}
-        //risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
-        risp.download(daScaricare)
+        var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
+        //risp.download(daScaricare)
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
     });
     }
+    
+export function download(nome:string,risp:any):void{
+ try{risp.download(path.join(curr_path,"img/"+nome));}
+  catch {
+    risp.status(500).send({
+      message: "Non è stato possibile scaricare il file",
+    });
+  }
+}
     
 
 

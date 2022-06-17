@@ -24,6 +24,12 @@ applicazione.get('/', function (req:any,res:any) {
  */
 
 applicazione.get('/ListaBeni', Middleware.NONJWT, function (req: any, res: any) {    
+    req.body.constructor === Object;
+    if (Object.keys(req.body).includes('tipo') && !Object.keys(req.body).includes('anno')){
+        req.body.anno=null;
+    } else if (!Object.keys(req.body).includes('tipo') && Object.keys(req.body).includes('anno')){
+        req.body.tipo=null;
+    }
     Controller.listaBeni(req.body.tipo,req.body.anno, res);
 });
 

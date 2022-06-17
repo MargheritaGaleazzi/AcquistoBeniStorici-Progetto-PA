@@ -31,6 +31,27 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
  * @param risp -> la risposta che darà il server
  */
  export function listaBeni(tipo: string, anno:number ,risp: any): void{
+    if (anno==null){
+        Bene.findAll({
+            where: { tipo : tipo}, 
+            raw: true
+        }).then((risultato: object[]) => {
+            const new_res = getMsg(MsgEnum.ListaBeni).getMsg();
+            risp.status(new_res.codice).json({stato:new_res.msg, risultato:risultato});
+        }).catch((error) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+        });
+    } else if (tipo==null) {
+        Bene.findAll({
+            where: {anno:anno}, 
+            raw: true
+        }).then((risultato: object[]) => {
+            const new_res = getMsg(MsgEnum.ListaBeni).getMsg();
+            risp.status(new_res.codice).json({stato:new_res.msg, risultato:risultato});
+        }).catch((error) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+        });
+    } else {
     Bene.findAll({
         where: { tipo : tipo, anno:anno}, 
         raw: true
@@ -41,6 +62,8 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
 }
+}
+
 
 export function lista(risp: any): void{
     Bene.findAll().then((risultato: object[]) => {

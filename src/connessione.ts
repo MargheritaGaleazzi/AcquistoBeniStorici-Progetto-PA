@@ -1,7 +1,7 @@
 require('dotenv').config();
 import {Sequelize} from 'sequelize';
 
-
+const fs = require('fs');
 const mysql = require("mysql2");
 
 // Open the connection to MySQL server
@@ -20,6 +20,16 @@ connection.query(
     console.log(err);
   }
 );
+const seedQuery = fs.readFileSync("seeder/seed.sql",{
+        encoding:"utf-8",
+    })
+
+//const fs = require('fs');
+//const seedQuery = fs.readFileSync("seeder/seed.sql",{
+//    encoding:"utf-8",
+//})
+//
+
 
 // Close the connection
 connection.end();

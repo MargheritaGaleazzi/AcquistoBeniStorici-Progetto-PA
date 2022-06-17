@@ -4,6 +4,10 @@ import * as Controller from './controller';
 
 const applicazione:Application = express();
 const PORT = 8080;
+var bodyParser = require('body-parser')
+ 
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 applicazione.get('/', function (req:any,res:any) {
     res.send('L\'applicazione è stata avviata correttamente')
@@ -13,7 +17,7 @@ applicazione.get('/', function (req:any,res:any) {
  * Rotta per la visualizzazione della lista dei beni
  */
 
-applicazione.get('/ListaBeni', /*aggiungi middleware,*/ function (req: any, res: any) {    
+applicazione.get('/ListaBeni', /*aggiungi middleware,*/ urlencodedParser, function (req: any, res: any) {    
     Controller.listaBeni(req.body.tipo,req.body.anno, res);
 });
 

@@ -3,4 +3,4 @@ ImmaginiPA.zip
 src/controller.js
 src/connessione.js
 src/models/models.js
-src/factory/messaggi.js
+src/Messaggi/messaggi.js

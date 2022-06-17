@@ -8,6 +8,7 @@
     "fs-extra": "^10.1.0",
     "gm": "^1.23.1",
     "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "node-fetch": "^3.2.6",
     "request": "^2.88.2",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/node": "^18.0.0",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.3"

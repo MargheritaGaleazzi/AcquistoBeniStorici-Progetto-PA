@@ -1,7 +1,7 @@
 import express,{Application} from 'express';
 import * as Controller from './controller';
 import { getMsg,MsgEnum } from './Messaggi/messaggi';
-import * as Middleware from './Middleware/middlewareChain';
+import * as Middleware from './Middleware/middlewareCoR';
 import * as path from 'path';
 
 const applicazione:Application = express();

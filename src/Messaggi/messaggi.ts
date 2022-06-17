@@ -22,12 +22,12 @@ class ErrNoPayload implements Msg {
     }
 }
 
-//errore che viene lanciato quando non sono sufficienti abbastanza token per l'acquisto
-class ErrTokenNonSufficienti implements Msg {
+//errore che viene lanciato quando non è presente il token per l'autenticazione
+class ErrTokenMancante implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return{
             codice: 400,
-            msg: "Richiesta Errata - Token JWT non sufficiente"
+            msg: "Richiesta Errata - Token JWT non presente"
         }
     }
 }
@@ -48,6 +48,16 @@ class ErrRichiestaErrata implements Msg {
         return {
             codice: 400,
             msg: "ERRORE - Richiesta errata"
+        }
+    }
+}
+
+//errore che viene lanciato quando si dispone di token sufficienti per l'acquisto del bene
+class ErrTokenNonSufficienti implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 400,
+            msg: "ERRORE - Non sono sufficienti abbastanza token per l'acquisto del bene"
         }
     }
 }
@@ -225,9 +235,10 @@ class RicaricaEffettuata implements Msg {
 export enum MsgEnum {
     ErrNoAuth,
     ErrNoPayload,
-    ErrTokenNonSufficienti,
+    ErrTokenMancante,
     ErrTokenInvalido, 
     ErrPaylodMalformato,
+    ErrTokenNonSufficienti,
     ErrRottaNonTrovata,
     ErrNonAutorizzato,
     ErrProibito,
@@ -277,6 +288,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
         case MsgEnum.ErrPaylodMalformato:
             val = new ErrPaylodMalformato();
             break;
+        case MsgEnum.ErrTokenNonSufficienti:
+            val = new ErrTokenNonSufficienti();
+            break;
         case MsgEnum.ErrProibito:
             val = new ErrProibito();
             break;
@@ -295,8 +309,8 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
         case MsgEnum.ErrTokenInvalido:
             val = new ErrTokenInvalido();
             break;
-        case MsgEnum.ErrTokenNonSufficienti:
-            val = new ErrTokenNonSufficienti();
+        case MsgEnum.ErrTokenMancante:
+            val = new ErrTokenMancante();
             break;
         case MsgEnum.BadRequest:
             val = new BadRequest();

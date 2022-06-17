@@ -41,7 +41,7 @@ export const Modo = sequelize.define('modo',{
 },
 {
     modelName: 'modo',
-    timestamps:true,
+    timestamps:false,
     freezeTableName:true
 });
 
@@ -103,7 +103,7 @@ export const Acquisto = sequelize.define('acquisto',{
 },
 {
     modelName: 'acquisto',
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true
 });
 

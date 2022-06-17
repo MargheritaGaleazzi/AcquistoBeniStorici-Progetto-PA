@@ -1,13 +1,19 @@
 import express,{Application} from 'express';
 import * as Controller from './controller';
+import { getMsg,MsgEnum } from './Messaggi/messaggi';
 
 
 const applicazione:Application = express();
+applicazione.use(express.json());
+applicazione.use((err: Error, req: any, res: any, next: any) => {
+    if (err instanceof SyntaxError) {
+        const new_err = getMsg(MsgEnum.ErrPaylodMalformato).getMsg();
+        res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg});
+    }
+    next();
+});
 const PORT = 8080;
-var bodyParser = require('body-parser')
- 
-// create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 
 applicazione.get('/', function (req:any,res:any) {
     res.send('L\'applicazione è stata avviata correttamente')
@@ -17,7 +23,7 @@ applicazione.get('/', function (req:any,res:any) {
  * Rotta per la visualizzazione della lista dei beni
  */
 
-applicazione.get('/ListaBeni', /*aggiungi middleware,*/ urlencodedParser, function (req: any, res: any) {    
+applicazione.get('/ListaBeni', /*aggiungi middleware,*/ function (req: any, res: any) {    
     Controller.listaBeni(req.body.tipo,req.body.anno, res);
 });
 
@@ -29,7 +35,7 @@ applicazione.get('/Lista', /*aggiungi middleware,*/ function (req: any, res: any
  * Rotta per acquistare un bene
  */
 
-applicazione.post('/AcquistaBene', /*aggiungi middleware,*/ function (req: any, res: any) {    
+applicazione.post('/AcquistaBene', /*aggiungi middleware,*/  function (req: any, res: any) {    
     Controller.acquistaBene(req.body.id_bene,req.body.formato,req.body.cons, res);
 });
 

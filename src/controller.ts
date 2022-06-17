@@ -1,5 +1,5 @@
 import { Utente,Bene,Acquisto, Modo } from "./models/models";
-import { MsgEnum, getMsg } from "./factory/messaggi";
+import { MsgEnum, getMsg } from "./Messaggi/messaggi";
 import * as path from 'path';
 
 
@@ -20,7 +20,7 @@ const fs = require('fs'),
 function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
     const nuovoErr = getMsg(enumError).getMsg();
     console.log(err);
-    risp.status(nuovoErr.codice).json(nuovoErr.msg);
+    risp.status(nuovoErr.codice).json({errore:nuovoErr.codice, descrizione:nuovoErr.msg});
 }
 
 /*
@@ -36,7 +36,7 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
         raw: true
     }).then((risultato: object[]) => {
         const new_res = getMsg(MsgEnum.ListaBeni).getMsg();
-        risp.status(new_res.codice).json({message:new_res.msg, risultato:risultato});
+        risp.status(new_res.codice).json({stato:new_res.msg, risultato:risultato});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });

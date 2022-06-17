@@ -3,13 +3,14 @@ import { DataTypes, Sequelize } from 'sequelize';
 
 //Ci si connette al database
 const sequelize: Sequelize = Singleton.getConnessione();
-const fs = require('fs');
-const seedQuery = fs.readFileSync("seeder/seed.sql",{
-    encoding:"utf-8",
-})
-console.log("è in corso il seeding del database");
-sequelize.query(seedQuery);
-console.log("seeding completato")
+//const fs = require('fs');
+//const seedQuery = fs.readFileSync("seeder/seed.sql",{
+//    encoding:"utf-8",
+//})
+//console.log("è in corso il seeding del database");
+//sequelize.query(seedQuery);
+//console.log("seeding completato")
+
 /*
  * Di seguito vi è l'ORM, che altro non è che il pattern che
  * ci consentirà di interagire con il database.

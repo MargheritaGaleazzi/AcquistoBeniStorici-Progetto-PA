@@ -1,12 +1,9 @@
 import express,{Application} from 'express';
 import * as Controller from './controller';
 
-//import express,{ Application  } from 'express';
 
 const applicazione:Application = express();
 const PORT = 8080;
-
-
 
 applicazione.get('/', function (req:any,res:any) {
     res.send('L\'applicazione è stata avviata correttamente')

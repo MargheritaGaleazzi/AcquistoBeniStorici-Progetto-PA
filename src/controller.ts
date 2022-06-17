@@ -1,6 +1,8 @@
 import { Utente,Bene,Acquisto, Modo } from "./models/models";
 import { MsgEnum, getMsg } from "./Messaggi/messaggi";
 import * as path from 'path';
+import { stdout } from "process";
+import { fileURLToPath } from "url";
 
 
 const fs_extra = require('fs-extra'); 
@@ -189,15 +191,20 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
         Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
         bene.nDownload+=1;
         bene.save();
-        const urLink=scarica(bene,"DownloadOriginale",acquisto);
+        //urLink=scarica(bene,"DownloadOriginale",acquisto);
+        //const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene
+        const nome="/img/"+bene.nome.toString();
+        const daScaricare=path.join(curr_path,nome);
         const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
-        var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
-        risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
+        var link={bene:bene.nome, formato:acquisto.formato/*, link:urLink*/}
+        //risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
+        risp.download(daScaricare)
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
     });
     }
+    
 
 
 /*
@@ -264,19 +271,22 @@ PresenzaImmagini(curr_path,url);
  */
 function scarica(bene:any, tipo:string,acquisto:any):string{
     var request = require('request');
-    var url = "www.codinggirl.com/"+tipo+bene.nome+bene.nDownload.toString()+"."+acquisto.formato
-    
-    var pathToImg="../img/"+bene.nome
     var nomeBene=bene.nome.split(".")[0]
-    gm(request(url))
-    .command('composite')
+    var url = "/download/"+nomeBene+"/"+tipo+"/"+acquisto.formato
+    
+    var pathToImg=path.join(curr_path,"/img/"+bene.nome)
+    
+    console.log(pathToImg)
+    gm(pathToImg).command("display",function (err:any) {
+    if (!err) console.log('Il link è codice creato correttamente, puoi scaricare l\'immagine');
+    });
+    return url;
+}
+/*
+  .command('composite')
     .gravity('Center')
     .in('../img_doc/filigrana.png')
     .command('covert')
     .in(bene.nome)
     .out(nomeBene+"."+acquisto.formato)
-    .write(pathToImg, function (err:any) {
-    if (!err) console.log('Il link è codice creato correttamente, puoi scaricare l\'immagine');
-    });
-    return url;
-}
+    */

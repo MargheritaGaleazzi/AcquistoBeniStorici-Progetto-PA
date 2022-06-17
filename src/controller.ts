@@ -1,16 +1,13 @@
 import { Utente,Bene,Acquisto, Modo } from "./models/models";
 import { MsgEnum, getMsg } from "./Messaggi/messaggi";
 import * as path from 'path';
-import { stdout } from "process";
-import { fileURLToPath } from "url";
 
-
+const JSZip = require('jszip');
+const zip = new JSZip();
 const fs_extra = require('fs-extra'); 
-
 const fs = require('fs'),
-    gm = require('gm'),
-    imageMagick = gm.subClass({imageMagick: true});
-
+    gm = require('gm')
+    
 /*
  * Funzione che viene richiamata dalle altr funzioni del Controller in caso di errori. 
  * Richiama i metodi della Factory per costruire oggetti da ritornare al client nella risposta.
@@ -104,7 +101,6 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
  * di un dato utente
  */
 export function vediAcquisti(id:number,risp:any):void{
-    //Utente.findAll({include:Acquisto,order:[[Acquisto,'id','ASC']]})
     Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
     const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
             risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:acquisti});
@@ -117,8 +113,31 @@ export function vediAcquisti(id:number,risp:any):void{
  * Funzione che permette di acquistare più beni in
  * una volta
  */
-export function acquistaMultiplo(id:number,risp:any):void{
+export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):void{
+    let images:string[]=[]
+ids.forEach(id => {
+    Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
+        Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
+        Bene.findByPk(id).then((bene:any)=>{
+            Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
+            bene.nDownload+=1;
+            bene.save();
+            images.push(bene.nome)
+        });
+    
+});
+})
+for (const image of images) {
+    const imageData = fs.readFileSync(image);
+    zip.file(image, imageData);
+}
 
+zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true })
+    .pipe(fs.createWriteStream('archivio.zip'))
+    .on('finish', function () {
+        console.log("archivio.zip written.");
+    });
+    risp.status(200).json({esito:"riuscito"})
 }
 
 /*
@@ -135,14 +154,11 @@ export function regalo(email_amico:string,formato_bene:string,compr:string,id_be
             Utente.decrement("credito",{by:bene.prezzo+0.5,where: { email: compr }});
             bene.nDownload+=1;
             bene.save();
-            //urLink=scarica(bene,"DownloadOriginale",acquisto);
             const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo/"+bene.nDownload
             const nome="/img/"+bene.nome.toString();
-            //const daScaricare=path.join(curr_path,nome);
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
-            //risp.download(daScaricare)
         }).catch((error) => {
             controllerErrori(MsgEnum.ErrServer, error, risp);
         });
@@ -169,7 +185,6 @@ export function visualizzaCredito(email:string,risp:any):void{
  */
 export function ricarica(email:string,ricarica:number,risp:any){
     Utente.increment("credito",{by:ricarica,where: { email: email }}).then((utente:any)=>{
-        //var risposta={email_utente:utente.email, username:utente.username,ricarica:ricarica,credito:utente.credito}
         const nuova_risp = getMsg(MsgEnum.RicaricaEffettuata).getMsg();
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg,utente:email ,ricarica:ricarica});
         }).catch((error) => {
@@ -234,14 +249,11 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
         Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
         bene.nDownload+=1;
         bene.save();
-        //urLink=scarica(bene,"DownloadOriginale",acquisto);
         const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadOriginale/"+bene.nDownload
         const nome="/img/"+bene.nome.toString();
-        //const daScaricare=path.join(curr_path,nome);
         const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
         var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
-        //risp.download(daScaricare)
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
@@ -310,12 +322,10 @@ var curr_path = e.slice(0,-4);
 console.log(curr_path)
 console.log("print3")
 // File .zip contenente le immagini, salvato su DropBox
-//var url ="https://drive.google.com/uc?export=download&id=1xKG7DAtBxb6w_viuiC5cyAsbY385tI76";
 var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
 
 
 PresenzaImmagini(curr_path,url);
-//EstrazioneImmagini(curr_path);
 
 /*
  * Funzione per creare il link ed aggiungere la filigrana

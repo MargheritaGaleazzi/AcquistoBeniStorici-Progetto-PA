@@ -75,7 +75,7 @@ applicazione.get('/VediAcquisti', /*aggiungi middleware,*/ function (req: any, r
  */
 
 applicazione.post('/AcquistaMultiplo', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.acquistaMultiplo(req.body, res);
+    Controller.acquistaMultiplo(req.body.ids,req.body.formato, req.body.compr, res);
 });
 
 /*

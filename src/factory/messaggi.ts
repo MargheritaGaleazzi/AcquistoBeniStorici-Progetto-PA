@@ -74,7 +74,8 @@ class ErrNonAutorizzato implements Msg {
     }
 }
 
-//errore che viene lanciato quando il token inserito non risulta essere valido
+//errore che viene lanciato quando il token inserito non risulta essere valido 
+//quando scade la sessione
 class ErrTokenInvalido implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -85,6 +86,9 @@ class ErrTokenInvalido implements Msg {
 }
 
 //errore che viene lanciato in caso di accesso negato
+//quando si prova ad utilizzare lo stesso link di download due volte
+//nel caso di acquisto per se stessi o comunque alla terza volta
+//se incluso l'acquisto per un amico
 class ErrProibito implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -104,11 +108,52 @@ class ErrRottaNonTrovata implements Msg {
     }
 }
 
+//errore che viene lanciato quando si inserisce l'id di un bene non presente
 class ErrNonTrovato implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
             codice: 404,
-            msg: "ERRORE - Non trovato"
+            msg: "ERRORE - ID non trovato"
+        }
+    }
+}
+
+//errore che viene lanciato quando si inserisce l'id di un utente errato
+class ErrUtenteNonTrovato implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Utente non trovato"
+        }
+    }
+}
+
+//errore che viene lanciato nel caso in cui si vuole filtrare per una categoria inesistente
+class ErrFiltroNonTrovato implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Filtro non esistente"
+        }
+    }
+}
+
+//errore che viene lanciato nel caso in cui non ci sono beni presenti
+class ErrBeniNonTrovati implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Non sono presenti beni"
+        }
+    }
+}
+
+//errore che viene lanciato nel caso in cui non ci sono beni presenti
+class ErrFormatoNonEsistente implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Hai inserito un formato non esistente"
         }
     }
 }
@@ -170,6 +215,10 @@ export enum MsgEnum {
     ErrNonAutorizzato,
     ErrProibito,
     ErrNonTrovato,
+    ErrUtenteNonTrovato,
+    ErrFiltroNonTrovato,
+    ErrBeniNonTrovati,
+    ErrFormatoNonEsistente,
     ErrServer,
     ErrServizioNonDisp,
     ErrRichiestaErrata,
@@ -194,6 +243,18 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
         case MsgEnum.ErrNonTrovato:
             val = new ErrNonTrovato();
             break;
+        case MsgEnum.ErrUtenteNonTrovato:
+            val = new ErrUtenteNonTrovato();
+            break; 
+        case MsgEnum.ErrFiltroNonTrovato:
+            val = new ErrFiltroNonTrovato();
+            break;
+        case MsgEnum.ErrBeniNonTrovati:
+            val = new ErrBeniNonTrovati();
+            break; 
+        case MsgEnum.ErrFormatoNonEsistente:
+            val = new ErrFormatoNonEsistente();
+            break; 
         case MsgEnum.ErrPaylodMalformato:
             val = new ErrPaylodMalformato();
             break;
@@ -229,7 +290,7 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.VediAcquisti:
             val = new VediAcquisti();
-            break;    
+            break;         
     }
     return val;
 }

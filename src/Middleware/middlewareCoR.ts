@@ -1,8 +1,10 @@
-import * as MiddlewareJWT from './middlewareRichieste';
+import * as Middleware from './middlewareRichieste';
 
 
-export const NONJWT = [
-    //MiddlewareJWT.checkJSONPayload,
-    //MiddlewareJWT.checkPayloadHeader,
-    //MiddlewareJWT.errorHandler
+export const Richieste = [
+    Middleware.verificaJSONPayload
+];
+
+export const FiltroTipoAnno = [
+    Middleware.controlloValoriFiltro
 ];

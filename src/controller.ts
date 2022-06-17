@@ -140,7 +140,7 @@ export function regalo(email_amico:string,formato_bene:string,compr:string,id_be
             const nome="/img/"+bene.nome.toString();
             //const daScaricare=path.join(curr_path,nome);
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
-            var link={bene:bene.nome, formato:acquisto.formato, link:urLink, amico:email_amico}
+            var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
             //risp.download(daScaricare)
         }).catch((error) => {

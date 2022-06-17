@@ -114,6 +114,7 @@ export function vediAcquisti(id:number,risp:any):void{
  * una volta
  */
 export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):void{
+    
 ids.forEach(id => {
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
         Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});

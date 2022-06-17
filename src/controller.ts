@@ -114,7 +114,9 @@ export function vediAcquisti(id:number,risp:any):void{
  * una volta
  */
 export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):void{
-    
+    const buffer = Buffer.from("", 'utf-8');
+    risp.set({'Content-Disposition':'attachment'});
+    risp.set({'Content-Type':'application/zip'})
 ids.forEach(id => {
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
         Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
@@ -124,7 +126,7 @@ ids.forEach(id => {
             bene.save();
             const image=__dirname.slice(0,-4)+"\\img\\"+bene.nome
             zip.addLocalFile(image)
-            fs.writeFileSync(outputFilePath, zip.toBuffer());
+            risp.send(zip.toBuffer());
         },);
     
 });
@@ -132,7 +134,6 @@ ids.forEach(id => {
 }
 )
 
-    risp.status(200).json({esito:"riuscito"})
 }
 
 /*

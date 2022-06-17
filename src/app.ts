@@ -1,7 +1,7 @@
 import express,{Application} from 'express';
 import * as Controller from './controller';
 import { getMsg,MsgEnum } from './Messaggi/messaggi';
-
+import * as Middleware from './Middleware/middlewareChain'
 
 const applicazione:Application = express();
 applicazione.use(express.json());
@@ -23,7 +23,7 @@ applicazione.get('/', function (req:any,res:any) {
  * Rotta per la visualizzazione della lista dei beni
  */
 
-applicazione.get('/ListaBeni', /*aggiungi middleware,*/ function (req: any, res: any) {    
+applicazione.get('/ListaBeni', Middleware.NONJWT, function (req: any, res: any) {    
     Controller.listaBeni(req.body.tipo,req.body.anno, res);
 });
 

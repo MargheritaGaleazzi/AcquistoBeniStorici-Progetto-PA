@@ -117,24 +117,44 @@ export function vediAcquisti(id:number,risp:any):void{
  * Funzione che permette di acquistare più beni in
  * una volta
  */
-export function acquistaMultiplo(id:number,risp:any){}
+export function acquistaMultiplo(id:number,risp:any):void{
+
+}
 
 /*
  * Funzione che permette di fare un regalo ad un amico
  */
-export function regalo(id:number,risp:any){}
+export function regalo(id:number,risp:any):void{
+
+}
 
 /*
  * Funzione che permette di visualizzare il credito
  * residuo di un dato utente
  */
-export function visualizzaCredito(id:number,risp:any){}
+export function visualizzaCredito(email:string,risp:any):void{
+    Utente.findByPk(email).then((utente:any)=>{
+        var risposta={email_utente:utente.email, username:utente.username,credito:utente.credito}
+        const nuova_risp = getMsg(MsgEnum.VediCredito).getMsg();
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:risposta});
+        }).catch((error) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+    })
+}
 
 /*
  * Funzione che permette all'amministratore di ricaricare
  * il credito di un dato utente
  */
-export function ricarica(id:number,risp:any){}
+export function ricarica(email:string,ricarica:number,risp:any){
+    Utente.increment("credito",{by:ricarica,where: { email: email }}).then((utente:any)=>{
+        //var risposta={email_utente:utente.email, username:utente.username,ricarica:ricarica,credito:utente.credito}
+        const nuova_risp = getMsg(MsgEnum.RicaricaEffettuata).getMsg();
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg,utente:email ,ricarica:ricarica});
+        }).catch((error) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+    });
+}
 
 /***
  * Funzione per verificare la presenza delle immagini

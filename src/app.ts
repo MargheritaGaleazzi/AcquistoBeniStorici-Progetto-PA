@@ -90,16 +90,16 @@ applicazione.post('/Regalo', /*aggiungi middleware,*/ function (req: any, res: a
  * Rotta per la visualizzazione dei crediti rimasti
  */
 
-applicazione.get('/VisualizzaCredito', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.visualizzaCredito(req.body, res);
+applicazione.get('/VisualizzaCredito/:email', /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.visualizzaCredito(req.params.email, res);
 });
 
 /*
  * Rotta per la ricaricare i crediti
  */
 
-applicazione.post('/Ricarica', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.ricarica(req.body, res);
+applicazione.post('/Ricarica/', /*aggiungi middleware,*/ function (req: any, res: any) {    
+    Controller.ricarica(req.body.email,req.body.ricarica, res);
 });
 
 /*

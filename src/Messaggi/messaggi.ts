@@ -204,6 +204,24 @@ class VediAcquisti implements Msg {
     }
 }
 
+class VediCredito implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice:201,
+            msg: "SUCCESSO - Puoi vedere il credito dell'utente"
+        }
+    }
+}
+
+class RicaricaEffettuata implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice:201,
+            msg: "SUCCESSO - La ricarica è andata a buon fine"
+        }
+    }
+}
+
 export enum MsgEnum {
     ErrNoAuth,
     ErrNoPayload,
@@ -224,7 +242,9 @@ export enum MsgEnum {
     BadRequest,
     ListaBeni,
     AcquistaBene,
-    VediAcquisti
+    VediAcquisti,
+    VediCredito,
+    RicaricaEffettuata
 }
 
 export function getMsg (tipoErrore: MsgEnum): Msg{
@@ -289,7 +309,13 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.VediAcquisti:
             val = new VediAcquisti();
-            break;         
+            break;  
+        case MsgEnum.VediCredito:
+            val = new VediCredito();
+            break;       
+        case MsgEnum.RicaricaEffettuata:
+            val = new RicaricaEffettuata();
+            break; 
     }
     return val;
 }

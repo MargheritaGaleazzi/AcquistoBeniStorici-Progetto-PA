@@ -2,5 +2,6 @@ import * as MiddlewareJWT from './middlewareJWT';
 
 
 export const NONJWT = [
-    MiddlewareJWT.checkJSONPayload
+    MiddlewareJWT.checkJSONPayload,
+    MiddlewareJWT.checkPayloadHeader
 ];

@@ -10,3 +10,8 @@ export function checkJSONPayload(req: any, res: any, next: any): void{
         next(MsgEnum.ErrPaylodMalformato)
     }
 }
+
+export function checkPayloadHeader(req: any, res: any, next: any): void{
+    if (req.headers["content-type"] == 'application/json') next();
+    else next(MsgEnum.ErrNoPayload);
+}

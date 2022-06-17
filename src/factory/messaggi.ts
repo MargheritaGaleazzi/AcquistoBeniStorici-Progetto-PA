@@ -1,5 +1,3 @@
-//VANNO AGGIUNTI GLI ALTRi
-
 interface Msg {
     getMsg():{codice: number, msg: string};
 }
@@ -138,12 +136,13 @@ class ErrFiltroNonTrovato implements Msg {
     }
 }
 
-//errore che viene lanciato nel caso in cui non ci sono beni presenti
+//errore che viene lanciato nel caso in cui non vengono trovati beni
+//ad esempio dopo aver filtrato
 class ErrBeniNonTrovati implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
             codice: 404,
-            msg: "ERRORE - Non sono presenti beni"
+            msg: "ERRORE - Beni non trovati"
         }
     }
 }

@@ -87,10 +87,12 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
             Utente.decrement("credito",{by:1,where: { email: compr }});
             bene.nDownload+=1;
             bene.save();
-            const urLink=scarica(bene,"DownloadAggiuntivo",acquisto);
-            const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
-            var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
-            risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
+            const nome="/img/"+bene.nome.toString();
+        const daScaricare=path.join(curr_path,nome);
+        const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
+        var link={bene:bene.nome, formato:acquisto.formato/*, link:urLink*/}
+        //risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:link});
+        risp.download(daScaricare)
         }).catch((error) => {
             controllerErrori(MsgEnum.ErrServer, error, risp);
         });

@@ -15,3 +15,7 @@ export function checkPayloadHeader(req: any, res: any, next: any): void{
     if (req.headers["content-type"] == 'application/json') next();
     else next(MsgEnum.ErrNoPayload);
 }
+
+export function errorHandler(err: any, req: any, res: any, next: any): void { 
+    res.status(err.status).json(err.msg);
+}

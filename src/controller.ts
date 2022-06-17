@@ -3,10 +3,12 @@ import { MsgEnum, getMsg } from "./Messaggi/messaggi";
 import * as path from 'path';
 const admzip = require('adm-zip')
 var zip = new admzip();
-var outputFilePath = "output.zip";
+const curr_path=__dirname.slice(0,-4);
+var outputFilePath = path.join(curr_path,"output.zip");
 const fs_extra = require('fs-extra'); 
 const fs = require('fs'),
     gm = require('gm')
+
     
 /*
  * Funzione che viene richiamata dalle altr funzioni del Controller in caso di errori. 
@@ -306,14 +308,7 @@ export function scaricaBene(id_acquisto:number, risp:any): void{
     })
 }*/
 
-process.chdir(__dirname);
-var e = __dirname;
-console.log("print1")
-console.log(e);
-console.log("print2")
-var curr_path = e.slice(0,-4);
-console.log(curr_path)
-console.log("print3")
+
 // File .zip contenente le immagini, salvato su DropBox
 var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
 

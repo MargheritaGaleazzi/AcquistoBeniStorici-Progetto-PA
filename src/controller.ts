@@ -1,9 +1,9 @@
 import { Utente,Bene,Acquisto, Modo } from "./models/models";
 import { MsgEnum, getMsg } from "./Messaggi/messaggi";
 import * as path from 'path';
-
-const JSZip = require('jszip');
-const zip = new JSZip();
+const admzip = require('adm-zip')
+var zip = new admzip();
+var outputFilePath = Date.now() + "output.zip";
 const fs_extra = require('fs-extra'); 
 const fs = require('fs'),
     gm = require('gm')
@@ -114,7 +114,6 @@ export function vediAcquisti(id:number,risp:any):void{
  * una volta
  */
 export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):void{
-    let images:string[]=[]
 ids.forEach(id => {
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
         Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
@@ -122,21 +121,14 @@ ids.forEach(id => {
             Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
             bene.nDownload+=1;
             bene.save();
-            images.push(bene.nome)
+            const image=__dirname.slice(0,-4)+"\\img\\"+bene.nome
         });
     
 });
-})
-for (const image of images) {
-    const imageData = fs.readFileSync(image);
-    zip.file(image, imageData);
-}
-
-zip.generateNodeStream({ type: 'nodebuffer', streamFiles: true })
-    .pipe(fs.createWriteStream('archivio.zip'))
-    .on('finish', function () {
-        console.log("archivio.zip written.");
-    });
+const image="D:\\GitHub\\AcquistoBeniStorici-Progetto-PA\\img\\cart_Roma_Capitale.jpg"
+zip.addLocalFile(image)}
+)
+fs.writeFileSync(outputFilePath, zip.toBuffer());
     risp.status(200).json({esito:"riuscito"})
 }
 

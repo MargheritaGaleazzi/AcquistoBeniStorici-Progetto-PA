@@ -24,7 +24,7 @@ applicazione.get('/', function (req:any,res:any) {
  * Rotta per la visualizzazione della lista dei beni
  */
 
-applicazione.get('/ListaBeni', Middleware.FiltroTipoAnno, function (req: any, res: any) {    
+applicazione.get('/ListaBeni', /*Middleware.FiltroTipoAnno,*/ function (req: any, res: any) {    
     req.body.constructor === Object;
     if (Object.keys(req.body).includes('tipo') && !Object.keys(req.body).includes('anno')){
         req.body.anno=null;

@@ -3,7 +3,7 @@ import { MsgEnum, getMsg } from "./Messaggi/messaggi";
 import * as path from 'path';
 const admzip = require('adm-zip')
 var zip = new admzip();
-var outputFilePath = Date.now() + "output.zip";
+var outputFilePath = "output.zip";
 const fs_extra = require('fs-extra'); 
 const fs = require('fs'),
     gm = require('gm')
@@ -85,8 +85,6 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
             bene.nDownload+=1;
             bene.save();
             const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo/"+bene.nDownload
-        const nome="/img/"+bene.nome.toString();
-        //const daScaricare=path.join(curr_path,nome);
         const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
         var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
@@ -123,13 +121,15 @@ ids.forEach(id => {
             bene.nDownload+=1;
             bene.save();
             const image=__dirname.slice(0,-4)+"\\img\\"+bene.nome
-        });
+            zip.addLocalFile(image)
+            fs.writeFileSync(outputFilePath, zip.toBuffer());
+        },);
     
 });
-const image="D:\\GitHub\\AcquistoBeniStorici-Progetto-PA\\img\\cart_Roma_Capitale.jpg"
-zip.addLocalFile(image)}
+
+}
 )
-fs.writeFileSync(outputFilePath, zip.toBuffer());
+
     risp.status(200).json({esito:"riuscito"})
 }
 

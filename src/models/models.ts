@@ -81,8 +81,9 @@ export const Bene = sequelize.define('bene', {
 Bene.hasMany(Modo);
 Modo.belongsTo(Bene, {
     foreignKey: {
-      name: 'id_bene'
-    }
+      field: 'id_bene'
+    },
+    as:'id_bene'
   });
 
 //modella l'acquisto
@@ -110,8 +111,9 @@ export const Acquisto = sequelize.define('acquisto',{
 Acquisto.hasMany(Modo);
 Modo.belongsTo(Acquisto, {
     foreignKey: {
-      name: 'id_acquisto'
-    }
+      field: 'id_acquisto'
+    },
+    as: 'id_acquisto'
   });
 
 //Modella l'utente

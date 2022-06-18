@@ -114,10 +114,11 @@ export function vediAcquisti(id:number,risp:any):void{
  * una volta
  */
 export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):void{
-    const buffer = Buffer.from("", 'utf-8');
     risp.set({'Content-Disposition':'attachment'});
     risp.set({'Content-Type':'application/zip'})
+    var nomi:any[]=[]
 ids.forEach(id => {
+    risp.headersSet=false
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
         Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
         Bene.findByPk(id).then((bene:any)=>{
@@ -125,15 +126,20 @@ ids.forEach(id => {
             bene.nDownload+=1;
             bene.save();
             const image=__dirname.slice(0,-4)+"\\img\\"+bene.nome
-            zip.addLocalFile(image)
-            risp.send(zip.toBuffer());
+            console.log(image)
+            nomi.push(image)
+
+            //zip.addLocalFile(image)
+            //risp.send(zip.toBuffer());
         },);
     
 });
 
 }
 )
-
+nomi.forEach(element => {
+    console.log(element)
+});
 }
 
 /*

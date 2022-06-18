@@ -116,30 +116,34 @@ export function vediAcquisti(id:number,risp:any):void{
 export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):void{
     risp.set({'Content-Disposition':'attachment'});
     risp.set({'Content-Type':'application/zip'})
-    var nomi:any[]=[]
-ids.forEach(id => {
+    var i=1
+    console.log(i)
+ids.forEach(async id => {
     risp.headersSet=false
-    Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
-        Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
-        Bene.findByPk(id).then((bene:any)=>{
-            Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
+    var images:string[]=[]
+    await Acquisto.create({formato:formato_bene,email_compr:compr}).then(async (acquisto:any)=>{
+        await Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
+        await Bene.findByPk(id).then(async (bene:any)=>{
+            await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
             bene.nDownload+=1;
             bene.save();
             const image=__dirname.slice(0,-4)+"\\img\\"+bene.nome
+            zip.addLocalFile(image)
+            //zip.toBuffer()
             console.log(image)
-            nomi.push(image)
 
-            //zip.addLocalFile(image)
-            //risp.send(zip.toBuffer());
         },);
     
 });
-
+        if (i==ids.length){
+            console.log('siamo già al download!!!!!!!!!!!!')
+            console.log(i)
+            console.log(ids.length)
+            risp.send(zip.toBuffer());
+        }
+        i++
 }
 )
-nomi.forEach(element => {
-    console.log(element)
-});
 }
 
 /*

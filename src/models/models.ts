@@ -149,8 +149,8 @@ export const Utente = sequelize.define('utente',{
 });
 Utente.hasMany(Acquisto,{
     foreignKey: {
-      name:"email_compr",
-      allowNull: false
-    }
+      field:'email_compr',
+    },
+    as:'email_compr'
   });
 Acquisto.belongsTo(Utente);

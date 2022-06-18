@@ -100,7 +100,7 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
  * Funzione che permette di vedere gli acquisti
  * di un dato utente
  */
-export function vediAcquisti(id:number,risp:any):void{
+export function vediAcquisti(risp:any):void{
     Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
     const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
             risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:acquisti});

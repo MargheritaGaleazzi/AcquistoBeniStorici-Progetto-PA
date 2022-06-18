@@ -67,7 +67,7 @@ applicazione.post('/NuovoLink', /*aggiungi middleware,*/ function (req: any, res
  */
 
 applicazione.get('/VediAcquisti', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.vediAcquisti(req.body, res);
+    Controller.vediAcquisti(res);
 });
 
 /*

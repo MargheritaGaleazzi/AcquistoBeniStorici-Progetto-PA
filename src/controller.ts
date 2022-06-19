@@ -268,18 +268,19 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
     
 export function download(nome:string,formato:string,risp:any):void{
     risp.set({'Content-Disposition':'attachment'});
+    risp.set({'ContentType':'image/png'});
     const pathImg=path.join(curr_path,"img/"+nome)
     const pathFil=path.join(curr_path,"img_doc/filigrana.png")
-    const image = gm(pathImg).fill('#ffffff')
+    const image = gm(pathImg).gravity('Center').fill('#ffffff')
     .font('Arial', 27) // I didn't wanted to play with fonts, so used normal default thing (:
-            .drawText(225, 75, "CodinGirl").write('risp.jpg',function (err:any) {
-                if (err) return console.log(err);
-                console.log('Created an image from a Buffer!');
+            .drawText(0, 0, "CodinGirl").toBuffer('PNG',function (err:any, buffer:any) {
+                if (err) return console.log('err');
+                risp.send(buffer);
+                console.log('done!');
               })
       
-    image.stream('jpg', function (stdout:any) {
-        risp.setHeader('Content-Type', 'image/jpg');
-        risp.send(stdout);});
+    
+        
     }
   
 

@@ -8,9 +8,8 @@ var outputFilePath = path.join(curr_path,"output.zip");
 
 const fs_extra = require('fs-extra'); 
 const fs = require('fs'),
-    gm = require('gm').subClass({ imageMagick: true });
-
-    
+    gm = require('gm')
+ 
 /*
  * Funzione che viene richiamata dalle altr funzioni del Controller in caso di errori. 
  * Richiama i metodi della Factory per costruire oggetti da ritornare al client nella risposta.
@@ -277,10 +276,11 @@ export function download(nome:string,formato:string,risp:any):void{
                 if (err) return console.log(err);
                 console.log('Created an image from a Buffer!');
               })
-      }
-    //gm().stream('jpg', function (stdout:any) {
-        //risp.setHeader('Content-Type', 'image/jpg');
-        //risp.send(stdout);})
+      
+    image.stream('jpg', function (stdout:any) {
+        risp.setHeader('Content-Type', 'image/jpg');
+        risp.send(stdout);});
+    }
   
 
 

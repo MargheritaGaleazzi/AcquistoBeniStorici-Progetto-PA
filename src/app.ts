@@ -3,7 +3,7 @@ import * as Controller from './controller';
 import { getMsg,MsgEnum } from './Messaggi/messaggi';
 import * as Middleware from './Middleware/middlewareCoR';
 import * as path from 'path';
-import * as contr2 from '../prove_per_immagini/prova1'
+
 
 const applicazione:Application = express();
 applicazione.use(express.json());
@@ -95,10 +95,6 @@ applicazione.get('/VisualizzaCredito/:email', /*aggiungi middleware,*/ function 
     Controller.visualizzaCredito(req.params.email, res);
 });
 
-applicazione.get('/prova/', /*aggiungi middleware,*/ function (req: any, res: any) {
-    var name='https://www.greenme.it/wp-content/uploads/2022/03/gatti.jpg'
-    contr2.prova(name,res)
-});
 
 /*
  * Rotta per la ricaricare i crediti

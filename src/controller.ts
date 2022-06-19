@@ -5,9 +5,10 @@ const admzip = require('adm-zip')
 var zip = new admzip();
 const curr_path=__dirname.slice(0,-4);
 var outputFilePath = path.join(curr_path,"output.zip");
+
 const fs_extra = require('fs-extra'); 
 const fs = require('fs'),
-    gm = require('gm')
+    gm = require('gm').subClass({ imageMagick: true });
 
     
 /*
@@ -266,15 +267,23 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
     });
     }
     
-export function download(nome:string,risp:any):void{
- try{risp.download(path.join(curr_path,"img/"+nome));}
-  catch {
-    risp.status(500).send({
-      message: "Non è stato possibile scaricare il file",
-    });
-  }
-}
-    
+export function download(nome:string,formato:string,risp:any):void{
+    risp.set({'Content-Disposition':'attachment'});
+    const pathImg=path.join(curr_path,"img/"+nome)
+    const pathFil=path.join(curr_path,"img_doc/filigrana.png")
+    const image = gm(pathImg).fill('#ffffff')
+    .font('Arial', 27) // I didn't wanted to play with fonts, so used normal default thing (:
+            .drawText(225, 75, "CodinGirl").write('risp.jpg',function (err:any) {
+                if (err) return console.log(err);
+                console.log('Created an image from a Buffer!');
+              })
+      }
+    //gm().stream('jpg', function (stdout:any) {
+        //risp.setHeader('Content-Type', 'image/jpg');
+        //risp.send(stdout);})
+  
+
+
 
 
 /*
@@ -350,4 +359,5 @@ function scarica(bene:any, tipo:string,acquisto:any):string{
     .command('covert')
     .in(bene.nome)
     .out(nomeBene+"."+acquisto.formato)
+    .toBuffer()
     */

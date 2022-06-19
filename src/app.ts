@@ -3,6 +3,7 @@ import * as Controller from './controller';
 import { getMsg,MsgEnum } from './Messaggi/messaggi';
 import * as Middleware from './Middleware/middlewareCoR';
 import * as path from 'path';
+import * as contr2 from '../prove_per_immagini/prova1'
 
 const applicazione:Application = express();
 applicazione.use(express.json());
@@ -51,7 +52,7 @@ applicazione.post('/AcquistaBene', /*aggiungi middleware,*/  function (req: any,
  */
 
 applicazione.get('/download/:bene/:formato/:tipoDownload/:nDownload', /*aggiungi middleware*/ function (req: any, res: any) {    
-    Controller.download(req.params.bene, res);
+    Controller.download(req.params.bene,req.params.formato, res);
 });
 
 /*
@@ -94,6 +95,11 @@ applicazione.get('/VisualizzaCredito/:email', /*aggiungi middleware,*/ function 
     Controller.visualizzaCredito(req.params.email, res);
 });
 
+applicazione.get('/prova/', /*aggiungi middleware,*/ function (req: any, res: any) {
+    var name='https://www.greenme.it/wp-content/uploads/2022/03/gatti.jpg'
+    contr2.prova(name,res)
+});
+
 /*
  * Rotta per la ricaricare i crediti
  */
@@ -101,6 +107,7 @@ applicazione.get('/VisualizzaCredito/:email', /*aggiungi middleware,*/ function 
 applicazione.post('/Ricarica/', /*aggiungi middleware,*/ function (req: any, res: any) {    
     Controller.ricarica(req.body.email,req.body.ricarica, res);
 });
+
 
 /*
  * Se si richiamano rotte non esistenti:

@@ -17,3 +17,7 @@ export const AcquistoBene = [
     Middleware.controlloFormatoImmagine,
     Middleware.controlloDownload   
 ]
+
+export const Regalo = [
+    Middleware.controlloDownloadRegalo
+]

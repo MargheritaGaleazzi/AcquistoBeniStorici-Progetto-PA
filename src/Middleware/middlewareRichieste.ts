@@ -97,6 +97,22 @@ export function controlloDownload(req: any, res: any, next: any) : void {
     });
 }
 
+export function controlloDownloadRegalo(req: any, res: any, next: any) : void {
+    Acquisto.count({
+        where: { email_compr : req.body.compr, beneId : req.body.id_bene}
+    }).then((risultato: number) => {
+        if (risultato == 0 || risultato == 1){
+            next();
+        }
+        else {
+            console.log("pippo "+risultato)
+            const new_err = getMsg(MsgEnum.ErrProibito).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }
+
+    });
+}
+
 export function ControlloTokenNullo(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.cons).then((utente:any) => {
         if(utente.credito == 0) {

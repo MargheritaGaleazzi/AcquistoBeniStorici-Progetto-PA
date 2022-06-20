@@ -2,31 +2,30 @@ import { Utente,Bene,Acquisto, Modo } from "./models/models";
 import { MsgEnum, getMsg } from "./Messaggi/messaggi";
 import * as path from 'path';
 
-const curr_path=__dirname.slice(0,-4);
-
 const fs = require('fs'),
     gm = require('gm'),
     fs_extra = require('fs-extra'),
     admzip = require('adm-zip');
 
+const curr_path=__dirname.slice(0,-4);
 var zip = new admzip();
  
 /*
- * Funzione che viene richiamata dalle altr funzioni del Controller in caso di errori. 
- * Richiama i metodi della Factory per costruire oggetti da ritornare al client nella risposta.
+ * Funzione che viene richiamata dalle altre funzioni del Controller in caso di errori. 
  * 
- * @param enumError -> Il tipo di errore da costruire
- * @param err -> l'errore a cui si va in contro
+ * @param enumMsg -> Il tipo di messaggio da costruire
+ * @param msg -> la situazione che si verifica
  * @param risp -> Risposta del server
  */
-function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
-    const nuovoErr = getMsg(enumError).getMsg();
-    console.log(err);
-    risp.status(nuovoErr.codice).json({errore:nuovoErr.codice, descrizione:nuovoErr.msg});
+function controllerErrori(enumMsg: MsgEnum, msg: Error, risp: any) {
+    const nuovoMsg = getMsg(enumMsg).getMsg();
+    console.log(msg);
+    risp.status(nuovoMsg.codice).json({errore:nuovoMsg.codice, descrizione:nuovoMsg.msg});
 }
 
 /*
- * Funzione che permette di visualizzare tutti i beni che sono presenti.
+ * Funzione che permette di visualizzare tutti i beni che sono presenti. Applicando 
+ * filtri in base al tipo o all'anno del bene
  * 
  * @param tipo -> il tipo dei beni che si vogliono visualizzare nella risposta
  * @param anno -> l'anno dei beni che si vogliono visualizzare nella risposta
@@ -66,7 +65,11 @@ function controllerErrori(enumError: MsgEnum, err: Error, risp: any) {
 }
 }
 
-
+/*
+ * Funzione che permette di visualizzare tutti i beni che sono presenti
+ * 
+ * @param risp -> la risposta che darà il server
+ */
 export function lista(risp: any): void{
     Bene.findAll().then((risultato: object[]) => {
         const new_res = getMsg(MsgEnum.ListaBeni).getMsg();
@@ -78,7 +81,12 @@ export function lista(risp: any): void{
 
 /*
  * Funzione che permette di ottenere un nuovo link per il bene
- * acquistato
+ * acquistato, di cui si era già quindi avuto un altro link
+ * 
+ * @param id_bene -> numero identificativo del bene di cui si vuole un secondo link
+ * @param formato_bene -> stringa che identifica il formato richiesto dall'acquirente
+ * @param compr -> email dell'utente che vuole acquistare il bene
+ * @param risp -> la risposta che darà il server
  */
 export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:any):void{
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
@@ -98,8 +106,10 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
 }
 
 /*
- * Funzione che permette di vedere gli acquisti
- * di un dato utente
+ * Funzione che permette di vedere gli acquisti che sono stati effettuati e
+ * l'utente che li ha fatti
+ * 
+ * @param risp -> la risposta che darà il server
  */
 export function vediAcquisti(risp:any):void{
     Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
@@ -112,7 +122,12 @@ export function vediAcquisti(risp:any):void{
 
 /*
  * Funzione che permette di acquistare più beni in
- * una volta
+ * una volta e restituisce uno zip contenente tutti i beni
+ * 
+ * @param ids -> array contenente gli id di tutti i beni da acquistare
+ * @param formato_bene -> stringa che identifica il formato richiesto dall'acquirente
+ * @param compr -> email dell'utente che vuole acquistare il bene
+ * @param risp -> la risposta che darà il server
  */
 export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):void{
     risp.set({'Content-Disposition':'attachment'});
@@ -141,6 +156,12 @@ export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,r
 
 /*
  * Funzione che permette di fare un regalo ad un amico
+ *
+ * @param email_amico -> email dell'utente al quale si vuole fare un regalo
+ * @param formato_bene -> stringa che identifica il formato richiesto dall'acquirente
+ * @param compr -> email dell'utente che vuole acquistare il bene
+ * @param id_bene -> id del bene che si vuole regalare
+ * @param risp -> la risposta che darà il server
  */
 export function regalo(email_amico:string,formato_bene:string,compr:string,id_bene:number,risp:any):void{
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
@@ -167,6 +188,9 @@ export function regalo(email_amico:string,formato_bene:string,compr:string,id_be
 /*
  * Funzione che permette di visualizzare il credito
  * residuo di un dato utente
+ * 
+ * @param email -> email dell'utente del quale si vuole sapere il credito residuo
+ * @param risp -> la risposta che darà il server
  */
 export function visualizzaCredito(email:string,risp:any):void{
     Utente.findByPk(email).then((utente:any)=>{
@@ -181,6 +205,10 @@ export function visualizzaCredito(email:string,risp:any):void{
 /*
  * Funzione che permette all'amministratore di ricaricare
  * il credito di un dato utente
+ * 
+ * @param email -> email dell'utente al quale si vuole ricaricare il credito
+ * @param ricarica -> il numero di crediti che gli si vogliono dare
+ * @param risp -> la risposta che darà il server
  */
 export function ricarica(email:string,ricarica:number,risp:any):void{
     Utente.increment("credito",{by:ricarica,where: { email: email }}).then((utente:any)=>{
@@ -191,8 +219,11 @@ export function ricarica(email:string,ricarica:number,risp:any):void{
     });
 }
 
-/***
+/*
  * Funzione per verificare la presenza delle immagini
+ * 
+ * @param curr_path -> percorso della cartella nella quale è contenuto il programma
+ * @param url -> url dal quale scaricare lo zip contenente le immagini
  */ 
 export function PresenzaImmagini(curr_path: string, url:any):void {
     fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), (exists:any) => {
@@ -212,8 +243,10 @@ export function PresenzaImmagini(curr_path: string, url:any):void {
     });
 }
 
-/***
+/*
  * Funzione per estrarre le immagini dallo zip
+ * 
+ * @param curr_path -> percorso della cartella nella quale è contenuto il programma
 */  
 export function EstrazioneImmagini(curr_path: string) {
     var unzip = require('unzip-stream');
@@ -228,9 +261,13 @@ export function EstrazioneImmagini(curr_path: string) {
     }
 }
 
-
 /*
  * Funzione che permette di acquistare un bene
+ *
+ * @param id_bene -> numero che identifica il bene da acquistare
+ * @param formato_bene -> stringa che identifica il formato richiesto dall'acquirente
+ * @param compr -> email dell'utente che vuole acquistare il bene
+ * @param risp -> la risposta che darà il server
  */
 export function acquistaBene(id_bene:number,formato_bene:string,compr:string, risp:any):void{
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
@@ -248,7 +285,14 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
         });
     });
 }
-    
+
+/*
+ * Funzione che permette eseguire il download di un bene acquistato
+ *
+ * @param nome -> nome del bene acquistato
+ * @param formato -> stringa che identifica il formato richiesto dall'acquirente
+ * @param risp -> la risposta che darà il server
+ */
 export function download(nome:string,formato:string,risp:any):void{
     const pathImg=path.join(curr_path,"img/"+nome);
     gm(pathImg).gravity('Center')
@@ -266,4 +310,5 @@ export function download(nome:string,formato:string,risp:any):void{
   
 // File .zip contenente le immagini, salvato su DropBox
 var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
+//chiamata alla funzione che verifica la presenza delle immagini e le scarica se necessario
 PresenzaImmagini(curr_path,url);

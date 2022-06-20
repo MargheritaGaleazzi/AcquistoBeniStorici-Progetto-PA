@@ -299,8 +299,8 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
 export function download(nome:string,formato:string,risp:any):void{
     const pathImg=path.join(curr_path,"img/"+nome);
     try {gm(pathImg).gravity('Center')
-        .fill('#ffffff')
-        .font('Arial', 27) 
+        .fill('#ff0080')
+        .font(path.join(curr_path,'img/Black Ravens.ttf'), 40) 
         .drawText(0, 0, "CodinGirl")
         .toBuffer('PNG',function (err:any, buffer:any) {
             if (err) return console.log('err');

@@ -14,5 +14,6 @@ export const AcquistoBene = [
     Middleware.ControlloTokenNullo,
     Middleware.ControlloCredito,
     Middleware.controlloAcquistoBene,
-    Middleware.controlloFormatoImmagine   
+    Middleware.controlloFormatoImmagine,
+    Middleware.controlloDownload   
 ]

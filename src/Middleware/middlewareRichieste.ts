@@ -1,7 +1,7 @@
 require('dotenv').config();
 import * as jwt from 'jsonwebtoken';
 import { JsonObjectExpression } from 'typescript';
-import { getMsg,MsgEnum } from '../Messaggi/messaggi';
+import { getMsg,MsgEnum } from '../Factory/messaggi';
 import { Utente} from "../models/models";
 
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {

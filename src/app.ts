@@ -1,6 +1,6 @@
 import express,{Application} from 'express';
 import * as Controller from './controller';
-import { getMsg,MsgEnum } from './Messaggi/messaggi';
+import { getMsg,MsgEnum } from './Factory/messaggi';
 import * as Middleware from './Middleware/middlewareCoR';
 import * as path from 'path';
 import { controlloAcquistoBene } from './Middleware/middlewareRichieste';

@@ -1,5 +1,5 @@
 import { Utente,Bene,Acquisto, Modo } from "./models/models";
-import { MsgEnum, getMsg } from "./Messaggi/messaggi";
+import { MsgEnum, getMsg } from "./Factory/messaggi";
 import * as path from 'path';
 
 const fs = require('fs'),

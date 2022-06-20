@@ -1,4 +1,4 @@
-import { Utente,Bene,Acquisto, Modo } from "./models/models";
+import { Utente,Bene,Acquisto} from "./models/models";
 import { MsgEnum, getMsg } from "./Factory/messaggi";
 import * as path from 'path';
 
@@ -89,13 +89,11 @@ export function lista(risp: any): void{
  * @param risp -> la risposta che darà il server
  */
 export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:any):void{
-    Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
-        Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download aggiuntivo"});
+    Acquisto.create({formato:formato_bene,email_compr:compr,id_bene:id_bene,tipo_acq:"download aggiuntivo"}).then((acquisto:any)=>{
         Bene.findByPk(id_bene).then((bene:any)=>{
             Utente.decrement("credito",{by:1,where: { email: compr }});
-            bene.nDownload+=1;
             bene.save();
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo/"+bene.nDownload;
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo";
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink};
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
@@ -112,20 +110,13 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
  * @param risp -> la risposta che darà il server
  */
 export function vediAcquisti(risp:any):void{
-   // Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
-    //Acquisto.findAll({include:{model:Utente,include:{model:modo}}}).then((acquisti:any)=>{
     Acquisto.findAll({include:[
         {
             model:Utente,
             attributes:{ exclude: ['ruolo','credito'] },
             order:[[Utente,'email','ASC']]
         },{
-            model:Modo,
-            attributes: ['tipo_acq'],
-            include:[{
-                model:Bene,
-                attributes:{ exclude: ['nDownload'] }
-            }]
+            model:Bene,
         }],attributes: { exclude: ['email_compr','utenteEmail']}}).then((acquisti:any)=>{
         const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:acquisti});
@@ -149,12 +140,20 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
     var i:number=1;
     ids.forEach(async id => {
         risp.headersSet=false
-        await Acquisto.create({formato:formato_bene,email_compr:compr}).then(async (acquisto:any)=>{
-            await Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
+        var ac = await Acquisto.count({where:{email_compr:compr,beneId:id}});
+        var tipo:String;
+        if (ac==0){
+            tipo = "download originale"
+        } else {
+            tipo = "download aggiuntivo"
+        }
+        await Acquisto.create({formato:formato_bene,email_compr:compr,id_bene:id,tipo_acq:tipo}).then(async (acquisto:any)=>{
             await Bene.findByPk(id).then(async (bene:any)=>{
-                await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
-                bene.nDownload+=1;
-                await bene.save();
+                if(ac==0){
+                    await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
+                } else {
+                    await Utente.decrement("credito",{by:1,where: { email: compr }});
+                }
                 const image=curr_path+"\\img\\"+bene.nome;
                 const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
                 var tipo=selFormato(formato_bene)
@@ -177,9 +176,6 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
-    console.log(i)
-        
-        //i++
     });
 }
 
@@ -192,19 +188,18 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
  * @param id_bene -> id del bene che si vuole regalare
  * @param risp -> la risposta che darà il server
  */
-export function regalo(email_amico:string,formato_bene:string,compr:string,id_bene:number,risp:any):void{
-    Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
-        Bene.findByPk(id_bene).then((bene:any)=>{
-            if (bene.nDownload==0){
-                Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download originale"});
-            } else{
-                Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download aggiuntivo"});
-            }
+export async function regalo(email_amico:string,formato_bene:string,compr:string,id_bene:number,risp:any):Promise<void>{
+    var tipo:String
+    var ac = await Acquisto.count({where:{email_compr:compr,beneId:id_bene}});
+        if (ac==0){
+            tipo = "download originale"
+        } else {
+            tipo = "download aggiuntivo"
+        }
+    await Acquisto.create({formato:formato_bene,email_compr:compr,id_bene:id_bene,tipo_acq:tipo}).then(async (acquisto:any)=>{
+        await Bene.findByPk(id_bene).then((bene:any)=>{
             Utente.decrement("credito",{by:bene.prezzo+0.5,where: { email: compr }});
-            bene.nDownload+=1;
-            bene.save();
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo/"+bene.nDownload
-            const nome="/img/"+bene.nome.toString();
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo"
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, regalato_a:email_amico,formato:acquisto.formato, link:urLink}
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
@@ -299,13 +294,10 @@ export function EstrazioneImmagini(curr_path: string) {
  * @param risp -> la risposta che darà il server
  */
 export function acquistaBene(id_bene:number,formato_bene:string,compr:string, risp:any):void{
-    Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
-        Modo.create({acquistoId:acquisto.id,beneId:id_bene,tipo_acq:"download originale"});
+    Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download originale"}).then((acquisto:any)=>{
         Bene.findByPk(id_bene).then((bene:any)=>{
             Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
-            //bene.nDownload+=1;
-            //bene.save();
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadOriginale/"+contaAcqPrec(compr,id_bene)
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadOriginale"
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink};
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
@@ -359,16 +351,7 @@ function selFormato(formato:string):string{
     return tipo;
 }
 
-export function contaAcqPrec(id_compr:string,id_bene:number):number{
-    var acquisti=Acquisto.findAll({where:{email_compr:id_compr},attributes: ['id']});
-    console.log(acquisti)
-        /*acquisti.forEach(acquisto => {
-            return Modo.count({
-                where:{beneId:id_bene,acquistoId:acquisto.id}
-            })
-        });*/
-        return 0
-}
+
 
 // File .zip contenente le immagini, salvato su DropBox
 var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";

@@ -1,9 +1,7 @@
 DROP TABLE IF EXISTS
-    `modo`;
+    `acquisto`;
 DROP TABLE IF EXISTS
     `bene`;
-DROP TABLE IF EXISTS
-    `acquisto`;
 DROP TABLE IF EXISTS
     `utente`;
 CREATE TABLE `utente`(
@@ -28,19 +26,14 @@ CREATE TABLE `utente`(
     `id` INT(10) NOT NULL AUTO_INCREMENT,
     `formato` ENUM('jpg', 'tiff', 'png') DEFAULT 'jpg',
     `email_compr` VARCHAR(35) NOT NULL,
-    PRIMARY KEY(`id`),
-    FOREIGN KEY(`email_compr`) REFERENCES `utente`(`email`) ON DELETE CASCADE ON UPDATE CASCADE
-); CREATE TABLE `modo`(
-    `id` INT(10) NOT NULL AUTO_INCREMENT,
-    `acquistoId` INT(10) NOT NULL,
     `beneId` INT(10) NOT NULL,
     `tipo_acq` ENUM(
         'download originale',
         'download aggiuntivo'
     ) DEFAULT 'download originale',
     PRIMARY KEY(`id`),
-    FOREIGN KEY(`acquistoId`) REFERENCES `acquisto`(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(`beneId`) REFERENCES `bene`(id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(`email_compr`) REFERENCES `utente`(`email`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(`beneId`) REFERENCES `bene`(id) ON DELETE CASCADE ON UPDATE CASCADE 
 ); INSERT INTO `utente`(
     `email`,
     `username`,
@@ -130,7 +123,5 @@ VALUES(
     800,
     85
 );
-INSERT INTO `acquisto`(`id`, `formato`, `email_compr`)
-VALUES(1, 'jpg', 'rossiMario@gmail.com'),(2, 'png', 'giovi@alice.it'),(3, 'jpg', 'giovi@alice.it');
-INSERT INTO `modo`(`acquistoId`, `beneId`, `tipo_acq`)
-VALUES(1, 1, 'download origiale'),(2, 4, 'download originale'),(3, 4, 'download aggiuntivo');
+INSERT INTO `acquisto`(`id`, `formato`, `email_compr`, `beneId`, `tipo_acq`)
+VALUES(1, 'jpg', 'rossiMario@gmail.com', 1, 'download origiale'),(2, 'png', 'giovi@alice.it', 4, 'download originale'),(3, 'jpg', 'giovi@alice.it', 4, 'download aggiuntivo');

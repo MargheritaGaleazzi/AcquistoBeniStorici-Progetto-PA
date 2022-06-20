@@ -19,31 +19,35 @@ console.log("seeding completato")
  * Sequelize.
  */
 
-
-export const Modo = sequelize.define('modo',{
+//modella l'acquisto
+export const Acquisto = sequelize.define('acquisto',{
     id:{
-        type:DataTypes.INTEGER,
-        primaryKey:true,
-        autoIncrement:true
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
-    acquistoId:{
-        type:DataTypes.INTEGER,
+    formato:{
+        type: DataTypes.ENUM("jpg","tiff","png"),
+        allowNull: false
+    },
+    email_compr:{
+        type:DataTypes.STRING(35),
         allowNull: false
     },
     beneId:{
         type:DataTypes.INTEGER,
+        primaryKey:true,
         allowNull:false
     },
     tipo_acq:{
         type:DataTypes.ENUM("download originale", "download aggiuntivo"),
         defaultValue: "download originale"
-    },
-
+    }
 },
 {
-    modelName: 'modo',
-    timestamps:false,
-    freezeTableName:true
+    modelName: 'acquisto',
+    timestamps: false,
+    freezeTableName: true
 });
 
 //Modella il bene
@@ -79,41 +83,12 @@ export const Bene = sequelize.define('bene', {
     timestamps: false,
     freezeTableName: true
 });
-Bene.hasMany(Modo, {
+Bene.hasMany(Acquisto, {
     foreignKey: {
         field:'beneId',
       }
   });
-Modo.belongsTo(Bene);
-
-//modella l'acquisto
-export const Acquisto = sequelize.define('acquisto',{
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    formato:{
-        type: DataTypes.ENUM("jpg","tiff","png"),
-        allowNull: false
-    },
-    email_compr:{
-        type:DataTypes.STRING(35),
-        allowNull: false
-    }
-},
-{
-    modelName: 'acquisto',
-    timestamps: false,
-    freezeTableName: true
-});
-
-Acquisto.hasMany(Modo,{
-    foreignKey: {
-        field:'acquistoId',
-      }
-  });
-Modo.belongsTo(Acquisto);
+Acquisto.belongsTo(Bene);
 
 //Modella l'utente
 export const Utente = sequelize.define('utente',{

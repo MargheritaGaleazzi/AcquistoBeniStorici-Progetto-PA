@@ -6,6 +6,8 @@ import { Utente, Bene} from "../models/models";
 
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {
     if ((typeof req.body.tipo == 'string' && 
+        typeof req.body.anno == 'number') || (typeof req.body.tipo == 'string' && 
+        req.body.anno == null) || (req.body.tipo == null && 
         typeof req.body.anno == 'number')) {
         next();
         }
@@ -76,6 +78,14 @@ export function ControlloCredito(req: any, res: any, next: any) : void {
         });
     });
 }
+
+export function controlloDownload(req: any, res: any, next: any) : void {
+
+}
+
+
+
+
 
 export function ControlloTokenNullo(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.cons).then((utente:any) => {

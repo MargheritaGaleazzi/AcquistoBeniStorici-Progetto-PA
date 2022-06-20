@@ -89,18 +89,17 @@ export function lista(risp: any): void{
  * @param risp -> la risposta che darà il server
  */
 export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:any):void{
-    Acquisto.create({formato:formato_bene,email_compr:compr,id_bene:id_bene,tipo_acq:"download aggiuntivo"}).then((acquisto:any)=>{
+    Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download aggiuntivo"}).then((acquisto:any)=>{
         Bene.findByPk(id_bene).then((bene:any)=>{
-            Utente.decrement("credito",{by:1,where: { email: compr }});
-            bene.save();
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo";
+            Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo"
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink};
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
         }).catch((error) => {
             controllerErrori(MsgEnum.ErrServer, error, risp);
         });
-        });
+    });
 }
 
 /*
@@ -140,20 +139,10 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
     var i:number=1;
     ids.forEach(async id => {
         risp.headersSet=false
-        var ac = await Acquisto.count({where:{email_compr:compr,beneId:id}});
-        var tipo:String;
-        if (ac==0){
-            tipo = "download originale"
-        } else {
-            tipo = "download aggiuntivo"
-        }
-        await Acquisto.create({formato:formato_bene,email_compr:compr,id_bene:id,tipo_acq:tipo}).then(async (acquisto:any)=>{
-            await Bene.findByPk(id).then(async (bene:any)=>{
-                if(ac==0){
-                    await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
-                } else {
-                    await Utente.decrement("credito",{by:1,where: { email: compr }});
-                }
+        await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id,tipo_acq:"download originale"}).then(async (acquisto:any)=>{
+            //await Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
+    await Bene.findByPk(id).then(async (bene:any)=>{
+        await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
                 const image=curr_path+"\\img\\"+bene.nome;
                 const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
                 var tipo=selFormato(formato_bene)
@@ -172,12 +161,17 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
                     i++
                     })
         });
-    
+
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
+    console.log(i)
+
+        //i++
     });
 }
+
+
 
 /*
  * Funzione che permette di fare un regalo ad un amico
@@ -196,7 +190,7 @@ export async function regalo(email_amico:string,formato_bene:string,compr:string
         } else {
             tipo = "download aggiuntivo"
         }
-    await Acquisto.create({formato:formato_bene,email_compr:compr,id_bene:id_bene,tipo_acq:tipo}).then(async (acquisto:any)=>{
+    await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:tipo}).then(async (acquisto:any)=>{
         await Bene.findByPk(id_bene).then((bene:any)=>{
             Utente.decrement("credito",{by:bene.prezzo+0.5,where: { email: compr }});
             const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo"

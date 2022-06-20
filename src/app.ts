@@ -61,7 +61,7 @@ applicazione.get('/download/:bene/:formato/:tipoDownload', /*aggiungi middleware
  */
 
 applicazione.post('/NuovoLink', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.nuovoLink(req.body.id,req.body.formato,req.body.cons, res);
+    Controller.nuovoLink(req.body.id_bene,req.body.formato,req.body.cons, res);
 });
 
 /*

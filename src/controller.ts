@@ -300,12 +300,12 @@ export function EstrazioneImmagini(curr_path: string) {
  */
 export function acquistaBene(id_bene:number,formato_bene:string,compr:string, risp:any):void{
     Acquisto.create({formato:formato_bene,email_compr:compr}).then((acquisto:any)=>{
-        Modo.create({id_acquisto:acquisto.id,id_bene:id_bene,tipo_acq:"download originale"});
+        Modo.create({acquistoId:acquisto.id,beneId:id_bene,tipo_acq:"download originale"});
         Bene.findByPk(id_bene).then((bene:any)=>{
             Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
-            bene.nDownload+=1;
-            bene.save();
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadOriginale/"+bene.nDownload
+            //bene.nDownload+=1;
+            //bene.save();
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadOriginale/"+contaAcqPrec(compr,id_bene)
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink};
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
@@ -357,6 +357,17 @@ function selFormato(formato:string):string{
             break;
     }
     return tipo;
+}
+
+export function contaAcqPrec(id_compr:string,id_bene:number):number{
+    var acquisti=Acquisto.findAll({where:{email_compr:id_compr},attributes: ['id']});
+    console.log(acquisti)
+        /*acquisti.forEach(acquisto => {
+            return Modo.count({
+                where:{beneId:id_bene,acquistoId:acquisto.id}
+            })
+        });*/
+        return 0
 }
 
 // File .zip contenente le immagini, salvato su DropBox

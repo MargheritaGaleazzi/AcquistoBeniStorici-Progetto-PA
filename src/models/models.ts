@@ -37,7 +37,8 @@ export const Modo = sequelize.define('modo',{
     tipo_acq:{
         type:DataTypes.ENUM("download originale", "download aggiuntivo"),
         defaultValue: "download originale"
-    }
+    },
+
 },
 {
     modelName: 'modo',
@@ -68,10 +69,10 @@ export const Bene = sequelize.define('bene', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    nDownload:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+    //nDownload:{
+    //    type: DataTypes.INTEGER,
+    //    allowNull: false
+    //}
 },
 {
     modelName: 'bene',

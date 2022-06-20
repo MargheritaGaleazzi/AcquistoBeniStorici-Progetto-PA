@@ -3,7 +3,7 @@ import * as Controller from './controller';
 import { getMsg,MsgEnum } from './Factory/messaggi';
 import * as Middleware from './Middleware/middlewareCoR';
 import * as path from 'path';
-import { controlloAcquistoBene } from './Middleware/middlewareRichieste';
+//import { controlloAcquistoBene } from './Middleware/middlewareRichieste';
 const bodyParser = require('body-parser');
 
 const applicazione:Application = express();
@@ -44,7 +44,7 @@ applicazione.get('/Lista', /*aggiungi middleware,*/ function (req: any, res: any
  * Rotta per acquistare un bene
  */
 
-applicazione.post('/AcquistaBene', Middleware.AcquistoBene,  function (req: any, res: any) {    
+applicazione.post('/AcquistaBene', /*Middleware.AcquistoBene,*/  function (req: any, res: any) {    
     Controller.acquistaBene(req.body.id_bene,req.body.formato,req.body.cons, res);
 });
 

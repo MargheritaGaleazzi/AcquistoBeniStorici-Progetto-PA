@@ -117,10 +117,16 @@ export function vediAcquisti(risp:any):void{
     Acquisto.findAll({include:[
         {
             model:Utente,
+            attributes:{ exclude: ['ruolo','credito'] },
             order:[[Utente,'email','ASC']]
         },{
             model:Modo,
-        }]}).then((acquisti:any)=>{
+            attributes: ['tipo_acq'],
+            include:[{
+                model:Bene,
+                attributes:{ exclude: ['nDownload'] }
+            }]
+        }],attributes: { exclude: ['email_compr','utenteEmail']}}).then((acquisti:any)=>{
         const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:acquisti});
     }).catch((error) => {

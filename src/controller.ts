@@ -109,7 +109,9 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
  * @param risp -> la risposta che darà il server
  */
 export function vediAcquisti(risp:any):void{
-    Acquisto.findAll({include:[
+    Acquisto.findAll({
+        where:{},
+        include:[
         {
             model:Utente,
             attributes:{ exclude: ['ruolo','credito'] },
@@ -195,16 +197,9 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
  * @param risp -> la risposta che darà il server
  */
 export async function regalo(email_amico:string,formato_bene:string,compr:string,id_bene:number,risp:any):Promise<void>{
-    var tipo:String
-    var ac = await Acquisto.count({where:{email_compr:compr,beneId:id_bene}});
-        if (ac==0){
-            tipo = "download originale"
-        } else {
-            tipo = "download aggiuntivo"
-        }
-    await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:tipo}).then(async (acquisto:any)=>{
-        await Bene.findByPk(id_bene).then((bene:any)=>{
-            Utente.decrement("credito",{by:bene.prezzo+0.5,where: { email: compr }});
+    await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download aggiuntivo"}).then((acquisto:any)=>{
+         Bene.findByPk(id_bene).then((bene:any)=>{
+             Utente.decrement("credito",{by:bene.prezzo+0.5,where: { email: compr }});
             const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo"
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, regalato_a:email_amico,formato:acquisto.formato, link:urLink}
@@ -212,7 +207,7 @@ export async function regalo(email_amico:string,formato_bene:string,compr:string
         }).catch((error) => {
             controllerErrori(MsgEnum.ErrServer, error, risp);
         });
-        });
+    });
 }
 
 /*

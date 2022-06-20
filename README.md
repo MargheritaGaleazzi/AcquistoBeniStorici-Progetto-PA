@@ -184,6 +184,8 @@ La funzione middleware successiva è comunemente indicata da una variabile denom
 
 ## Come avviare il progetto
 
+Per eseguire il programma il computer su cui lo si vuole eseguire deve avere installato il programma [GraphicsMagick](http://www.graphicsmagick.org/)
+
 ## Testing
 
 ## Autori

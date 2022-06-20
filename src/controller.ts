@@ -298,11 +298,12 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
  */
 export function download(nome:string,formato:string,risp:any):void{
     const pathImg=path.join(curr_path,"img/"+nome);
+    var tipo:string=selFormato(formato);
     try {gm(pathImg).gravity('Center')
         .fill('#ff0080')
         .font(path.join(curr_path,'img/Black Ravens.ttf'), 40) 
         .drawText(0, 0, "CodinGirl")
-        .toBuffer('PNG',function (err:any, buffer:any) {
+        .toBuffer(tipo,function (err:any, buffer:any) {
             if (err) return console.log('err');
             risp.set('Content-Disposition','attachment')
             risp.end(buffer);
@@ -314,6 +315,22 @@ export function download(nome:string,formato:string,risp:any):void{
             controllerErrori(MsgEnum.ErrServer, error, risp);
         });
     }
+}
+
+function selFormato(formato:string):string{
+    var tipo:string='';
+    switch(formato){
+        case 'png':
+            tipo='PNG';
+            break;
+        case 'jpg':
+            tipo='JPG';
+            break;
+        case 'tiff':
+            tipo='TIFF';
+            break;
+    }
+    return tipo;
 }
   
 // File .zip contenente le immagini, salvato su DropBox

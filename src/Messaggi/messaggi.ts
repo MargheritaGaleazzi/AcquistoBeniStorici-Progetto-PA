@@ -42,16 +42,6 @@ class ErrPaylodMalformato implements Msg {
     }
 }
 
-//errore che viene lanciato quando il payload è malformato
-class ErrInserimentoValori implements Msg {
-    getMsg(): { codice: number; msg: string; } {
-        return {
-            codice: 400,
-            msg: "Richiesta Errata - Il tipo di valore inserito non risulta essere corretto."
-        }
-    }
-}
-
 //errore che viene lanciato quando si ha una richiesta errata
 class ErrRichiestaErrata implements Msg {
     getMsg(): { codice: number; msg: string; } {
@@ -146,23 +136,12 @@ class ErrUtenteNonTrovato implements Msg {
     }
 }
 
-//errore che viene lanciato nel caso in cui si vuole filtrare per una categoria inesistente
-class ErrFiltroNonTrovato implements Msg {
+//errore che viene lanciato quando il payload è malformato
+class ErrInserimentoFiltriValori implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
             codice: 404,
-            msg: "ERRORE - Filtro non esistente"
-        }
-    }
-}
-
-//errore che viene lanciato nel caso in cui non vengono trovati beni
-//ad esempio dopo aver filtrato
-class ErrBeniNonTrovati implements Msg {
-    getMsg(): { codice: number; msg: string; } {
-        return {
-            codice: 404,
-            msg: "ERRORE - Beni non trovati"
+            msg: "ERRORE - I filtri e/o i valori inseriti non risultato essere corretti."
         }
     }
 }
@@ -254,9 +233,7 @@ export enum MsgEnum {
     ErrProibito,
     ErrNonTrovato,
     ErrUtenteNonTrovato,
-    ErrFiltroNonTrovato,
-    ErrInserimentoValori,
-    ErrBeniNonTrovati,
+    ErrInserimentoFiltriValori,
     ErrFormatoNonEsistente,
     ErrServer,
     ErrServizioNonDisp,
@@ -286,21 +263,15 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.ErrUtenteNonTrovato:
             val = new ErrUtenteNonTrovato();
-            break; 
-        case MsgEnum.ErrFiltroNonTrovato:
-            val = new ErrFiltroNonTrovato();
             break;
-        case MsgEnum.ErrBeniNonTrovati:
-            val = new ErrBeniNonTrovati();
-            break; 
         case MsgEnum.ErrFormatoNonEsistente:
             val = new ErrFormatoNonEsistente();
             break; 
         case MsgEnum.ErrPaylodMalformato:
             val = new ErrPaylodMalformato();
             break;
-        case MsgEnum.ErrInserimentoValori:
-            val = new ErrInserimentoValori();
+        case MsgEnum.ErrInserimentoFiltriValori:
+            val = new ErrInserimentoFiltriValori();
             break;
         case MsgEnum.ErrTokenNonSufficienti:
             val = new ErrTokenNonSufficienti();

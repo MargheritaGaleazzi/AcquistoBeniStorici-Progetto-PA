@@ -4,15 +4,12 @@ import { getMsg,MsgEnum } from '../Messaggi/messaggi';
 
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {
     if ((typeof req.body.tipo == 'string' && 
-        typeof req.body.anno == 'number') || (typeof req.body.tipo == 'string' && 
-        req.body.anno == null) || (req.body.tipo == null && 
         typeof req.body.anno == 'number')) {
         next();
         }
     else if (!req.body.risultato) {
-            const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+            const new_err = getMsg(MsgEnum.ErrInserimentoFiltriValori).getMsg();
             next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-           // next();
     }
 }
 

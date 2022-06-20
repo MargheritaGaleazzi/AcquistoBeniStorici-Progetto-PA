@@ -10,6 +10,8 @@ const fs_extra = require('fs-extra');
 const fs = require('fs'),
     gm = require('gm')
  
+//a me funziona
+    
 /*
  * Funzione che viene richiamata dalle altr funzioni del Controller in caso di errori. 
  * Richiama i metodi della Factory per costruire oggetti da ritornare al client nella risposta.

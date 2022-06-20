@@ -2,7 +2,7 @@ require('dotenv').config();
 import * as jwt from 'jsonwebtoken';
 import { JsonObjectExpression } from 'typescript';
 import { getMsg,MsgEnum } from '../Factory/messaggi';
-import { Utente} from "../models/models";
+import { Utente, Bene} from "../models/models";
 
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {
     if ((typeof req.body.tipo == 'string' && 
@@ -63,6 +63,19 @@ export function controlloPresenzaUtente(req: any, res: any, next: any) : void {
     });
 }
 
+export function ControlloCredito(req: any, res: any, next: any) : void {
+    Utente.findByPk(req.body.cons).then((utente:any) => {
+        Bene.findByPk(req.body.id_bene).then((bene:any) => {
+            if(bene.prezzo <= utente.credito){
+                next();
+            }
+            else {
+                const new_err = getMsg(MsgEnum.ErrTokenNonSufficienti).getMsg();
+                next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+            }
+        })
+    })
+}
 
 export function verificaAuthorization (req: any, res: any, next: any): void{
     if (req.headers.authorization) next();

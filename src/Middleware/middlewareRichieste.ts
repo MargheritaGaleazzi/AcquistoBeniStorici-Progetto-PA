@@ -1,6 +1,6 @@
 require('dotenv').config();
 import * as jwt from 'jsonwebtoken';
-import { MsgEnum } from '../Messaggi/messaggi';
+import { getMsg,MsgEnum } from '../Messaggi/messaggi';
 
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {
     if ((typeof req.body.tipo == 'string' && 
@@ -9,17 +9,10 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
         typeof req.body.anno == 'number')) {
         next();
         }
-    else next(MsgEnum.ErrPaylodMalformato);
-}
-
-export function verificaJSONPayload(req: any, res: any, next: any): void{
-    try {
-        req.body = JSON.parse(JSON.stringify(req.body));
-        console.log(req.body);
-        next();
-    } catch (error) { 
-        next(MsgEnum.ErrPaylodMalformato);
-        return;
+    else if (!req.body.risultato) {
+            const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+           // next();
     }
 }
 

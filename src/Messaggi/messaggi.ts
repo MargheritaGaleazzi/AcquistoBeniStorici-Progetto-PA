@@ -42,6 +42,16 @@ class ErrPaylodMalformato implements Msg {
     }
 }
 
+//errore che viene lanciato quando il payload è malformato
+class ErrInserimentoValori implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 400,
+            msg: "Richiesta Errata - Il tipo di valore inserito non risulta essere corretto."
+        }
+    }
+}
+
 //errore che viene lanciato quando si ha una richiesta errata
 class ErrRichiestaErrata implements Msg {
     getMsg(): { codice: number; msg: string; } {
@@ -245,6 +255,7 @@ export enum MsgEnum {
     ErrNonTrovato,
     ErrUtenteNonTrovato,
     ErrFiltroNonTrovato,
+    ErrInserimentoValori,
     ErrBeniNonTrovati,
     ErrFormatoNonEsistente,
     ErrServer,
@@ -287,6 +298,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break; 
         case MsgEnum.ErrPaylodMalformato:
             val = new ErrPaylodMalformato();
+            break;
+        case MsgEnum.ErrInserimentoValori:
+            val = new ErrInserimentoValori();
             break;
         case MsgEnum.ErrTokenNonSufficienti:
             val = new ErrTokenNonSufficienti();

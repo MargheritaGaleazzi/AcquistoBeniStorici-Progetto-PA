@@ -26,11 +26,11 @@ export const Modo = sequelize.define('modo',{
         primaryKey:true,
         autoIncrement:true
     },
-    id_acquisto:{
+    acquistoId:{
         type:DataTypes.INTEGER,
         allowNull: false
     },
-    id_bene:{
+    beneId:{
         type:DataTypes.INTEGER,
         allowNull:false
     },
@@ -78,12 +78,12 @@ export const Bene = sequelize.define('bene', {
     timestamps: false,
     freezeTableName: true
 });
-Bene.hasMany(Modo);
-Modo.belongsTo(Bene, {
+Bene.hasMany(Modo, {
     foreignKey: {
-      name: 'id_bene'
-    }
+        field:'beneId',
+      }
   });
+Modo.belongsTo(Bene);
 
 //modella l'acquisto
 export const Acquisto = sequelize.define('acquisto',{
@@ -107,12 +107,12 @@ export const Acquisto = sequelize.define('acquisto',{
     freezeTableName: true
 });
 
-Acquisto.hasMany(Modo);
-Modo.belongsTo(Acquisto, {
+Acquisto.hasMany(Modo,{
     foreignKey: {
-      name: 'id_acquisto'
-    }
+        field:'acquistoId',
+      }
   });
+Modo.belongsTo(Acquisto);
 
 //Modella l'utente
 export const Utente = sequelize.define('utente',{

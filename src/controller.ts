@@ -112,7 +112,15 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
  * @param risp -> la risposta che darà il server
  */
 export function vediAcquisti(risp:any):void{
-    Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
+   // Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
+    //Acquisto.findAll({include:{model:Utente,include:{model:modo}}}).then((acquisti:any)=>{
+    Acquisto.findAll({include:[
+        {
+            model:Utente,
+            order:[[Utente,'email','ASC']]
+        },{
+            model:Modo,
+        }]}).then((acquisti:any)=>{
         const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:acquisti});
     }).catch((error) => {
@@ -192,7 +200,7 @@ export function regalo(email_amico:string,formato_bene:string,compr:string,id_be
             const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo/"+bene.nDownload
             const nome="/img/"+bene.nome.toString();
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
-            var link={bene:bene.nome, formato:acquisto.formato, link:urLink}
+            var link={bene:bene.nome, regalato_a:email_amico,formato:acquisto.formato, link:urLink}
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
         }).catch((error) => {
             controllerErrori(MsgEnum.ErrServer, error, risp);

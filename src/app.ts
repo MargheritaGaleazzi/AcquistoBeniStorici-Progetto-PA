@@ -3,7 +3,7 @@ import * as Controller from './controller';
 import { getMsg,MsgEnum } from './Messaggi/messaggi';
 import * as Middleware from './Middleware/middlewareCoR';
 import * as path from 'path';
-
+const bodyParser = require('body-parser');
 
 const applicazione:Application = express();
 applicazione.use(express.json());
@@ -51,7 +51,7 @@ applicazione.post('/AcquistaBene', /*aggiungi middleware,*/  function (req: any,
  * Rotta per scaricare un bene acquistato
  */
 
-applicazione.get('/download/:bene/:formato/:tipoDownload/:nDownload', /*aggiungi middleware*/ function (req: any, res: any) {    
+applicazione.get('/download/:bene/:formato/:tipoDownload/:nDownload', /*aggiungi middleware*/ bodyParser.raw({ type: ['image/jpeg', 'image/png']}),function (req: any, res: any) {    
     Controller.download(req.params.bene,req.params.formato, res);
 });
 

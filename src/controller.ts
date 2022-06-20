@@ -139,10 +139,22 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
     var i:number=1;
     ids.forEach(async id => {
         risp.headersSet=false
-        await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id,tipo_acq:"download originale"}).then(async (acquisto:any)=>{
-            //await Modo.create({id_acquisto:acquisto.id,id_bene:id,tipo_acq:"download originale"});
+        var tipo:String
+    var ac = await Acquisto.count({where:{email_compr:compr,beneId:id}});
+        if (ac==0){
+            tipo = "download originale"
+        } else {
+            tipo = "download aggiuntivo"
+        }
+        await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id,tipo_acq:tipo}).then(async (acquisto:any)=>{
     await Bene.findByPk(id).then(async (bene:any)=>{
-        await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
+        var prezzo:number
+        if (ac==0){
+            prezzo=bene.prezzo
+        } else {
+            prezzo=1
+        }
+        await Utente.decrement("credito",{by:prezzo,where: { email: compr }});
                 const image=curr_path+"\\img\\"+bene.nome;
                 const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
                 var tipo=selFormato(formato_bene)

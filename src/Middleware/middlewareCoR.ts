@@ -10,8 +10,9 @@ export const FiltroTipoAnno = [
 ];
 
 export const AcquistoBene = [
-    Middleware.controlloAcquistoBene,
-    Middleware.controlloFormatoImmagine,
     Middleware.controlloPresenzaUtente,
-    Middleware.ControlloCredito
+    Middleware.ControlloTokenNullo,
+    Middleware.ControlloCredito,
+    Middleware.controlloAcquistoBene,
+    Middleware.controlloFormatoImmagine   
 ]

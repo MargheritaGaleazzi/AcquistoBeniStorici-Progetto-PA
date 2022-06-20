@@ -73,8 +73,18 @@ export function ControlloCredito(req: any, res: any, next: any) : void {
                 const new_err = getMsg(MsgEnum.ErrTokenNonSufficienti).getMsg();
                 next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
             }
-        })
-    })
+        });
+    });
+}
+
+export function ControlloTokenNullo(req: any, res: any, next: any) : void {
+    Utente.findByPk(req.body.cons).then((utente:any) => {
+        if(utente.credito == 0) {
+            const new_err = getMsg(MsgEnum.ErrNonAutorizzato).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }
+        next();
+    });
 }
 
 export function verificaAuthorization (req: any, res: any, next: any): void{

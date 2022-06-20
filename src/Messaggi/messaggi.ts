@@ -136,7 +136,7 @@ class ErrUtenteNonTrovato implements Msg {
     }
 }
 
-//errore che viene lanciato quando il payload è malformato
+//errore che viene lanciato quando i filtri e/o i valori inseriti non risultano essere corretti
 class ErrInserimentoFiltriValori implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {

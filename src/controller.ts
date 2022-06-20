@@ -73,7 +73,7 @@ function controllerErrori(enumMsg: MsgEnum, msg: Error, risp: any) {
 export function lista(risp: any): void{
     Bene.findAll().then((risultato: object[]) => {
         const new_res = getMsg(MsgEnum.ListaBeni).getMsg();
-        risp.status(new_res.codice).json({message:new_res.msg, risultato:risultato});
+        risp.status(new_res.codice).json({stato:new_res.msg, risultato:risultato});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
@@ -114,7 +114,7 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
 export function vediAcquisti(risp:any):void{
     Acquisto.findAll({include:Utente,order:[[Utente,'email','ASC']]}).then((acquisti:any)=>{
         const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
-        risp.status(nuova_risp.codice).json({message:nuova_risp.msg, risultato:acquisti});
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:acquisti});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
@@ -143,11 +143,14 @@ export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,r
                 bene.save();
                 const image=__dirname.slice(0,-4)+"\\img\\"+bene.nome;
                 zip.addLocalFile(image);
-                console.log(image);
         });
     
+    }).catch((error) => {
+        controllerErrori(MsgEnum.ErrServer, error, risp);
     });
         if (i==ids.length){
+            const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
+            risp.status(nuova_risp.codice).json({stato:nuova_risp.msg});
             risp.send(zip.toBuffer());
         }
         i++
@@ -295,17 +298,22 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
  */
 export function download(nome:string,formato:string,risp:any):void{
     const pathImg=path.join(curr_path,"img/"+nome);
-    gm(pathImg).gravity('Center')
-    .fill('#ffffff')
-    .font('Arial', 27) 
-    .drawText(0, 0, "CodinGirl")
-    .toBuffer('PNG',function (err:any, buffer:any) {
-        if (err) return console.log('err');
-        risp.set('Content-Disposition','attachment')
-        risp.end(buffer);
-        
-        console.log('done!');
-        })  
+    try {gm(pathImg).gravity('Center')
+        .fill('#ffffff')
+        .font('Arial', 27) 
+        .drawText(0, 0, "CodinGirl")
+        .toBuffer('PNG',function (err:any, buffer:any) {
+            if (err) return console.log('err');
+            risp.set('Content-Disposition','attachment')
+            risp.end(buffer);
+            
+            console.log('done!');
+            })
+    } catch {
+        ((error:any) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+        });
+    }
 }
   
 // File .zip contenente le immagini, salvato su DropBox

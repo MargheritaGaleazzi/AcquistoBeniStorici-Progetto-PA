@@ -129,7 +129,7 @@ export function vediAcquisti(risp:any):void{
  * @param compr -> email dell'utente che vuole acquistare il bene
  * @param risp -> la risposta che darà il server
  */
-export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):void{
+export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,risp:any):Promise<void>{
     risp.set({'Content-Disposition':'attachment'});
     risp.set({'Content-Type':'application/zip'});
     var i:number=1;
@@ -140,20 +140,32 @@ export function acquistaMultiplo(ids:number[],formato_bene:string,compr:string,r
             await Bene.findByPk(id).then(async (bene:any)=>{
                 await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
                 bene.nDownload+=1;
-                bene.save();
-                const image=__dirname.slice(0,-4)+"\\img\\"+bene.nome;
-                zip.addLocalFile(image);
+                await bene.save();
+                const image=curr_path+"\\img\\"+bene.nome;
+                const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
+                var tipo=selFormato(formato_bene)
+                gm(image).gravity('Center')
+                .fill('#ff0080')
+                .font(path.join(curr_path,'img/Black Ravens.ttf'), 40) 
+                .drawText(0, 0, "CodinGirl")
+                .toBuffer(tipo, function (err:any, buffer:any) {
+                    if (err) return console.log('err');
+                    zip.addFile(nomebene,buffer);
+                    console.log('done!');
+                    if (i==ids.length){
+                        console.log("siamo qua!!!!!!!!!!!!!!!!!!!!!")
+                        risp.send(zip.toBuffer());
+                    }
+                    i++
+                    })
         });
     
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
-        if (i==ids.length){
-            const nuova_risp = getMsg(MsgEnum.VediAcquisti).getMsg();
-            risp.status(nuova_risp.codice).json({stato:nuova_risp.msg});
-            risp.send(zip.toBuffer());
-        }
-        i++
+    console.log(i)
+        
+        //i++
     });
 }
 
@@ -316,7 +328,7 @@ export function download(nome:string,formato:string,risp:any):void{
         });
     }
 }
-
+ 
 function selFormato(formato:string):string{
     var tipo:string='';
     switch(formato){
@@ -332,7 +344,7 @@ function selFormato(formato:string):string{
     }
     return tipo;
 }
-  
+
 // File .zip contenente le immagini, salvato su DropBox
 var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
 //chiamata alla funzione che verifica la presenza delle immagini e le scarica se necessario

@@ -1,8 +1,9 @@
 require('dotenv').config();
 import * as jwt from 'jsonwebtoken';
+import { where } from 'sequelize/types';
 import { JsonObjectExpression } from 'typescript';
 import { getMsg,MsgEnum } from '../Factory/messaggi';
-import { Utente, Bene} from "../models/models";
+import { Utente, Bene, Acquisto} from "../models/models";
 
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {
     if ((typeof req.body.tipo == 'string' && 
@@ -80,12 +81,21 @@ export function ControlloCredito(req: any, res: any, next: any) : void {
 }
 
 export function controlloDownload(req: any, res: any, next: any) : void {
+    Acquisto.findOne({
+        where: { email_compr : req.body.cons, beneId : req.body.id_bene}, 
+        raw: true
+    }).then((risultato: any) => {
+        if (risultato == undefined){
+            next();
+        }
+        else {
+            console.log("pippo "+risultato)
+            const new_err = getMsg(MsgEnum.ErrProibito).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }
 
+    });
 }
-
-
-
-
 
 export function ControlloTokenNullo(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.cons).then((utente:any) => {

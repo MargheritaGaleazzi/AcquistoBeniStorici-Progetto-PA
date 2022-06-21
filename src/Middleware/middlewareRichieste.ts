@@ -19,8 +19,7 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
 }
 
 export function controlloAcquistoBene(req: any, res: any, next: any) : void {
-    if(typeof req.body.id_bene == "number" && 
-        typeof req.body.formato == "string" && 
+    if(typeof req.body.formato == "string" && 
         typeof req.body.cons == "string"){
         next();
     }
@@ -54,6 +53,7 @@ export function controlloPresenzaUtente(req: any, res: any, next: any) : void {
             array.push(json[i]['email']);
         }
         var j=0;
+        console.log(req.body.cons);
         while(req.body.cons != array[j]){
             if(j==array.length-1 && req.body.cons != array[j]){
                 const new_err = getMsg(MsgEnum.ErrUtenteNonTrovato).getMsg();
@@ -67,6 +67,8 @@ export function controlloPresenzaUtente(req: any, res: any, next: any) : void {
 }
 
 export function ControlloCredito(req: any, res: any, next: any) : void {
+    console.log(req.body.cons);
+    console.log(req.body.id_bene);
     Utente.findByPk(req.body.cons).then((utente:any) => {
         Bene.findByPk(req.body.id_bene).then((bene:any) => {
             if(bene.prezzo <= utente.credito){
@@ -123,10 +125,6 @@ export function ControlloTokenNullo(req: any, res: any, next: any) : void {
     });
 }
 
-export function verificaAuthorization (req: any, res: any, next: any): void{
-    if (req.headers.authorization) next();
-    else next(MsgEnum.ErrNoAuth);
-}
 
 export function verificaContentType(req: any, res: any, next: any): void{
     if (req.headers["content-type"] == 'application/json') next();
@@ -139,7 +137,10 @@ export function controlloPresenzaToken(req: any, res: any, next: any): void{
         const token: string = header.split(' ')[1];
         req.token = token;
         next();
-    } else next(MsgEnum.ErrTokenMancante);
+    } else {
+        const new_err = getMsg(MsgEnum.ErrTokenMancante).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
 }
 
 export function ControlloChiaveSegreta(req: any, res: any, next: any): void{
@@ -150,7 +151,8 @@ export function ControlloChiaveSegreta(req: any, res: any, next: any): void{
             next();
         }
     } catch (error) { 
-        next(MsgEnum.ErrTokenInvalido); 
+        const new_err = getMsg(MsgEnum.ErrTokenInvalido).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
 }
 

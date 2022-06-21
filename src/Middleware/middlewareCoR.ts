@@ -21,3 +21,8 @@ export const AcquistoBene = [
 export const Regalo = [
     Middleware.controlloDownloadRegalo
 ]
+
+export const JWT = [
+    Middleware.controlloPresenzaToken,
+    Middleware.ControlloChiaveSegreta
+]

@@ -1,13 +1,17 @@
+version: "3.7"
 services:
-    dbmysql:
+    gestione_acquisto_beni:
         image: mysql
         restart: always
+        environment:
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
         ports:
           - 3306:3306
         env_file:
           - .env
         volumes:
-        - ./seeder:/docker-entrypoint-initdb.d        
+        - ./seeder/seed.sql:/docker-entrypoint-initdb.d/seed.sql        
     node:
         build: .
         restart: always
@@ -16,4 +20,4 @@ services:
         env_file:
           - .env
         depends_on:
-          - dbmysql
+          - gestione_acquisto_beni

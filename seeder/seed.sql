@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS gestione_acquisto_beni;
+\c gestione_acquisto_beni
 DROP TABLE IF EXISTS
     `acquisto`;
 DROP TABLE IF EXISTS

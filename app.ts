@@ -1,7 +1,7 @@
 import express,{Application} from 'express';
-import * as Controller from './controller';
-import { getMsg,MsgEnum } from './Factory/messaggi';
-import * as Middleware from './Middleware/middlewareCoR';
+import * as Controller from './src/controller';
+import { getMsg,MsgEnum } from './src/Factory/messaggi';
+import * as Middleware from './src/Middleware/middlewareCoR';
 import * as path from 'path';
 //import { controlloAcquistoBene } from './Middleware/middlewareRichieste';
 const bodyParser = require('body-parser');
@@ -16,6 +16,7 @@ applicazione.use((err: Error, req: any, res: any, next: any) => {
     next();
 });
 const PORT = 8080;
+const HOST = '0.0.0.0';
 
 
 applicazione.get('/', function (req:any,res:any) {
@@ -36,7 +37,7 @@ applicazione.get('/ListaBeni', Middleware.FiltroTipoAnno, function (req: any, re
     Controller.listaBeni(req.body.tipo,req.body.anno, res);
 });
 
-applicazione.get('/Lista', /*aggiungi middleware,*/ function (req: any, res: any) {    
+applicazione.get('/Lista', function (req: any, res: any) {    
     Controller.lista(res);
 });
 
@@ -112,6 +113,5 @@ applicazione.post('/Ricarica/', /*aggiungi middleware,*/ function (req: any, res
 applicazione.get('*',);
 applicazione.post('*',);
 
-applicazione.listen(PORT,()=>{
-    console.log('Il server è in ascolto sulla porta'+PORT.toString())
-});
+applicazione.listen(PORT, HOST) 
+console.log('Il server è in ascolto sulla porta'+PORT.toString())

@@ -5,6 +5,13 @@ import { JsonObjectExpression } from 'typescript';
 import { getMsg,MsgEnum } from '../Factory/messaggi';
 import { Utente, Bene, Acquisto} from "../models/models";
 
+/**
+ * Funzione utilizzata per il controllo dei valori che vengono inseriti quando
+ * si effettua un filtro per tipo o anno
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {
     if ((typeof req.body.tipo == 'string' && 
         typeof req.body.anno == 'number') || (typeof req.body.tipo == 'string' && 
@@ -18,6 +25,12 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
     }
 }
 
+/**
+ * Funzione che controlla se i valori inseriti per l'acquisto del bene sono delle stringhe
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function controlloAcquistoBene(req: any, res: any, next: any) : void {
     if(typeof req.body.formato == "string" && 
         typeof req.body.cons == "string"){
@@ -128,7 +141,10 @@ export function ControlloTokenNullo(req: any, res: any, next: any) : void {
 
 export function verificaContentType(req: any, res: any, next: any): void{
     if (req.headers["content-type"] == 'application/json') next();
-    else next(MsgEnum.ErrNoPayload);
+    else {
+        const new_err = getMsg(MsgEnum.ErrNoPayload).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
 }
 
 export function controlloPresenzaToken(req: any, res: any, next: any): void{

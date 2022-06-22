@@ -10,8 +10,8 @@ const fs = require('fs'),
 const curr_path=__dirname
 console.log("current path: "+curr_path);
 var zip = new admzip();
- 
-/*
+
+/**
  * Funzione che viene richiamata dalle altre funzioni del Controller in caso di errori. 
  * 
  * @param enumMsg -> Il tipo di messaggio da costruire
@@ -24,7 +24,7 @@ function controllerErrori(enumMsg: MsgEnum, msg: Error, risp: any) {
     risp.status(nuovoMsg.codice).json({errore:nuovoMsg.codice, descrizione:nuovoMsg.msg});
 }
 
-/*
+/**
  * Funzione che permette di visualizzare tutti i beni che sono presenti. Applicando 
  * filtri in base al tipo o all'anno del bene
  * 
@@ -66,7 +66,7 @@ function controllerErrori(enumMsg: MsgEnum, msg: Error, risp: any) {
 }
 }
 
-/*
+/**
  * Funzione che permette di visualizzare tutti i beni che sono presenti
  * 
  * @param risp -> la risposta che darà il server
@@ -80,7 +80,7 @@ export function lista(risp: any): void{
     });
 }
 
-/*
+/**
  * Funzione che permette di ottenere un nuovo link per il bene
  * acquistato, di cui si era già quindi avuto un altro link
  * 
@@ -103,7 +103,7 @@ export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:
     });
 }
 
-/*
+/**
  * Funzione che permette di vedere gli acquisti che sono stati effettuati e
  * l'utente che li ha fatti
  * 
@@ -127,7 +127,7 @@ export function vediAcquisti(risp:any):void{
     });
 }
 
-/*
+/**
  * Funzione che permette di acquistare più beni in
  * una volta e restituisce uno zip contenente tutti i beni
  * 
@@ -186,9 +186,7 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
     });
 }
 
-
-
-/*
+/**
  * Funzione che permette di fare un regalo ad un amico
  *
  * @param email_amico -> email dell'utente al quale si vuole fare un regalo
@@ -211,7 +209,7 @@ export async function regalo(email_amico:string,formato_bene:string,compr:string
     });
 }
 
-/*
+/**
  * Funzione che permette di visualizzare il credito
  * residuo di un dato utente
  * 
@@ -228,7 +226,7 @@ export function visualizzaCredito(email:string,risp:any):void{
     });
 }
 
-/*
+/**
  * Funzione che permette all'amministratore di ricaricare
  * il credito di un dato utente
  * 
@@ -245,12 +243,12 @@ export function ricarica(email:string,ricarica:number,risp:any):void{
     });
 }
 
-/*
+/**
  * Funzione per verificare la presenza delle immagini
  * 
  * @param curr_path -> percorso della cartella nella quale è contenuto il programma
  * @param url -> url dal quale scaricare lo zip contenente le immagini
- */ 
+ */
 export function PresenzaImmagini(curr_path: string, url:any):void {
     fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), (exists:any) => {
         if (exists == null) {
@@ -269,11 +267,11 @@ export function PresenzaImmagini(curr_path: string, url:any):void {
     });
 }
 
-/*
+/**
  * Funzione per estrarre le immagini dallo zip
  * 
  * @param curr_path -> percorso della cartella nella quale è contenuto il programma
-*/  
+ */
 export function EstrazioneImmagini(curr_path: string) {
     var unzip = require('unzip-stream');
     var zip = path.join(curr_path, "/ImmaginiPA.zip");
@@ -287,7 +285,7 @@ export function EstrazioneImmagini(curr_path: string) {
     }
 }
 
-/*
+/**
  * Funzione che permette di acquistare un bene
  *
  * @param id_bene -> numero che identifica il bene da acquistare
@@ -309,7 +307,7 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
     });
 }
 
-/*
+/**
  * Funzione che permette eseguire il download di un bene acquistato
  *
  * @param nome -> nome del bene acquistato
@@ -336,7 +334,13 @@ export function download(nome:string,formato:string,risp:any):void{
         });
     }
 }
- 
+
+/**
+ * Funzione utilizzata per selezionare il formato dell'immagine richiesto dall'utente
+ * 
+ * @param formato prende in ingresso il formato richiesto
+ * @returns la stringa contentente il formato richiesto
+ */
 function selFormato(formato:string):string{
     var tipo:string='';
     switch(formato){
@@ -352,8 +356,6 @@ function selFormato(formato:string):string{
     }
     return tipo;
 }
-
-
 
 // File .zip contenente le immagini, salvato su DropBox
 var url ="https://www.dropbox.com/s/vciu5oldkp8s7yq/ImmaginiPA.zip?dl=1";

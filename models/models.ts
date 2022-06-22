@@ -66,10 +66,6 @@ export const Bene = sequelize.define('bene', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    //nDownload:{
-    //    type: DataTypes.INTEGER,
-    //    allowNull: false
-    //}
 },
 {
     modelName: 'bene',

@@ -161,7 +161,7 @@ export function controlloPresenzaToken(req: any, res: any, next: any): void{
 
 export function ControlloChiaveSegreta(req: any, res: any, next: any): void{
     try {
-        var risultato: string | jwt.JwtPayload = jwt.verify(req.token, process.env.key!);
+        var risultato: string | jwt.JwtPayload = jwt.verify(req.token, process.env.KEY!);
         if (risultato != null) {
             req.body = risultato;
             next();

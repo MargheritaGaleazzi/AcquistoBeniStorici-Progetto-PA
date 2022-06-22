@@ -1,3 +1,5 @@
+'use strict';
+
 import express,{Application} from 'express';
 import * as Controller from './controller';
 import { getMsg,MsgEnum } from './Factory/messaggi';

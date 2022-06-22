@@ -1,5 +1,4 @@
 CREATE DATABASE IF NOT EXISTS gestione_acquisto_beni;
-\c gestione_acquisto_beni
 DROP TABLE IF EXISTS
     `acquisto`;
 DROP TABLE IF EXISTS
@@ -125,5 +124,29 @@ VALUES(
     800,
     85
 );
-INSERT INTO `acquisto`(`id`, `formato`, `email_compr`, `beneId`, `tipo_acq`)
-VALUES(1, 'jpg', 'rossiMario@gmail.com', 1, 'download origiale'),(2, 'png', 'giovi@alice.it', 4, 'download originale'),(3, 'jpg', 'giovi@alice.it', 4, 'download aggiuntivo');
+INSERT INTO `acquisto`(
+    `id`,
+    `formato`,
+    `email_compr`,
+    `beneId`,
+    `tipo_acq`
+)
+VALUES(
+    1,
+    'jpg',
+    'rossiMario@gmail.com',
+    1,
+    'download originale'
+    ),(
+    2, 
+    'png', 
+    'giovi@alice.it', 
+    4, 
+    'download originale'
+    ),(
+    3, 
+    'jpg', 
+    'giovi@alice.it', 
+    4, 
+    'download aggiuntivo'
+    );

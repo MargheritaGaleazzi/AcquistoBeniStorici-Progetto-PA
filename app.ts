@@ -46,7 +46,7 @@ applicazione.get('/Lista', function (req: any, res: any) {
  */
 
 applicazione.post('/AcquistaBene',Middleware.JWT, Middleware.AcquistoBene,  function (req: any, res: any) {    
-    Controller.acquistaBene(req.body.id_bene,req.body.formato,req.body.cons, res);
+    Controller.acquistaBene(req.body.id_bene,req.body.formato,req.body.consumatore, res);
 });
 
 /*
@@ -62,7 +62,7 @@ applicazione.get('/download/:bene/:formato/:tipoDownload', /*aggiungi middleware
  */
 
 applicazione.post('/NuovoLink', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.nuovoLink(req.body.id_bene,req.body.formato,req.body.cons, res);
+    Controller.nuovoLink(req.body.id_bene,req.body.formato,req.body.consumatore, res);
 });
 
 /*
@@ -102,8 +102,8 @@ applicazione.get('/VisualizzaCredito/:email', /*aggiungi middleware,*/ function 
  * Rotta per la ricaricare i crediti
  */
 
-applicazione.post('/Ricarica/', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.ricarica(req.body.email,req.body.ricarica, res);
+applicazione.post('/Ricarica/', Middleware.JWT, Middleware.Admin, function (req: any, res: any) {    
+    Controller.ricarica(req.body.consumatore,req.body.ricarica, res);
 });
 
 

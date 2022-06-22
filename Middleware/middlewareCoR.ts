@@ -6,7 +6,7 @@ export const FiltroTipoAnno = [
 ];
 
 export const AcquistoBene = [
-    Middleware.controlloPresenzaUtente,
+    Middleware.ControlloPresenzaUser,
     Middleware.ControlloTokenNullo,
     Middleware.controlloAcquistoBene,
     Middleware.ControlloCredito,
@@ -21,6 +21,12 @@ export const Regalo = [
 export const JWT = [
     Middleware.controlloPresenzaToken,
     Middleware.ControlloChiaveSegreta
+]
+
+export const Admin = [
+    Middleware.ControlloPresenzaUser,
+    Middleware.ControlloPresenzaAdmin,
+    Middleware.ControlloAdmin
 ]
 
 export const RottaSbagliata = [

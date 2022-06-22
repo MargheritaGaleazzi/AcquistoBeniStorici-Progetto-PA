@@ -114,6 +114,11 @@ applicazione.post('/AggiungiUtente', /*Middleware.JWT, Middleware.Admin,*/ funct
     Controller.aggiungiUtente(req.body.email,req.body.username,req.body.nome,req.body.cognome, res);
 });
 
+applicazione.post('/AggiungiBene', /*Middleware.JWT, Middleware.Admin,*/ function (req: any, res: any) {    
+    Controller.aggiungiBene(req.body.nome,req.body.tipo,req.body.anno,req.body.prezzo,req.body.path_img, res);
+});
+
+
 
 /*
  * Se si richiamano rotte non esistenti:

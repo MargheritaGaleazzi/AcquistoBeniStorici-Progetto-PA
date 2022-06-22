@@ -186,6 +186,15 @@ class ErrServizioNonDisp implements Msg {
     }
 }
 
+class ErrImg implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Errore nel caricamento dell'immagine"
+        }
+    }
+}
+
 class ListaBeni implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -267,6 +276,7 @@ export enum MsgEnum {
     ErrServer,
     ErrServizioNonDisp,
     ErrRichiestaErrata,
+    ErrImg,
     BadRequest,
     ListaBeni,
     AcquistaBene,
@@ -333,6 +343,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.BadRequest:
             val = new BadRequest();
+            break;
+        case MsgEnum.ErrImg:
+            val = new ErrImg();
             break;
         case MsgEnum.ListaBeni:
             val = new ListaBeni();

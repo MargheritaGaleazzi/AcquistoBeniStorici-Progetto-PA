@@ -5,7 +5,8 @@ import * as path from 'path';
 const fs = require('fs'),
     gm = require('gm'),
     fs_extra = require('fs-extra'),
-    admzip = require('adm-zip');
+    admzip = require('adm-zip'),
+    request = require('request')
 
 const curr_path=__dirname
 console.log("current path: "+curr_path);
@@ -394,6 +395,15 @@ PresenzaImmagini(curr_path,url);
  */
  export function aggiungiBene(nome:string, tipo:string, anno:number, prezzo:number, path_img:string, risp: any): void{
     Bene.create({nome:nome,tipo:tipo, anno:anno,prezzo:prezzo}).then((nuovoBene:any)=>{
+        if(ValidHttpUrl(path_img)){
+            gm(request(path_img)).write('img/'+nome+'.jpg', function (err:any) {
+                if (err) controllerErrori(MsgEnum.ErrImg, err, risp);;
+                });
+        } else {
+            gm(path_img).write('img/'+nome+'.jpg', function (err:any) {
+            if (err) controllerErrori(MsgEnum.ErrImg, err, risp);;
+            });
+        }
         const nuova_risp = getMsg(MsgEnum.NuovoBene).getMsg();
         var bn={nome:nuovoBene.nome, tipo:nuovoBene.tipo, anno:nuovoBene.anno, prezzo:nuovoBene.prezzo};
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, nuovo_bene:bn});
@@ -401,3 +411,16 @@ PresenzaImmagini(curr_path,url);
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
 }
+
+
+function ValidHttpUrl(urlDaVerificare:string) {
+    let url;
+    
+    try {
+      url = new URL(urlDaVerificare);
+    } catch (_) {
+      return false;  
+    }
+  
+    return url.protocol === "http:" || url.protocol === "https:";
+  }

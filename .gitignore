@@ -1,6 +1,7 @@
 img
+.env
 ImmaginiPA.zip
-src/controller.js
-src/connessione.js
-src/models/models.js
-src/Messaggi/messaggi.js
+controller.js
+connessione.js
+models/models.js
+Messaggi/messaggi.js

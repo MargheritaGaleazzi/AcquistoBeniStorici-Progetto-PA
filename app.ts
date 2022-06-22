@@ -106,6 +106,14 @@ applicazione.post('/Ricarica/', Middleware.JWT, Middleware.Admin, function (req:
     Controller.ricarica(req.body.consumatore,req.body.ricarica, res);
 });
 
+/*
+ * Rotta per la ricaricare i crediti
+ */
+
+applicazione.post('/AggiungiUtente', /*Middleware.JWT, Middleware.Admin,*/ function (req: any, res: any) {    
+    Controller.aggiungiUtente(req.body.email,req.body.username,req.body.nome,req.body.cognome, res);
+});
+
 
 /*
  * Se si richiamano rotte non esistenti:

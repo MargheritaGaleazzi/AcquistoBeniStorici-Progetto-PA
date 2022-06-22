@@ -361,3 +361,44 @@ function selFormato(formato:string):string{
 var url ="https://www.dropbox.com/s/vciu5oldkp8s7yq/ImmaginiPA.zip?dl=1";
 //chiamata alla funzione che verifica la presenza delle immagini e le scarica se necessario
 PresenzaImmagini(curr_path,url);
+
+/**
+ * Funzione che permette la registrazione nel database di un nuovo utente
+ * che avrà il ruolo di 'user' e come credito 0
+ * 
+ * @param email -> email dell'utente da aggiungere
+ * @param username -> username dell'utente
+ * @param nome -> nome dell'utente da aggiungere
+ * @param cognome -> Cognome dell'utente da aggiungere
+ * @param risp -> la risposta che darà il server
+ */
+ export function aggiungiUtente(email:string, username:string, nome:string, cognome:string, risp: any): void{
+    Utente.create({email:email,username:username, nome:nome,cognome:cognome,ruolo:'user',credito:0}).then((nuovoUtente:any)=>{
+        const nuova_risp = getMsg(MsgEnum.NuovoUtente).getMsg();
+        var ut={email:nuovoUtente.email, username:nuovoUtente.username, nome:nuovoUtente.nome, cognome:nuovoUtente.cognome,
+        credito:nuovoUtente.credito};
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, nuovo_utente:ut});
+    }).catch((error) => {
+        controllerErrori(MsgEnum.ErrServer, error, risp);
+    });
+}
+
+/**
+ * Funzione che permette l'aggiunta di un nuovo bene nel database 
+ * 
+ * @param nome -> nome del bene da aggiungere
+ * @param tipo -> tpo del bene [manoscitto,cartografia storica]
+ * @param anno ->
+ * @param prezzo
+ * @param risp -> la risposta che darà il server
+ */
+ export function aggiungiBene(nome:string, tipo:string, anno:number, prezzo:number, risp: any): void{
+    Utente.create({email:email,username:username, nome:nome,cognome:cognome,ruolo:'user',credito:0}).then((nuovoUtente:any)=>{
+        const nuova_risp = getMsg(MsgEnum.NuovoUtente).getMsg();
+        var ut={email:nuovoUtente.email, username:nuovoUtente.username, nome:nuovoUtente.nome, cognome:nuovoUtente.cognome,
+        credito:nuovoUtente.credito};
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, nuovo_utente:ut});
+    }).catch((error) => {
+        controllerErrori(MsgEnum.ErrServer, error, risp);
+    });
+}

@@ -197,7 +197,7 @@ class AcquistaBene implements Msg {
 class VediAcquisti implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
-            codice:201,
+            codice:200,
             msg: "SUCCESSO - Ora è possibile visualizzare la lista degli acquisti"
         }
     }
@@ -206,7 +206,7 @@ class VediAcquisti implements Msg {
 class VediCredito implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
-            codice:201,
+            codice:200,
             msg: "SUCCESSO - Puoi vedere il credito dell'utente"
         }
     }
@@ -217,6 +217,15 @@ class RicaricaEffettuata implements Msg {
         return {
             codice:201,
             msg: "SUCCESSO - La ricarica è andata a buon fine"
+        }
+    }
+}
+
+class NuovoUtente implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice:201,
+            msg: "SUCCESSO - Il nuovo utente è stato correttamente creato"
         }
     }
 }
@@ -243,7 +252,8 @@ export enum MsgEnum {
     AcquistaBene,
     VediAcquisti,
     VediCredito,
-    RicaricaEffettuata
+    RicaricaEffettuata,
+    NuovoUtente
 }
 
 export function getMsg (tipoErrore: MsgEnum): Msg{
@@ -315,6 +325,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
         case MsgEnum.RicaricaEffettuata:
             val = new RicaricaEffettuata();
             break; 
+        case MsgEnum.NuovoUtente:
+            val = new NuovoUtente();
+            break;
     }
     return val;
 }

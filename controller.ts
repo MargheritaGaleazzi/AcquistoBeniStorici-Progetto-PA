@@ -7,7 +7,8 @@ const fs = require('fs'),
     fs_extra = require('fs-extra'),
     admzip = require('adm-zip');
 
-const curr_path=__dirname.slice(0,-4);
+const curr_path=__dirname
+console.log(curr_path);
 var zip = new admzip();
  
 /*

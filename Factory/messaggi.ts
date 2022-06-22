@@ -146,6 +146,16 @@ class ErrInserimentoFiltriValori implements Msg {
     }
 }
 
+//errore che viene lanciato quando i valori inseriti non risultano essere corretti
+class ErrInserimentoValori implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Le chiavi e/o valori inseriti non risultato essere corretti."
+        }
+    }
+}
+
 //errore che viene lanciato nel caso in cui non ci sono beni presenti
 class ErrFormatoNonEsistente implements Msg {
     getMsg(): { codice: number; msg: string; } {
@@ -252,6 +262,7 @@ export enum MsgEnum {
     ErrNonTrovato,
     ErrUtenteNonTrovato,
     ErrInserimentoFiltriValori,
+    ErrInserimentoValori,
     ErrFormatoNonEsistente,
     ErrServer,
     ErrServizioNonDisp,
@@ -292,6 +303,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.ErrInserimentoFiltriValori:
             val = new ErrInserimentoFiltriValori();
+            break;
+        case MsgEnum.ErrInserimentoValori:
+            val = new ErrInserimentoValori();
             break;
         case MsgEnum.ErrTokenNonSufficienti:
             val = new ErrTokenNonSufficienti();

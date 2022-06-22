@@ -237,7 +237,7 @@ export function visualizzaCredito(email:string,risp:any):void{
 export function ricarica(email:string,ricarica:number,risp:any):void{
     Utente.increment("credito",{by:ricarica,where: { email: email }}).then((utente:any)=>{
         const nuova_risp = getMsg(MsgEnum.RicaricaEffettuata).getMsg();
-        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg,utente:email ,ricarica:ricarica});
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg,utente:email,accredito:ricarica});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });

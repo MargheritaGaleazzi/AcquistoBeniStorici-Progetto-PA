@@ -31,7 +31,7 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
  * @param res risposta del server
  * @param next riferimento al middleware successivo
  */
-export function controlloAcquistoBene(req: any, res: any, next: any) : void {
+export function controlloValoriAcquistoBene(req: any, res: any, next: any) : void {
     if(typeof req.body.id_bene == "number" && typeof req.body.formato == "string" && 
         typeof req.body.consumatore == "string"){
         next();
@@ -41,6 +41,18 @@ export function controlloAcquistoBene(req: any, res: any, next: any) : void {
         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
 }
+
+export function controlloValoriRicarica(req: any, res: any, next: any) : void {
+    if(typeof req.body.consumatore == "string" && typeof req.body.ricarica == "number" && 
+        typeof req.body.email_admin == "string"){
+        next();
+    }
+    else if (!req.body.accredito) {
+        const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+}
+
 
 export function controlloFormatoImmagine(req: any, res: any, next: any) : void {
     var formato: string[] = ["jpg","png","tiff"];

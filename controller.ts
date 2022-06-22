@@ -8,7 +8,7 @@ const fs = require('fs'),
     admzip = require('adm-zip');
 
 const curr_path=__dirname
-console.log(curr_path);
+console.log("current path: "+curr_path);
 var zip = new admzip();
  
 /*
@@ -356,6 +356,6 @@ function selFormato(formato:string):string{
 
 
 // File .zip contenente le immagini, salvato su DropBox
-var url ="https://www.dropbox.com/s/ozqwsscg7o026oq/ImmaginiPA.zip?dl=1";
+var url ="https://www.dropbox.com/s/vciu5oldkp8s7yq/ImmaginiPA.zip?dl=1";
 //chiamata alla funzione che verifica la presenza delle immagini e le scarica se necessario
 PresenzaImmagini(curr_path,url);

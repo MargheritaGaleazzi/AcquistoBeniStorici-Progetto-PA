@@ -387,17 +387,16 @@ PresenzaImmagini(curr_path,url);
  * Funzione che permette l'aggiunta di un nuovo bene nel database 
  * 
  * @param nome -> nome del bene da aggiungere
- * @param tipo -> tpo del bene [manoscitto,cartografia storica]
- * @param anno ->
- * @param prezzo
+ * @param tipo -> tipo del bene [manoscitto,cartografia storica]
+ * @param anno -> anno del bene
+ * @param prezzo -> prezzo del bene
  * @param risp -> la risposta che darà il server
  */
- export function aggiungiBene(nome:string, tipo:string, anno:number, prezzo:number, risp: any): void{
-    Utente.create({email:email,username:username, nome:nome,cognome:cognome,ruolo:'user',credito:0}).then((nuovoUtente:any)=>{
-        const nuova_risp = getMsg(MsgEnum.NuovoUtente).getMsg();
-        var ut={email:nuovoUtente.email, username:nuovoUtente.username, nome:nuovoUtente.nome, cognome:nuovoUtente.cognome,
-        credito:nuovoUtente.credito};
-        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, nuovo_utente:ut});
+ export function aggiungiBene(nome:string, tipo:string, anno:number, prezzo:number, path_img:string, risp: any): void{
+    Bene.create({nome:nome,tipo:tipo, anno:anno,prezzo:prezzo}).then((nuovoBene:any)=>{
+        const nuova_risp = getMsg(MsgEnum.NuovoBene).getMsg();
+        var bn={nome:nuovoBene.nome, tipo:nuovoBene.tipo, anno:nuovoBene.anno, prezzo:nuovoBene.prezzo};
+        risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, nuovo_bene:bn});
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });

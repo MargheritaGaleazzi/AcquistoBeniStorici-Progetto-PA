@@ -230,6 +230,15 @@ class NuovoUtente implements Msg {
     }
 }
 
+class NuovoBene implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice:201,
+            msg: "SUCCESSO - Il nuovo bene è stato aggiunto con successo"
+        }
+    }
+}
+
 export enum MsgEnum {
     ErrNoAuth,
     ErrNoPayload,
@@ -253,7 +262,8 @@ export enum MsgEnum {
     VediAcquisti,
     VediCredito,
     RicaricaEffettuata,
-    NuovoUtente
+    NuovoUtente,
+    NuovoBene
 }
 
 export function getMsg (tipoErrore: MsgEnum): Msg{
@@ -327,6 +337,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break; 
         case MsgEnum.NuovoUtente:
             val = new NuovoUtente();
+            break;
+        case MsgEnum.NuovoBene:
+            val = new NuovoBene();
             break;
     }
     return val;

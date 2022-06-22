@@ -1,11 +1,9 @@
 'use strict';
-
 import express,{Application} from 'express';
 import * as Controller from './controller';
 import { getMsg,MsgEnum } from './Factory/messaggi';
 import * as Middleware from './Middleware/middlewareCoR';
 import * as path from 'path';
-//import { controlloAcquistoBene } from './Middleware/middlewareRichieste';
 const bodyParser = require('body-parser');
 
 const applicazione:Application = express();
@@ -112,8 +110,8 @@ applicazione.post('/Ricarica/', /*aggiungi middleware,*/ function (req: any, res
 /*
  * Se si richiamano rotte non esistenti:
  */
-applicazione.get('*',);
-applicazione.post('*',);
+applicazione.get('*',Middleware.RottaSbagliata);
+applicazione.post('*',Middleware.RottaSbagliata);
 
 applicazione.listen(PORT, HOST) 
 console.log('Il server è in ascolto sulla porta'+PORT.toString())

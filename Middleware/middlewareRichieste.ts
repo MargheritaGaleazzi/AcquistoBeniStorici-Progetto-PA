@@ -32,7 +32,7 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
  * @param next riferimento al middleware successivo
  */
 export function controlloAcquistoBene(req: any, res: any, next: any) : void {
-    if(typeof req.body.formato == "string" && 
+    if(typeof req.body.id_bene == "number" && typeof req.body.formato == "string" && 
         typeof req.body.cons == "string"){
         next();
     }
@@ -55,7 +55,6 @@ export function controlloFormatoImmagine(req: any, res: any, next: any) : void {
     }
     next();
 }
-
 
 export function controlloPresenzaUtente(req: any, res: any, next: any) : void {
     Utente.findAll({attributes: ['email'], raw: true}).then((utente: object[]) => {
@@ -138,7 +137,6 @@ export function ControlloTokenNullo(req: any, res: any, next: any) : void {
     });
 }
 
-
 export function verificaContentType(req: any, res: any, next: any): void{
     if (req.headers["content-type"] == 'application/json') next();
     else {
@@ -173,5 +171,6 @@ export function ControlloChiaveSegreta(req: any, res: any, next: any): void{
 }
 
 export function RottaNonTrovata(req: any, res: any, next: any) {
-    next(MsgEnum.ErrRottaNonTrovata);
+    const new_err = getMsg(MsgEnum.ErrRottaNonTrovata).getMsg();
+    next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
 }

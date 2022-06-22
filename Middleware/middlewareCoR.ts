@@ -8,7 +8,7 @@ export const FiltroTipoAnno = [
 export const AcquistoBene = [
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloTokenNullo,
-    Middleware.controlloAcquistoBene,
+    Middleware.controlloValoriAcquistoBene,
     Middleware.ControlloCredito,
     Middleware.controlloFormatoImmagine,
     Middleware.controlloDownload   
@@ -24,6 +24,7 @@ export const JWT = [
 ]
 
 export const Admin = [
+    Middleware.controlloValoriRicarica,
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloPresenzaAdmin,
     Middleware.ControlloAdmin

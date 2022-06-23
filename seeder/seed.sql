@@ -130,7 +130,8 @@ INSERT INTO `acquisto`(
     `formato`,
     `email_compr`,
     `beneId`,
-    `tipo_acq`
+    `tipo_acq`,
+    `nDownload`
 )
 VALUES(
     1,

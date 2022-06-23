@@ -48,14 +48,15 @@ Ogni bene ha associato un costo in termini di token.
             <td>Ricaricare i crediti</td>
            <td>admin</td>
         </tr>
-               <tr>
+        <tr>
             <td>Aggiungere un utente</td>
            <td>admin</td>
         </tr>
-               <tr>
+        <tr>
             <td>Aggiungere un bene</td>
            <td>admin</td>
         </tr>
+     </tr>
     </tbody>
 </table>
 

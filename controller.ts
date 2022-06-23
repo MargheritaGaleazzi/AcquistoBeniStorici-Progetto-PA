@@ -1,16 +1,20 @@
 import { Utente,Bene,Acquisto} from "./models/models";
 import { MsgEnum, getMsg } from "./Factory/messaggi";
 import * as path from 'path';
+import { filigrana, PresenzaImmagini,selFormato,ValidHttpUrl } from "./utility";
 
-const fs = require('fs'),
-    gm = require('gm'),
-    fs_extra = require('fs-extra'),
+const gm = require('gm'),
     admzip = require('adm-zip'),
     request = require('request')
 
 const curr_path=__dirname
 console.log("current path: "+curr_path);
 var zip = new admzip();
+
+// File .zip contenente le immagini, salvato su DropBox
+var url ="https://www.dropbox.com/s/vciu5oldkp8s7yq/ImmaginiPA.zip?dl=1";
+//chiamata alla funzione che verifica la presenza delle immagini e le scarica se necessario
+PresenzaImmagini(curr_path,url);
 
 /**
  * Funzione che viene richiamata dalle altre funzioni del Controller in caso di errori. 
@@ -149,13 +153,7 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
                 const image=curr_path+"\\img\\"+bene.nome;
                 const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
                 var tipo=selFormato(formato_bene)
-                gm()
-                .command("composite") 
-                .in("-gravity", "center")
-                .in("-dissolve",78)
-                .in(path.join(curr_path,'img_doc/filigrana.png'))
-                .in(image)
-                .toBuffer(tipo, function (err:any, buffer:any) {
+                filigrana(image).toBuffer(tipo, function (err:any, buffer:any) {
                     if (err) return console.log('err');
                     zip.addFile(nomebene,buffer);
                     console.log('done!');
@@ -234,48 +232,6 @@ export function ricarica(email:string,ricarica:number,risp:any):void{
 }
 
 /**
- * Funzione per verificare la presenza delle immagini
- * 
- * @param curr_path -> percorso della cartella nella quale è contenuto il programma
- * @param url -> url dal quale scaricare lo zip contenente le immagini
- */
-export function PresenzaImmagini(curr_path: string, url:any):void {
-    fs.stat(path.join(curr_path, "/ImmaginiPA.zip"), (exists:any) => {
-        if (exists == null) {
-            EstrazioneImmagini(curr_path);
-        } else if (exists.code === 'ENOENT') {
-            console.log("Download delle immagini in corso...");
-            const request = require('request');
-            request({url: url, encoding: null}, function(err:any, resp:any, body:any) {
-                if(err) throw err;
-                fs.writeFile(path.join(curr_path, "/ImmaginiPA.zip"), body, function(err:any) {
-                  console.log("Il file è stato scritto");
-                  PresenzaImmagini(curr_path,url);
-                });
-            });
-        }
-    });
-}
-
-/**
- * Funzione per estrarre le immagini dallo zip
- * 
- * @param curr_path -> percorso della cartella nella quale è contenuto il programma
- */
-export function EstrazioneImmagini(curr_path: string) {
-    var unzip = require('unzip-stream');
-    var zip = path.join(curr_path, "/ImmaginiPA.zip");
-    var dir_path = path.join(curr_path, "/img");
-    try {
-        fs_extra.createReadStream(zip).pipe(unzip.Extract({ path: dir_path }));
-        console.log("Immagini estratte correttamente");
-    }
-    catch{
-        console.log("zip non trovato");
-    }
-}
-
-/**
  * Funzione che permette di acquistare un bene
  *
  * @param id_bene -> numero che identifica il bene da acquistare
@@ -307,13 +263,7 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
 export function download(nome:string,formato:string,id_acquisto:number,risp:any):void{
     const pathImg=path.join(curr_path,"img/"+nome);
     var tipo:string=selFormato(formato);
-    try {gm()
-        .command("composite") 
-        .in("-gravity", "center")
-        .in("-dissolve",78)
-        .in(path.join(curr_path,'img_doc/filigrana.png'))
-        .in(pathImg)
-        .toBuffer(tipo,function (err:any, buffer:any) {
+    try {filigrana(pathImg).toBuffer(tipo,function (err:any, buffer:any) {
             if (err) return console.log('err');
             risp.set('Content-Disposition','attachment')
             risp.end(buffer);
@@ -331,33 +281,6 @@ export function download(nome:string,formato:string,id_acquisto:number,risp:any)
         });
     }
 }
-
-/**
- * Funzione utilizzata per selezionare il formato dell'immagine richiesto dall'utente
- * 
- * @param formato prende in ingresso il formato richiesto
- * @returns la stringa contentente il formato richiesto
- */
-function selFormato(formato:string):string{
-    var tipo:string='';
-    switch(formato){
-        case 'png':
-            tipo='PNG';
-            break;
-        case 'jpg':
-            tipo='JPG';
-            break;
-        case 'tiff':
-            tipo='TIFF';
-            break;
-    }
-    return tipo;
-}
-
-// File .zip contenente le immagini, salvato su DropBox
-var url ="https://www.dropbox.com/s/vciu5oldkp8s7yq/ImmaginiPA.zip?dl=1";
-//chiamata alla funzione che verifica la presenza delle immagini e le scarica se necessario
-PresenzaImmagini(curr_path,url);
 
 /**
  * Funzione che permette la registrazione nel database di un nuovo utente
@@ -407,16 +330,3 @@ PresenzaImmagini(curr_path,url);
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });
 }
-
-
-function ValidHttpUrl(urlDaVerificare:string) {
-    let url;
-    
-    try {
-      url = new URL(urlDaVerificare);
-    } catch (_) {
-      return false;  
-    }
-  
-    return url.protocol === "http:" || url.protocol === "https:";
-  }

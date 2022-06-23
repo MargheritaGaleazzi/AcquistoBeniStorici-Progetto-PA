@@ -472,6 +472,8 @@ La funzione middleware successiva è comunemente indicata da una variabile denom
 Per eseguire il programma il computer su cui lo si vuole eseguire deve avere installato il programma [GraphicsMagick](http://www.graphicsmagick.org/)
 
 ## Testing
+Si può testare il progetto eseguendo una serie di test predefiniti, per fare ciò basterà importare all'interno di Postman la collection [postman_collection.json](postman_collection.json) che si trova in questo repository.
+I token JWT, sono stati generati, utilizzando [JWT.IO](https://jwt.io/), tramite la chiave *'chiavegestionebeni'*
 
 ## Autori
 :woman_technologist: [Chiara Amalia Caporusso](https://github.com/ChiaraAmalia) 

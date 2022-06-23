@@ -44,49 +44,15 @@ CREATE TABLE `utente`(
     `ruolo`,
     `credito`
 )
-VALUES(
-    'rossiMario@gmail.com',
-    'RosMar',
-    'Mario',
-    'Rossi',
-    'user',
-    150
-),(
-    'luigiVerdi@alice.it',
-    'VerLug',
-    'Luigi',
-    'Verdi',
-    'user',
-    120
-),(
-    'mariaBianchi@gmail.com',
-    'Mary',
-    'Maria',
-    'Bianchi',
-    'user',
-    15
-),(
-    'cass.lof@alice.it',
-    'Cassidy',
-    'Cassandra',
-    'Loffanzi',
-    'user',
-    0
-),(
-    'giovi@alice.it',
-    'Giova',
-    'Giovanni',
-    'Saluti',
-    'user',
-    23
-),(
-    'babiFre@alice.it',
-    'Barbara',
-    'Barbara',
-    'Frescati',
-    'admin',
-    999
-);
+VALUES('rossiMario@gmail.com','RosMar','Mario','Rossi','user',150),
+('luigiVerdi@alice.it','VerLug','Luigi','Verdi','user',120),
+('mariaBianchi@gmail.com','Mary','Maria','Bianchi','user',15),
+('cass.lof@alice.it','Cassidy','Cassandra','Loffanzi','user',0),
+('giovi@alice.it','Giova','Giovanni','Saluti','user',23),
+('pino@alice.it','Pino','Pino','Abete','user',500),
+('stellamari@gmail.com','Star','Maria','Stella','user',460),
+('anse@alice.it','Anse','Anselmo','Bianchi','user',25),
+('babiFre@alice.it','Barbara','Barbara','Frescati','admin',999);
 INSERT INTO `bene`(
     `id`,
     `nome`,
@@ -122,25 +88,13 @@ INSERT INTO `acquisto`(
     `tipo_acq`,
     `nDownload`
 )
-VALUES(
-    1,
-    'jpg',
-    'rossiMario@gmail.com',
-    1,
-    'download originale',
-    1
-    ),(
-    2, 
-    'png', 
-    'giovi@alice.it', 
-    4, 
-    'download originale',
-    0
-    ),(
-    3, 
-    'jpg', 
-    'giovi@alice.it', 
-    4, 
-    'download aggiuntivo',
-    1
-    );
+VALUES(1,'jpg','rossiMario@gmail.com',1,'download originale',1),
+(2, 'png', 'giovi@alice.it', 4, 'download originale',0),
+(3, 'jpg', 'giovi@alice.it', 4, 'download aggiuntivo',1),
+(4, 'tiff', 'pino@alice.it', 5, 'download originale',1),
+(5, 'tiff', 'cass.lof@alice.it', 2, 'download originale',0),
+(6, 'png', 'stellamari@gmail.com', 11, 'download originale',1),
+(7, 'png', 'stellamari@gmail.com', 11, 'download aggiuntivo',0),
+(8, 'jpg', 'giovi@alice.it', 20, 'download originale',1),
+(9, 'tiff', 'anse@alice.it', 7, 'download originale',1),
+(10, 'tiff', 'anse@alice.it', 7, 'download aggiuntivo',0);

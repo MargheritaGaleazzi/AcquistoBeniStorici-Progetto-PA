@@ -3,8 +3,8 @@ import * as Middleware from './middlewareRichieste';
 export const FiltroTipoAnno = [
     Middleware.verificaContentType,
     Middleware.controlloValoriFiltro,
-    //Middleware.controlloTipo,
-    //Middleware.controlloAnno
+    Middleware.controlloTipo,
+    Middleware.controlloAnno
 ];
 
 export const AcquistoBene = [
@@ -40,7 +40,7 @@ export const JWT = [
 
 export const AdminRicarica = [
     Middleware.controlloValoriRicarica,
-    //Middleware.controlloPositivita,
+    Middleware.controlloPositivita,
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloPresenzaAdmin,
     Middleware.ControlloAdmin

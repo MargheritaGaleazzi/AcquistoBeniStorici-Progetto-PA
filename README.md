@@ -259,6 +259,41 @@ model ->>- controller : result: acquisto
 controller ->>- client:  risp.end()
 ```
 
+#### Effettuare la ricarica dei crediti (Ricarica)
+
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /Ricarica
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: Admin
+CoR ->>+ middleware: controlloValoriRicarica()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPresenzaAdmin()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloAdmin()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: ricarica()
+controller ->>+ model : Utente.increment()
+controller ->>- client:  risp.status().json()
+```
+
 ## Pattern utilizzati
 
 ### Factory Method

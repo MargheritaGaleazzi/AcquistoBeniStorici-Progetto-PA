@@ -156,6 +156,23 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 <p align="center">
   <img width="1020" src="https://github.com/MargheritaGaleazzi/AcquistoBeniStorici-Progetto-PA/blob/main/img_doc/UseCase.jpg">
 </p>
+### Sequence Diagram
+#### Visualizzazione dei beni (ListaBeni)
+```mermaid
+sequenceDiagram
+client ->> app: 1./ListaBeni
+app ->> CoR: 2.FiltroTipoAnno
+CoR ->> middleware: 3.verificaContentType()
+middleware ->> CoR:  4.next()
+CoR ->> middleware: 5.controlloValoriFiltro()
+middleware ->> app:  6.next()
+app ->> controller: 7.listaBeni()
+controller ->> model : 8.Bene.findAll()
+model ->> controller : 9.result: bene
+controller ->> factory : 10.getMsg().getMsg()
+factory ->> controller: 11.obj:ListaBeni
+controller ->> client: 12. risp.status().json()
+```
 
 ## Pattern utilizzati
 

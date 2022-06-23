@@ -125,10 +125,10 @@ I filtri possono andare in AND, e si può filtrare per:
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
 ~~~
-	{
-		"tipo":"manoscritto",
-		"anno":355
-	}
+{
+    "tipo":"manoscritto",
+    "anno":355
+}
 ~~~
 
 ### Effettuare l'acquisto di uno specifico bene (AcquistaBene)
@@ -143,11 +143,11 @@ Nella richiesta deve essere specificato il formato di uscita, che può essere:
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
 ~~~
-	{
-		"id_bene":1,
-		"formato":"png",
-		"consumatore":"luigiVerdi@alice.it"
-	}
+{
+    "id_bene":1,
+    "formato":"png",
+    "consumatore":"luigiVerdi@alice.it"
+}
 ~~~
 
 ### Scaricare il bene acquistato (download)
@@ -160,11 +160,11 @@ Mediante l'utilizzo di questa rotta si può richiedere un nuovo link per un bene
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
 ~~~
-	{
-		"id_bene":1,
-		"formato":"png",
-		"consumatore":"luigiVerdi@alice.it"
-	}
+{
+    "id_bene":1,
+    "formato":"png",
+    "consumatore":"luigiVerdi@alice.it"
+}
 ~~~
 
 
@@ -180,11 +180,11 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
 ~~~
-	{
-		"ids": [1,2,3],
-		"formato": "png",
-		"compr": "giovi@alice.it"
-	}
+{
+    "ids": [1,2,3],
+    "formato": "png",
+    "compr": "giovi@alice.it"
+}
 ~~~
 
 ### Fare un regalo ad un amico (Regalo)
@@ -193,12 +193,12 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
 ~~~
-	{
-		"email_amico":"ciao@ciao.it",
-		"formato_bene":"png",
-		"compr":"giovi@alice.it",
-		"id_bene":2
-	}
+{
+    "email_amico":"ciao@ciao.it",
+    "formato_bene":"png",
+    "compr":"giovi@alice.it",
+    "id_bene":2
+}
 ~~~
 
 ### Visualizzare il credito (VisualizzaCredito)
@@ -211,12 +211,40 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
 ~~~
-	{
-		"email":"luigiVerdi@alice.it",
-		"ricarica":700
-	}
+{
+    "email":"luigiVerdi@alice.it",
+    "ricarica":700
+}
 ~~~
 
+### Aggiungere un nuovo utente (AggiungiUtente)
+Mediante l'utilizzo di questa rotta si l'admin può aggiungere un nuovo utente (con ruolo user).
+Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "email": "gianni@alice.it",
+    "username": "Gialbe",
+    "nome": "Giovanni",
+    "cognome": "Alberti"
+}
+~~~
+
+### Aggiungere un nuovo bene (AggiungiBene)
+Mediante l'utilizzo di questa rotta si l'admin può aggiungere un nuovo bene.
+L'immagine relativa al nuovo bene potrà essere caricata da un'immagine "locale" o da un immpagine presa da internet.
+Nel caso di immagine locale come path, bisogna specificare qullo assoluto, nel caso di immagine presa da internet basta passare l'url.
+Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "nome": "cuori",
+    "tipo": "manoscritto",
+    "anno": 2022,
+    "prezzo": 102,
+    "path_img":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Suit_Hearts_%28open_clipart%29.svg/1200px-Suit_Hearts_%28open_clipart%29.svg.png"
+}
+~~~
 
 ## Diagrammi UML
 ### Use case

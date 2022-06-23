@@ -156,8 +156,11 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 <p align="center">
   <img width="1020" src="https://github.com/MargheritaGaleazzi/AcquistoBeniStorici-Progetto-PA/blob/main/img_doc/UseCase.jpg">
 </p>
+
 ### Sequence Diagram
+
 #### Visualizzazione dei beni (ListaBeni)
+
 ```mermaid
 sequenceDiagram
 client ->> app: 1./ListaBeni

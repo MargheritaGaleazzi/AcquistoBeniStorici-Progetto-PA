@@ -69,13 +69,17 @@ La seguente tabella mostra le richieste possibili:
          <td> GET </td>
          <td> /ListaBeni </td>
         </tr>
+        <tr>
+         <td> GET </td>
+         <td> /Lista </td>
+        </tr>
          <tr>
          <td> POST </td>
          <td> /AcquistaBene </td>
         </tr>
          <tr>
          <td> GET </td>
-         <td> /ScaricaBene </td>
+         <td> /download/:bene/:formato/:tipoDownload/:idAcquisto </td>
         </tr>
         <tr>
          <td> POST </td>
@@ -95,11 +99,19 @@ La seguente tabella mostra le richieste possibili:
         </tr>
         <tr>
          <td> GET </td>
-         <td> /VisualizzaCredito </td>
+         <td> /VisualizzaCredito/:email </td>
         </tr>
         <tr>
          <td> POST </td>
          <td> /Ricarica </td>
+        </tr>
+             <tr>
+         <td> POST </td>
+         <td> /AggiungiUtente </td>
+        </tr>
+             <tr>
+         <td> POST </td>
+         <td> /AggiungiBene </td>
         </tr>
     </tbody>
  </table>

@@ -61,11 +61,11 @@ applicazione.get('/download/:bene/:formato/:tipoDownload/:idAcquisto', Middlewar
 });
 
 /*
- * Rotta per richiedere un nuovo link per un bene già scaricato
+ * Rotta per richiedere un nuovo link per un acquisto già fatto e bene già scaricato
  */
 
-applicazione.post('/NuovoLink', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.nuovoLink(req.body.id_bene,req.body.formato,req.body.consumatore, res);
+applicazione.post('/NuovoLink', Middleware.JWT, function (req: any, res: any) {    
+    Controller.nuovoLink(req.body.id_acquisto, res);
 });
 
 /*

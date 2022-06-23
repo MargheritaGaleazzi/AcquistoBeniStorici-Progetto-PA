@@ -10,8 +10,11 @@ export const AcquistoBene = [
     Middleware.ControlloTokenNullo,
     Middleware.controlloValoriAcquistoBene,
     Middleware.ControlloCredito,
-    Middleware.controlloFormatoImmagine,
-    Middleware.controlloDownload   
+    Middleware.controlloFormatoImmagine,   
+]
+
+export const ControlloDownload = [
+    Middleware.controlloDownload
 ]
 
 export const Regalo = [

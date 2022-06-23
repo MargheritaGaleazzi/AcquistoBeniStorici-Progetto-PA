@@ -112,11 +112,14 @@ export function ControlloCredito(req: any, res: any, next: any) : void {
 }
 
 export function controlloDownload(req: any, res: any, next: any) : void {
-    Acquisto.findOne({
-        where: { email_compr : req.body.consumatore, beneId : req.body.id_bene}, 
-        raw: true
-    }).then((risultato: any) => {
-        if (risultato == undefined){
+    console.log(req.params.idAcquisto);
+    Acquisto.findByPk(req.params.idAcquisto).then((risultato: any) => {
+        console.log(risultato);
+        console.log(risultato.nDownload);
+        if (risultato.nDownload == 0){
+            next();
+        }
+        else if (risultato.nDownload == 1 && req.params.tipoDownload == "DownloadRegalo") {
             next();
         }
         else {

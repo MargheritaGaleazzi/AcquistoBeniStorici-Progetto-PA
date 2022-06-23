@@ -53,7 +53,7 @@ applicazione.post('/AcquistaBene',Middleware.JWT, Middleware.AcquistoBene,  func
  * Rotta per scaricare un bene acquistato
  */
 
-applicazione.get('/download/:bene/:formato/:tipoDownload/:idAcquisto', /*aggiungi middleware*/ bodyParser.raw({ type: ['image/jpeg', 'image/png']}),function (req: any, res: any) {    
+applicazione.get('/download/:bene/:formato/:tipoDownload/:idAcquisto', Middleware.ControlloDownload, bodyParser.raw({ type: ['image/jpeg', 'image/png']}),function (req: any, res: any) {    
     Controller.download(req.params.bene,req.params.formato,req.params.idAcquisto, res);
 });
 

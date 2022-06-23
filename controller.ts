@@ -312,8 +312,8 @@ export function download(nome:string,formato:string,id_acquisto:number,risp:any)
  * @param prezzo -> prezzo del bene
  * @param risp -> la risposta che darà il server
  */
- export function aggiungiBene(nome:string, tipo:string, anno:number, prezzo:number, path_img:string, risp: any): void{
-    Bene.create({nome:nome,tipo:tipo, anno:anno,prezzo:prezzo}).then((nuovoBene:any)=>{
+ export async function aggiungiBene(nome:string, tipo:string, anno:number, prezzo:number, path_img:string, risp: any): Promise<void>{
+    await Bene.create({nome:nome+'.jpg',tipo:tipo, anno:anno,prezzo:prezzo}).then((nuovoBene:any)=>{
         if(ValidHttpUrl(path_img)){
             gm(request(path_img)).write('img/'+nome+'.jpg', function (err:any) {
                 if (err) controllerErrori(MsgEnum.ErrImg, err, risp);;

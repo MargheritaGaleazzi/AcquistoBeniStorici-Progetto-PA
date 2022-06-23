@@ -3,8 +3,8 @@ import * as Middleware from './middlewareRichieste';
 export const FiltroTipoAnno = [
     Middleware.verificaContentType,
     Middleware.controlloValoriFiltro,
-    Middleware.controlloTipo,
-    Middleware.controlloAnno
+    //Middleware.controlloTipo,
+    //Middleware.controlloAnno
 ];
 
 export const AcquistoBene = [
@@ -28,7 +28,7 @@ export const NuovoLink = [
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloUser,
     Middleware.ControlloTokenNullo,
-    Middleware.controlloValoriNuovoLink
+    //Middleware.controlloValoriNuovoLink
 ]
 
 export const JWT = [
@@ -38,7 +38,7 @@ export const JWT = [
 
 export const AdminRicarica = [
     Middleware.controlloValoriRicarica,
-    Middleware.controlloPositivita,
+    //Middleware.controlloPositivita,
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloPresenzaAdmin,
     Middleware.ControlloAdmin
@@ -51,6 +51,15 @@ export const NuovoUtente = [
     Middleware.valMailNuovoConsumatore,
     Middleware.EmailUnivoca
 ]
+
+export const NuovoBene = [
+    Middleware.ControlloPresenzaAdmin,
+    Middleware.ControlloAdmin,
+    Middleware.controlloValoriBene,
+    //Middleware.valMailNuovoConsumatore,
+    Middleware.controlloImgUnivoca
+]
+
 
 export const RottaSbagliata = [
     Middleware.RottaNonTrovata

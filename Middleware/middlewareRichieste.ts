@@ -5,6 +5,7 @@ import { isNullishCoalesce, JsonObjectExpression } from 'typescript';
 import { getMsg,MsgEnum } from '../Factory/messaggi';
 import { Utente, Bene, Acquisto} from "../models/models";
 
+const resemble = require('resemblejs')
 /**
  * Funzione utilizzata per il controllo dei valori che vengono inseriti quando
  * si effettua un filtro per tipo o anno
@@ -458,9 +459,14 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
 }
 
 /**
- * 
+ * Funzione utilizzata per controllare che quando
+ * si effettua l'inserimento di un nuovo utente si passi una mail
+ * che non è già stata utilizzata da un altro utente
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo 
  */
-export function EmailUnivoca(req:any, res:any, next:any) {
+ export function EmailUnivoca(req:any, res:any, next:any) {
     Utente.findAll({attributes: ['email'], raw: true}).then((utente: object[]) => {
         var json = JSON.parse(JSON.stringify(utente));
         var array: string[] = [];
@@ -480,7 +486,7 @@ export function EmailUnivoca(req:any, res:any, next:any) {
 
 /**
  * Funzione utilizzata per il controllo dei valori che vengono inseriti quando
- * si effettua un filtro per tipo o anno
+ * si effettua l'inserimento di un nuovo utente
  * @param req richiesta del client
  * @param res risposta del server
  * @param next riferimento al middleware successivo
@@ -498,4 +504,66 @@ export function EmailUnivoca(req:any, res:any, next:any) {
         const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
+}
+
+/**
+ * Funzione utilizzata per il controllo dei valori che vengono inseriti quando
+ * si effettua l'inserimento di un nuovo utente
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloValoriBene(req: any, res: any, next: any) : void {
+    if (typeof req.body.nome == 'string' && 
+        typeof req.body.tipo == 'string' &&
+        typeof req.body.anno == 'number' &&
+        typeof req.body.email_admin == 'string' &&
+        typeof req.body.ruolo == 'string' &&
+        typeof req.body.prezzo == 'number' &&
+        typeof req.body.path_img == 'string'){
+        next();
+        }
+    else if (!req.body.risultato) {
+        const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+}
+
+/**
+ * Funzione utilizzata per controllare che l'immagine inserita 
+ * non sia già presente
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloImgUnivoca(req: any, res: any, next: any) : void {
+    Bene.findAll({attributes: ['nome'], raw: true}).then((beni: object[]) => {
+        var json = JSON.parse(JSON.stringify(beni));
+        var array: string[] = [];
+        console.log(json.length)
+        for(var i=0; i<json.length; i++){
+            array.push(json[i]['nome']);
+        }
+        const curr_path = __dirname.slice(0,-11);
+            array.forEach(async element => {
+               var b_path = curr_path + '\\img\\' + element;
+               var diff = await resemble(req.body.path_img)
+               .compareTo(b_path)
+               .ignoreColors()
+               .onComplete(function (data:any) {
+                   //console.log(data);
+                   var json = JSON.parse(JSON.stringify(data));
+                   if(json['rawMisMatchPercentage']===0){
+                    const new_err = getMsg(MsgEnum.ErrImgUnivoca).getMsg();
+                    next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+                   }
+               });
+               /*if (cv.countNonZero(diff)){
+                const new_err = getMsg(MsgEnum.ErrImgUnivoca).getMsg();
+                next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+               }*/
+            });
+            next()
+
+ })
 }

@@ -1,7 +1,7 @@
 require('dotenv').config();
 import * as jwt from 'jsonwebtoken';
 import { where } from 'sequelize/types';
-import { JsonObjectExpression } from 'typescript';
+import { isNullishCoalesce, JsonObjectExpression } from 'typescript';
 import { getMsg,MsgEnum } from '../Factory/messaggi';
 import { Utente, Bene, Acquisto} from "../models/models";
 
@@ -13,11 +13,7 @@ import { Utente, Bene, Acquisto} from "../models/models";
  * @param next riferimento al middleware successivo
  */
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {
-    if (req.body.risultato == undefined) {
-        const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
-        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-    }
-    else if ((typeof req.body.tipo == 'string' && 
+    if ((typeof req.body.tipo == 'string' && 
         typeof req.body.anno == 'number') || (typeof req.body.tipo == 'string' && 
         req.body.anno == null) || (req.body.tipo == null && 
         typeof req.body.anno == 'number')) {
@@ -27,7 +23,54 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
         const new_err = getMsg(MsgEnum.ErrInserimentoFiltriValori).getMsg();
         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
-    
+}
+
+/**
+ * Funzione che consente di controllare se il filtraggio relativo al tipo risulta essere presente
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloTipo(req: any, res: any, next: any) : void {
+    var tipo: string[] = ["manoscritto","cartografia storica"];
+    var i=0;
+    while(req.body.tipo != tipo[i] && req.body.tipo != null){
+        if(i==tipo.length-1 && req.body.formato != tipo[i]){
+            const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+            break;
+        }
+        i++;
+    }
+    next();
+}
+
+/**
+ * Funzione utilizzata per controllare se l'anno inserito per il filtro è presente nel database
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloAnno(req: any, res: any, next: any) : void {
+    Bene.findAll({attributes: ['anno'], raw: true}).then((utente: object[]) => {
+        var json = JSON.parse(JSON.stringify(utente));
+        var array: number[] = [];
+        for(var i=0; i<json.length; i++){
+            array.push(json[i]['anno']);
+        }
+        var j=0;
+        while(req.body.anno != array[j] && req.body.anno != null){
+            if(j==array.length-1 && req.body.anno != array[j]){
+                const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
+                next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+                break;
+            }
+            j++;
+        }
+        next();
+    });
 }
 
 /**
@@ -37,10 +80,6 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
  * @param next riferimento al middleware successivo
  */
 export function controlloValoriAcquistoBene(req: any, res: any, next: any) : void {
-    if (req.body.risultato == undefined) {
-        const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
-        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-    }
     if(typeof req.body.id_bene == "number" && typeof req.body.formato == "string" && 
         typeof req.body.consumatore == "string" && typeof req.body.ruolo == "string"){
         next();

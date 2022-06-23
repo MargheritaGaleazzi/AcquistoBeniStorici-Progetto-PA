@@ -545,9 +545,9 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
             array.push(json[i]['nome']);
         }
         const curr_path = __dirname.slice(0,-11);
-            array.forEach(async element => {
+            array.forEach(element => {
                var b_path = curr_path + '\\img\\' + element;
-               var diff = await resemble(req.body.path_img)
+               resemble(req.body.path_img)
                .compareTo(b_path)
                .ignoreColors()
                .onComplete(function (data:any) {

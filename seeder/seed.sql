@@ -94,37 +94,26 @@ INSERT INTO `bene`(
     `anno`,
     `prezzo`
 )
-VALUES(
-    1,
-    'Aristotle_latin_manuscript.jpg',
-    'manoscritto',
-    355,
-    28
-),(
-    2,
-    'cart_Roma_Capitale.jpg',
-    'cartografia storica',
-    427,
-    36
-),(
-    3,
-    'fiume_PO.jpg',
-    'cartografia storica',
-    1576,
-    10
-),(
-    4,
-    'Karl-VI-Praesentirt-per-notarium.jpg',
-    'manoscritto',
-    1370,
-    120
-),(
-    5,
-    'Tibullo-Albio-cavaliere-Romano-elogio1°-tradotto-dal-latino.jpg',
-    'manoscritto',
-    800,
-    85
-);
+VALUES(1,'Aristotle_latin_manuscript.jpg','manoscritto',355,28),
+(2,'cart_Roma_Capitale.jpg','cartografia storica',427,36),
+(3,'fiume_PO.jpg','cartografia storica',1576,10),
+(4,'Karl-VI-Praesentirt-per-notarium.jpg','manoscritto',1370,120),
+(5,'Tibullo-Albio-cavaliere-Romano-elogio1°-tradotto-dal-latino.jpg','manoscritto',800,85),
+(6, 'Ruth-Ecclesiaste-&-tikun-Yemen.jpg', 'manoscritto', 1850, 36),
+(7, 'King-George.jpg','manoscritto', 1735, 103),
+(8, 'Antica-Lettera-Magia','manoscritto',1600, 22),
+(9, 'Marchese-FRANCESCO-CASALI.jpg','manoscritto', 1668, 70),
+(10, 'campagna-romana.jpg','cartografia storica', 1972, 24),
+(11, 'lazio-nella-carta-italiana.jpg', 'cartografia storica', 1477, 55),
+(12, 'Lazio-Fra-Paolino.jpg', 'cartografia storica', 1334, 86),
+(13, 'Pesaro.jpg', 'cartografia storica', 1500, 40),
+(14, 'legazione-pesaro-urbino.jpg', 'cartografia storica', 1844, 120),
+(15, 'delegazione-ancona.jpg', 'cartografia storica', 1844, 115),
+(16, 'italia.jpg', 'cartografia storica', 1765, 96),
+(17, 'siena-ducato.jpg', 'cartografia storica', 1663, 205),
+(18, 'antica-urbino', 'manoscritto', 1713, 105),
+(19, 'comitato-liberazione.jpg', 'manoscritto', 1945, 36),
+(20, 'doge-michele-steno.jpg', 'manoscritto', 1406, 94);
 INSERT INTO `acquisto`(
     `id`,
     `formato`,

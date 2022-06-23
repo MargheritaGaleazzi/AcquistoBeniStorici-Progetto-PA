@@ -131,6 +131,9 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 }
 ~~~
 
+### Visualizzazione di tutti i beni (Lista)
+Mediante l'utilizzo di questa rotta si può visualizzare la lista di tutti i beni presenti. Questa rotta può essere richiamata da chiunque.
+
 ### Effettuare l'acquisto di uno specifico bene (AcquistaBene)
 Mediante l'utilizzo di questa rotta si può acquistare un bene, specificandone l'id. Questa rotta può essere richiamata dall'utente autenticato, con il ruolo di user.
 
@@ -150,7 +153,7 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 }
 ~~~
 
-### Scaricare il bene acquistato (download)
+### Effettuare il download di un bene acquistato (download)
 Mediante l'utilizzo di questa rotta si può scaricare il bene acquistato se il pagamento è effettuato con successo. Questa rotta può essere richiamata solamente dagli utenti autenticati con ruolo user.
 
 Nota che il bene acquistato può essere scaricato solamente 1 volta; le richieste successive verranno rifiutate.
@@ -358,6 +361,39 @@ model ->>- controller : result: acquisto
 controller ->>- client:  risp.end()
 ```
 
+
+#### Richiedi nuovo link (NuovoLink)
+
+
+#### Visualizzazione dei beni acquistati (VediAcquisti)
+
+
+#### Effettuare un acquisto multiplo (AcquistaMultiplo)
+
+#### Fare un regalo ad un amico (Regalo)
+
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /Regalo
+app ->>+ CoR: Regalo
+CoR ->>+ middleware: controlloDownloadRegalo()
+middleware ->>+ model: Acquisto.count()
+model ->>- middleware: reslut: risultato
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: regalo()
+controller ->>+ model : Acquisto.create()
+model ->>- controller : result: acquisto
+controller ->>+ model : Bene.findByPk()
+model ->>- controller : result: bene
+controller ->>+ model : Utente.decrement()
+controller ->>- client:  risp.status().json()
+```
+
+
+#### Visualizzare il credito (VisualizzaCredito)
+
 #### Effettuare la ricarica dei crediti (Ricarica)
 
 ```mermaid
@@ -393,26 +429,9 @@ controller ->>+ model : Utente.increment()
 controller ->>- client:  risp.status().json()
 ```
 
-#### Fare un regalo ad un amico (Regalo)
+#### Aggiungere un nuovo utente (AggiungiUtente)
 
-```mermaid
-sequenceDiagram
-autonumber
-client ->> app: /Regalo
-app ->>+ CoR: Regalo
-CoR ->>+ middleware: controlloDownloadRegalo()
-middleware ->>+ model: Acquisto.count()
-model ->>- middleware: reslut: risultato
-middleware ->>- CoR:  next()
-CoR ->>- app : next()
-app ->>+ controller: regalo()
-controller ->>+ model : Acquisto.create()
-model ->>- controller : result: acquisto
-controller ->>+ model : Bene.findByPk()
-model ->>- controller : result: bene
-controller ->>+ model : Utente.decrement()
-controller ->>- client:  risp.status().json()
-```
+#### Aggiungere un nuovo bene (AggiungiBene)
 
 ## Pattern utilizzati
 

@@ -11,7 +11,7 @@ applicazione.use(express.json());
 applicazione.use((err: Error, req: any, res: any, next: any) => {
     if (err instanceof SyntaxError) {
         const new_err = getMsg(MsgEnum.ErrPaylodMalformato).getMsg();
-        res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg});
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
     next();
 });
@@ -53,7 +53,7 @@ applicazione.post('/AcquistaBene',Middleware.JWT, Middleware.AcquistoBene,  func
  * Rotta per scaricare un bene acquistato
  */
 
-applicazione.get('/download/:bene/:formato/:tipoDownload/:idAcquisto', Middleware.ControlloDownload, bodyParser.raw({ type: ['image/jpeg', 'image/png']}),function (req: any, res: any) {    
+applicazione.get('/download/:bene/:formato/:tipoDownload/:idAcquisto', Middleware.JWT, Middleware.ControlloDownload, bodyParser.raw({ type: ['image/jpeg', 'image/png']}),function (req: any, res: any) {    
     Controller.download(req.params.bene,req.params.formato,req.params.idAcquisto, res);
 });
 

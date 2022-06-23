@@ -33,7 +33,7 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
  */
 export function controlloValoriAcquistoBene(req: any, res: any, next: any) : void {
     if(typeof req.body.id_bene == "number" && typeof req.body.formato == "string" && 
-        typeof req.body.consumatore == "string"){
+        typeof req.body.consumatore == "string" && typeof req.body.ruolo == "string"){
         next();
     }
     else if (!req.body.risultato) {
@@ -159,6 +159,19 @@ export function ControlloTokenNullo(req: any, res: any, next: any) : void {
 
 export function ControlloAdmin(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.email_admin).then((utente:any) => {
+        if(utente.ruolo == req.body.ruolo){
+            next();
+        }
+        else {
+            const new_err = getMsg(MsgEnum.ErrNonAutorizzato).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg})); 
+        }
+    });
+}
+
+export function ControlloUser(req: any, res: any, next: any) : void {
+    Utente.findByPk(req.body.consumatore).then((utente:any) => {
+        console.log(req.body.ruolo)
         if(utente.ruolo == req.body.ruolo){
             next();
         }

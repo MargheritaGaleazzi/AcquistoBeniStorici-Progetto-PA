@@ -89,9 +89,7 @@ export function lista(risp: any): void{
  * Funzione che permette di ottenere un nuovo link per il bene
  * acquistato, di cui si era già quindi avuto un altro link
  * 
- * @param id_bene -> numero identificativo del bene di cui si vuole un secondo link
- * @param formato_bene -> stringa che identifica il formato richiesto dall'acquirente
- * @param compr -> email dell'utente che vuole acquistare il bene
+ * @param id_acquisto -> numero identificativo dell'acquisto di cui si vuole ottenere un secondo link
  * @param risp -> la risposta che darà il server
  */
 export function nuovoLink(id_acquisto:number, risp:any):void{

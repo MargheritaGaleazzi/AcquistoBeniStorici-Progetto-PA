@@ -163,18 +163,20 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 
 ```mermaid
 sequenceDiagram
-client ->> app: 1./ListaBeni
-app ->> CoR: 2.FiltroTipoAnno
-CoR ->> middleware: 3.verificaContentType()
-middleware ->> CoR:  4.next()
-CoR ->> middleware: 5.controlloValoriFiltro()
-middleware ->> app:  6.next()
-app ->> controller: 7.listaBeni()
-controller ->> model : 8.Bene.findAll()
-model ->> controller : 9.result: bene
-controller ->> factory : 10.getMsg().getMsg()
-factory ->> controller: 11.obj:ListaBeni
-controller ->> client: 12. risp.status().json()
+autonumber
+client ->> app: /ListaBeni
+app ->>+ CoR: FiltroTipoAnno
+CoR ->>+ middleware: verificaContentType()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriFiltro()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: listaBeni()
+controller ->>+ model : Bene.findAll()
+model ->>- controller : result: bene
+controller ->>+ factory : getMsg().getMsg()
+factory ->>- controller: obj:ListaBeni
+controller ->>- client:  risp.status().json()
 ```
 
 #### Visualizzazione dei beni senza filtri (Lista)

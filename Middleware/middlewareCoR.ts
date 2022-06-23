@@ -34,6 +34,13 @@ export const AdminRicarica = [
     Middleware.ControlloAdmin
 ]
 
+export const NuovoUtente = [
+    Middleware.ControlloPresenzaAdmin,
+    Middleware.ControlloAdmin,
+    Middleware.valMailNuovoConsumatore,
+    Middleware.EmailUnivoca
+]
+
 export const RottaSbagliata = [
     Middleware.RottaNonTrovata
 ]

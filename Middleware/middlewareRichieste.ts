@@ -368,3 +368,24 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
     const new_err = getMsg(MsgEnum.ErrRottaNonTrovata).getMsg();
     next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
 }
+
+/**
+ * 
+ */
+export function EmailUnivoca(req:any, res:any, next:any) {
+    Utente.findAll({attributes: ['email'], raw: true}).then((utente: object[]) => {
+        var json = JSON.parse(JSON.stringify(utente));
+        var array: string[] = [];
+        console.log(json.length)
+        for(var i=0; i<json.length; i++){
+            array.push(json[i]['email']);
+        }
+        if(array.find(element => element === req.body.email)){
+            const new_err = getMsg(MsgEnum.ErrEmailDuplicata).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        } else {
+            next();
+        }
+        
+    });
+}

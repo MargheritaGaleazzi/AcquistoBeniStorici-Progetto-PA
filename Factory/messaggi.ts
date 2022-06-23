@@ -204,6 +204,15 @@ class ErrImg implements Msg {
     }
 }
 
+class ErrEmailDuplicata implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 409,
+            msg: "ERRORE - Errore esiste già un utente con questa email"
+        }
+    }
+}
+
 class ListaBeni implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -287,6 +296,7 @@ export enum MsgEnum {
     ErrServizioNonDisp,
     ErrRichiestaErrata,
     ErrImg,
+    ErrEmailDuplicata,
     BadRequest,
     ListaBeni,
     AcquistaBene,
@@ -359,6 +369,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.ErrImg:
             val = new ErrImg();
+            break;
+        case MsgEnum.ErrEmailDuplicata:
+            val = new ErrEmailDuplicata();
             break;
         case MsgEnum.ListaBeni:
             val = new ListaBeni();

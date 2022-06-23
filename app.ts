@@ -113,7 +113,7 @@ applicazione.post('/Ricarica/', Middleware.JWT, Middleware.AdminRicarica, functi
  * Rotta per la ricaricare i crediti
  */
 
-applicazione.post('/AggiungiUtente', /*Middleware.JWT, Middleware.Admin,*/ function (req: any, res: any) {    
+applicazione.post('/AggiungiUtente', Middleware.JWT, Middleware.NuovoUtente, function (req: any, res: any) {    
     Controller.aggiungiUtente(req.body.email,req.body.username,req.body.nome,req.body.cognome, res);
 });
 

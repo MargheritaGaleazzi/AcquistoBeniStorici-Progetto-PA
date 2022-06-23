@@ -37,7 +37,7 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
         next();
     }
     else if (!req.body.risultato) {
-        const new_err = getMsg(MsgEnum.ErrInserimentoFiltriValori).getMsg();
+        const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
 }

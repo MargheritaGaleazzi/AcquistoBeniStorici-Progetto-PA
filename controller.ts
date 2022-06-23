@@ -149,10 +149,12 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
                 const image=curr_path+"\\img\\"+bene.nome;
                 const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
                 var tipo=selFormato(formato_bene)
-                gm(image).gravity('Center')
-                .fill('#ff0080')
-                .font(path.join(curr_path,'img/Black Ravens.ttf'), 40) 
-                .drawText(0, 0, "CodinGirl")
+                gm()
+                .command("composite") 
+                .in("-gravity", "center")
+                .in("-dissolve",78)
+                .in(path.join(curr_path,'img_doc/filigrana.png'))
+                .in(image)
                 .toBuffer(tipo, function (err:any, buffer:any) {
                     if (err) return console.log('err');
                     zip.addFile(nomebene,buffer);
@@ -305,12 +307,7 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
 export function download(nome:string,formato:string,id_acquisto:number,risp:any):void{
     const pathImg=path.join(curr_path,"img/"+nome);
     var tipo:string=selFormato(formato);
-    try {/*gm(pathImg)
-        .gravity('Center')
-        .fill('#ff0080')
-        .font(path.join(curr_path,'img/Black Ravens.ttf'), 40) 
-        .drawText(0, 0, "CodinGirl")*/
-        gm()
+    try {gm()
         .command("composite") 
         .in("-gravity", "center")
         .in("-dissolve",78)

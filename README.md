@@ -69,13 +69,17 @@ La seguente tabella mostra le richieste possibili:
          <td> GET </td>
          <td> /ListaBeni </td>
         </tr>
+        <tr>
+         <td> GET </td>
+         <td> /Lista </td>
+        </tr>
          <tr>
          <td> POST </td>
          <td> /AcquistaBene </td>
         </tr>
          <tr>
          <td> GET </td>
-         <td> /ScaricaBene </td>
+         <td> /download/:bene/:formato/:tipoDownload/:idAcquisto </td>
         </tr>
         <tr>
          <td> POST </td>
@@ -95,11 +99,19 @@ La seguente tabella mostra le richieste possibili:
         </tr>
         <tr>
          <td> GET </td>
-         <td> /VisualizzaCredito </td>
+         <td> /VisualizzaCredito/:email </td>
         </tr>
         <tr>
          <td> POST </td>
          <td> /Ricarica </td>
+        </tr>
+             <tr>
+         <td> POST </td>
+         <td> /AggiungiUtente </td>
+        </tr>
+             <tr>
+         <td> POST </td>
+         <td> /AggiungiBene </td>
         </tr>
     </tbody>
  </table>
@@ -111,6 +123,17 @@ I filtri possono andare in AND, e si può filtrare per:
  - tipologia (manoscritti, cartografie storiche);
  - anno (relativo al bene di interesse storico).
 
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "tipo":"manoscritto",
+    "anno":355
+}
+~~~
+
+### Visualizzazione di tutti i beni (Lista)
+Mediante l'utilizzo di questa rotta si può visualizzare la lista di tutti i beni presenti. Questa rotta può essere richiamata da chiunque.
+
 ### Effettuare l'acquisto di uno specifico bene (AcquistaBene)
 Mediante l'utilizzo di questa rotta si può acquistare un bene, specificandone l'id. Questa rotta può essere richiamata dall'utente autenticato, con il ruolo di user.
 
@@ -121,13 +144,32 @@ Nella richiesta deve essere specificato il formato di uscita, che può essere:
 2. **Tiff**;
 3. **Png**.
 
-### Scaricare il bene acquistato (ScaricaBene)
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "id_bene":1,
+    "formato":"png",
+    "consumatore":"luigiVerdi@alice.it"
+}
+~~~
+
+### Effettuare il download di un bene acquistato (download)
 Mediante l'utilizzo di questa rotta si può scaricare il bene acquistato se il pagamento è effettuato con successo. Questa rotta può essere richiamata solamente dagli utenti autenticati con ruolo user.
 
 Nota che il bene acquistato può essere scaricato solamente 1 volta; le richieste successive verranno rifiutate.
 
 ### Richiedi nuovo link (NuovoLink)
 Mediante l'utilizzo di questa rotta si può richiedere un nuovo link per un bene già scaricato. Il costo di questa operazione è di 1 token. Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "id_bene":1,
+    "formato":"png",
+    "consumatore":"luigiVerdi@alice.it"
+}
+~~~
+
 
 ### Visualizzazione dei beni acquistati (VediAcquisti)
 Mediante l'utilizzo di questa rotta si può visualizzare l’elenco degli acquisti effettuati per ogni utente. 
@@ -139,9 +181,28 @@ Questa rotta può essere richiamata solamente dall'utente autenticato.
 Mediante l'utilizzo di questa rotta si possono effettuare acquisti multipli. L'output sarà in questo caso uno zip.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
 
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "ids": [1,2,3],
+    "formato": "png",
+    "compr": "giovi@alice.it"
+}
+~~~
+
 ### Fare un regalo ad un amico (Regalo)
 Mediante l'utilizzo di questa rotta si ha a possibilità di effettuare un regalo ad un “amico”, fornendo il suo indirizzo mail.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "email_amico":"ciao@ciao.it",
+    "formato_bene":"png",
+    "compr":"giovi@alice.it",
+    "id_bene":2
+}
+~~~
 
 ### Visualizzare il credito (VisualizzaCredito)
 Mediante l'utilizzo di questa rotta si può visualizzare  il credito residuo di un utente.
@@ -150,6 +211,43 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 ### Effettuare la ricarica dei crediti (Ricarica)
 Mediante l'utilizzo di questa rotta si può ricaricare  il credito di un utente.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "email":"luigiVerdi@alice.it",
+    "ricarica":700
+}
+~~~
+
+### Aggiungere un nuovo utente (AggiungiUtente)
+Mediante l'utilizzo di questa rotta si l'admin può aggiungere un nuovo utente (con ruolo user).
+Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "email": "gianni@alice.it",
+    "username": "Gialbe",
+    "nome": "Giovanni",
+    "cognome": "Alberti"
+}
+~~~
+
+### Aggiungere un nuovo bene (AggiungiBene)
+Mediante l'utilizzo di questa rotta si l'admin può aggiungere un nuovo bene.
+L'immagine relativa al nuovo bene potrà essere caricata da un'immagine "locale" o da un immpagine presa da internet.
+Nel caso di immagine locale come path, bisogna specificare qullo assoluto, nel caso di immagine presa da internet basta passare l'url.
+Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+{
+    "nome": "cuori",
+    "tipo": "manoscritto",
+    "anno": 2022,
+    "prezzo": 102,
+    "path_img":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Suit_Hearts_%28open_clipart%29.svg/1200px-Suit_Hearts_%28open_clipart%29.svg.png"
+}
+~~~
 
 ## Diagrammi UML
 ### Use case
@@ -211,6 +309,10 @@ middleware ->> middleware: controlloPresenza()
 middleware ->>+ model: Utente.findAll()
 model ->>- middleware: result: utente
 middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloUser()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloTokenNullo()
 middleware ->>+ model: Utente.findByPk()
 model ->>- middleware: result: utente
@@ -237,7 +339,7 @@ factory ->>- controller: obj:AcquistaBene
 controller ->>- client:  risp.status().json()
 ```
 
-#### Effettuare il download di un bene acquistato (/download)
+#### Effettuare il download di un bene acquistato (download)
 
 ```mermaid
 sequenceDiagram
@@ -259,6 +361,39 @@ model ->>- controller : result: acquisto
 controller ->>- client:  risp.end()
 ```
 
+
+#### Richiedi nuovo link (NuovoLink)
+
+
+#### Visualizzazione dei beni acquistati (VediAcquisti)
+
+
+#### Effettuare un acquisto multiplo (AcquistaMultiplo)
+
+#### Fare un regalo ad un amico (Regalo)
+
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /Regalo
+app ->>+ CoR: Regalo
+CoR ->>+ middleware: controlloDownloadRegalo()
+middleware ->>+ model: Acquisto.count()
+model ->>- middleware: reslut: risultato
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: regalo()
+controller ->>+ model : Acquisto.create()
+model ->>- controller : result: acquisto
+controller ->>+ model : Bene.findByPk()
+model ->>- controller : result: bene
+controller ->>+ model : Utente.decrement()
+controller ->>- client:  risp.status().json()
+```
+
+
+#### Visualizzare il credito (VisualizzaCredito)
+
 #### Effettuare la ricarica dei crediti (Ricarica)
 
 ```mermaid
@@ -271,7 +406,7 @@ middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloChiaveSegreta()
 middleware ->>- CoR:  next()
 CoR ->>- app : next()
-app ->>+ CoR: Admin
+app ->>+ CoR: AdminRicarica
 CoR ->>+ middleware: controlloValoriRicarica()
 middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloPresenzaUser()
@@ -294,26 +429,9 @@ controller ->>+ model : Utente.increment()
 controller ->>- client:  risp.status().json()
 ```
 
-#### Fare un regalo ad un amico (Regalo)
+#### Aggiungere un nuovo utente (AggiungiUtente)
 
-```mermaid
-sequenceDiagram
-autonumber
-client ->> app: /Regalo
-app ->>+ CoR: Regalo
-CoR ->>+ middleware: controlloDownloadRegalo()
-middleware ->>+ model: Acquisto.count()
-model ->>- middleware: reslut: risultato
-middleware ->>- CoR:  next()
-CoR ->>- app : next()
-app ->>+ controller: regalo()
-controller ->>+ model : Acquisto.create()
-model ->>- controller : result: acquisto
-controller ->>+ model : Bene.findByPk()
-model ->>- controller : result: bene
-controller ->>+ model : Utente.decrement()
-controller ->>- client:  risp.status().json()
-```
+#### Aggiungere un nuovo bene (AggiungiBene)
 
 ## Pattern utilizzati
 

@@ -26,7 +26,7 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
 }
 
 /**
- * Funzione che controlla se i valori inseriti per l'acquisto del bene sono delle stringhe
+ * Funzione che controlla se i valori inseriti per l'acquisto del bene sono coerenti con i tipi richiesti
  * @param req richiesta del client
  * @param res risposta del server
  * @param next riferimento al middleware successivo
@@ -34,6 +34,23 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
 export function controlloValoriAcquistoBene(req: any, res: any, next: any) : void {
     if(typeof req.body.id_bene == "number" && typeof req.body.formato == "string" && 
         typeof req.body.consumatore == "string" && typeof req.body.ruolo == "string"){
+        next();
+    }
+    else if (!req.body.risultato) {
+        const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+}
+
+/**
+ * Funzione che controlla se i valori inseriti per il download sono coerenti con i tipi richiesti
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloValoriDownload(req: any, res: any, next: any) : void {
+    if(typeof req.body.consumatore == "string" && typeof req.body.ruolo == "string"){
         next();
     }
     else if (!req.body.risultato) {

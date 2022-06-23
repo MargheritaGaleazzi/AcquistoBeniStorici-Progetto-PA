@@ -63,10 +63,10 @@ applicazione.get('/download/:bene/:formato/:tipoDownload/:idAcquisto', Middlewar
 /*
  * Rotta per richiedere un nuovo link per un bene già scaricato
  */
-
-applicazione.post('/NuovoLink', /*aggiungi middleware,*/ function (req: any, res: any) {    
+/*
+applicazione.post('/NuovoLink', /*aggiungi middleware, function (req: any, res: any) {    
     Controller.nuovoLink(req.body.id_bene,req.body.formato,req.body.consumatore, res);
-});
+});*/
 
 /*
  * Rotta per la visualizzazione di tutti gli acquisti

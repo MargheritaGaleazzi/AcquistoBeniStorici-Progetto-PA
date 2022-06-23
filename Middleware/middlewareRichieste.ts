@@ -160,7 +160,7 @@ export function ControlloPresenzaUser(req: any, res: any, next: any) : void {
  * @param next riferimento al middleware successivo
  */
 export function valMailNuovoConsumatore(req: any, res: any, next: any) : void {
-    ValidazioneEmail(req.body.consumatore,res,next);
+    ValidazioneEmail(req.body.email,res,next);
 }
 
 /**
@@ -401,6 +401,8 @@ export function EmailUnivoca(req:any, res:any, next:any) {
     if (typeof req.body.email == 'string' && 
         typeof req.body.nome == 'string' &&
         typeof req.body.cognome == 'string' &&
+        typeof req.body.email_admin == 'string' &&
+        typeof req.body.ruolo == 'string' &&
         typeof req.body.username == 'string'){
         next();
         }

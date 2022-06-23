@@ -326,6 +326,7 @@ export function download(nome:string,formato:string,id_acquisto:number,risp:any)
         const nuova_risp = getMsg(MsgEnum.NuovoBene).getMsg();
         var bn={nome:nuovoBene.nome, tipo:nuovoBene.tipo, anno:nuovoBene.anno, prezzo:nuovoBene.prezzo};
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, nuovo_bene:bn});
+        nuovoBene.save()
     }).catch((error) => {
         controllerErrori(MsgEnum.ErrServer, error, risp);
     });

@@ -547,13 +547,15 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
         const curr_path = __dirname.slice(0,-11);
             array.forEach(element => {
                var b_path = curr_path + '\\img\\' + element;
+               console.log(b_path)
                resemble(req.body.path_img)
                .compareTo(b_path)
                .ignoreColors()
                .onComplete(function (data:any) {
                    //console.log(data);
                    var json = JSON.parse(JSON.stringify(data));
-                   if(json['rawMisMatchPercentage']===0){
+                   console.log(json['misMatchPercentage'])
+                   if(json['misMatchPercentage']<=1.00){
                     const new_err = getMsg(MsgEnum.ErrImgUnivoca).getMsg();
                     next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
                    }

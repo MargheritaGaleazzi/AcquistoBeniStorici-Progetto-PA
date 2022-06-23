@@ -94,11 +94,13 @@ export function lista(risp: any): void{
  * @param compr -> email dell'utente che vuole acquistare il bene
  * @param risp -> la risposta che darà il server
  */
-export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:any):void{
-    Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download aggiuntivo",nDownload:0}).then((acquisto:any)=>{
-        Bene.findByPk(id_bene).then((bene:any)=>{
-            Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo/"+acquisto.id;
+export function nuovoLink(id_acquisto:number, risp:any):void{
+    Acquisto.findByPk(id_acquisto).then((acquisto:any)=>{
+        acquisto.tipo_acq='download aggiuntivo';
+        acquisto.save();
+        Bene.findByPk(acquisto.beneId).then((bene:any)=>{
+            Utente.decrement("credito",{by:bene.prezzo,where: { email: acquisto.email_compr }});
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+acquisto.formato+"/DownloadAggiuntivo/"+acquisto.id;
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink};
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});

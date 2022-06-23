@@ -18,10 +18,6 @@ export const ControlloDownload = [
     Middleware.controlloDownload
 ]
 
-export const Regalo = [
-    Middleware.controlloDownloadRegalo
-]
-
 export const JWT = [
     Middleware.controlloPresenzaToken,
     Middleware.ControlloChiaveSegreta

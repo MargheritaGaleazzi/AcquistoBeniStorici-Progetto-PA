@@ -42,6 +42,13 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
     }
 }
 
+/**
+ * Funzione utilizzata per controllare che i valori inseriti nel token siano del tipo richiesto
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function controlloValoriRicarica(req: any, res: any, next: any) : void {
     if(typeof req.body.consumatore == "string" && typeof req.body.ricarica == "number" && 
         typeof req.body.email_admin == "string" && typeof req.body.ruolo == "string"){
@@ -53,7 +60,14 @@ export function controlloValoriRicarica(req: any, res: any, next: any) : void {
     }
 }
 
-
+/**
+ * Funzione che consente di controllare se il formato dell'immagine richiesto dall'utente 
+ * è contenuto nei formati messi a disposizionr
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function controlloFormatoImmagine(req: any, res: any, next: any) : void {
     var formato: string[] = ["jpg","png","tiff"];
     var i=0;
@@ -68,6 +82,13 @@ export function controlloFormatoImmagine(req: any, res: any, next: any) : void {
     next();
 }
 
+/**
+ * Funzione utilizzata per controllare se la mail inserita dall'utente è presente nel database
+ * 
+ * @param email email dell'utente
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function controlloPresenza(email: string, res: any, next: any) : void {
     Utente.findAll({attributes: ['email'], raw: true}).then((utente: object[]) => {
         var json = JSON.parse(JSON.stringify(utente));
@@ -89,18 +110,62 @@ export function controlloPresenza(email: string, res: any, next: any) : void {
     });
 }
 
+/**
+ * Viene richiamata la funzione per il controllo della presenza per verificare
+ * se l'admin è presente del database
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function ControlloPresenzaAdmin(req: any, res: any, next: any) : void {
     controlloPresenza(req.body.email_admin,res,next);
 }
 
+/**
+ * Viene richiamata la funzione per il controllo della presenza per verificare
+ * se l'utente è presente del database
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function ControlloPresenzaUser(req: any, res: any, next: any) : void {
     controlloPresenza(req.body.consumatore,res,next);
 }
 
-export function valMail(req: any, res: any, next: any) : void {
+/**
+ * Viene richiamata la funzione per il controllo del formato dell'email inserito
+ * dall'admin per l'inserimento di un nuovo utente
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+export function valMailNuovoConsumatore(req: any, res: any, next: any) : void {
     ValidazioneEmail(req.body.consumatore,res,next);
 }
 
+/**
+ * Viene richiamata la funzione per il controllo del formato dell'email inserito
+ * dall'utente per indicare la mail dell'amico per la richiesta del regalo
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+export function valMailAmico(req: any, res: any, next: any) : void {
+    ValidazioneEmail(req.body.consumatore,res,next);
+}
+
+/**
+ * Funzione utilizzata per controllare se l'utente dispone di un numero
+ * sufficiente di token per l'acquisto del bene
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function ControlloCredito(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.consumatore).then((utente:any) => {
         Bene.findByPk(req.body.id_bene).then((bene:any) => {
@@ -115,6 +180,14 @@ export function ControlloCredito(req: any, res: any, next: any) : void {
     });
 }
 
+/**
+ * Funzione utilizzata per il controllo del numero di download per ogni acquisto
+ * effettuato da un dato utente
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function controlloDownload(req: any, res: any, next: any) : void {
     console.log(req.params.idAcquisto);
     Acquisto.findByPk(req.params.idAcquisto).then((risultato: any) => {
@@ -127,7 +200,6 @@ export function controlloDownload(req: any, res: any, next: any) : void {
             next();
         }
         else {
-            console.log("pippo "+risultato)
             const new_err = getMsg(MsgEnum.ErrProibito).getMsg();
             next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
         }
@@ -135,22 +207,14 @@ export function controlloDownload(req: any, res: any, next: any) : void {
     });
 }
 
-export function controlloDownloadRegalo(req: any, res: any, next: any) : void {
-    Acquisto.count({
-        where: { email_compr : req.body.compr, beneId : req.body.id_bene}
-    }).then((risultato: number) => {
-        if (risultato == 0 || risultato == 1){
-            next();
-        }
-        else {
-            console.log("pippo "+risultato)
-            const new_err = getMsg(MsgEnum.ErrProibito).getMsg();
-            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-        }
-
-    });
-}
-
+/**
+ * Funzione utilizzata per controllare se il credito a disposizione dell'utente è nullo.
+ * Se è nullo, tutte le richieste verranno rifiutate ritornando un errore di tipo "Non autorizzato"
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function ControlloTokenNullo(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.consumatore).then((utente:any) => {
         if(utente.credito == 0) {
@@ -161,6 +225,14 @@ export function ControlloTokenNullo(req: any, res: any, next: any) : void {
     });
 }
 
+/**
+ * Funzione utilizzata per controllare se il ruolo indicato dall'utente
+ * è effettivamente quello dell'admin
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function ControlloAdmin(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.email_admin).then((utente:any) => {
         if(utente.ruolo == req.body.ruolo){
@@ -173,6 +245,14 @@ export function ControlloAdmin(req: any, res: any, next: any) : void {
     });
 }
 
+/**
+ * Funzione utilizzata per controllare se il ruolo indicato dall'utente
+ * è effettivamente quello dell'user
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function ControlloUser(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.consumatore).then((utente:any) => {
         console.log(req.body.ruolo)
@@ -186,6 +266,13 @@ export function ControlloUser(req: any, res: any, next: any) : void {
     });
 }
 
+/**
+ * Funzione utilizzata per verificare se la mail indicata è scritta nel formato corretto
+ * 
+ * @param email email da verificare
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function ValidazioneEmail(email: string, res: any, next: any): void{
     let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
     if(regex.test(email)) {
@@ -197,6 +284,14 @@ export function ValidazioneEmail(email: string, res: any, next: any): void{
     }
 }
 
+/**
+ * Funzione utilizzata per controllare se il content-type è effettivamente
+ * del formato 'application/json'
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
 export function verificaContentType(req: any, res: any, next: any): void{
     if (req.headers["content-type"] == 'application/json') next();
     else {
@@ -205,6 +300,13 @@ export function verificaContentType(req: any, res: any, next: any): void{
     }
 }
 
+/**
+ * Funzione utilizzata per controllare se è presente il JWT
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo 
+ */
 export function controlloPresenzaToken(req: any, res: any, next: any): void{
     var header: string = req.headers.authorization;
     if (typeof header !== 'undefined'){
@@ -217,6 +319,14 @@ export function controlloPresenzaToken(req: any, res: any, next: any): void{
     }
 }
 
+/**
+ * Funzione utilizzata per controllare se il token JWT è effettivamente valido,
+ * richiamando anche la chiave segreta
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo 
+ */
 export function ControlloChiaveSegreta(req: any, res: any, next: any): void{
     try {
         var risultato: string | jwt.JwtPayload = jwt.verify(req.token, process.env.KEY!);
@@ -230,6 +340,13 @@ export function ControlloChiaveSegreta(req: any, res: any, next: any): void{
     }
 }
 
+/**
+ * Funzione che viene richiamata quando la rotta è inesistente
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo 
+ */
 export function RottaNonTrovata(req: any, res: any, next: any) {
     const new_err = getMsg(MsgEnum.ErrRottaNonTrovata).getMsg();
     next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));

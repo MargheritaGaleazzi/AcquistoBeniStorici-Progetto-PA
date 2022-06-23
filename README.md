@@ -20,7 +20,7 @@ Ogni bene ha associato un costo in termini di token.
          <td>general</td>
         </tr>
         <tr>
-            <td rowspan=7>con token</td>
+            <td rowspan=9>con token</td>
             <td>Effettuare l’acquisto di uno specifico bene </td>
          <td>user</td>
         </tr>

@@ -86,7 +86,7 @@ applicazione.post('/AcquistaMultiplo', /*aggiungi middleware,*/ function (req: a
  */
 
 applicazione.post('/Regalo', Middleware.JWT, function (req: any, res: any) {    
-    Controller.regalo(req.body.email_amico,req.body.formato_bene,req.body.compr,req.body.id_bene,res);
+    Controller.regalo(req.body.email_amico,req.body.formato_bene,req.body.consumatore,req.body.id_bene,res);
 });
 
 /*

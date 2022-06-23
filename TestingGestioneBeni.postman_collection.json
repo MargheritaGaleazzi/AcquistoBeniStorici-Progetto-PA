@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "53e684c4-3b21-4625-b9a5-b31e71ac6302",
+		"name": "TestingGestioneBeni",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ListaBeni",
+			"item": [
+				{
+					"name": "ListaFiltroCompleta",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"tipo\":\"manoscritto\",\r\n   \"anno\":355\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ListaBeni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ListaBeni"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListaFiltroErroreJSON",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"tipo\":\"manoscritto,\r\n   \"anno\":355\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ListaBeni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ListaBeni"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListaFiltroSoloTipo",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"tipo\":\"manoscritto\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ListaBeni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ListaBeni"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListaFiltroSoloAnno",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"anno\":355\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ListaBeni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ListaBeni"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListaFiltroVuoto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ListaBeni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ListaBeni"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Lista",
+			"item": [
+				{
+					"name": "Lista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Lista",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Lista"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AcquistaBene",
+			"item": [
+				{
+					"name": "AcquistaBene",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjoxLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.O6y7R34yzAjYZOKwmjf6TGV_uLjcr-1NzcW0MdDASPc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaBene",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaBene"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AcquistaBeneErroreUtenteInesistente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjoxLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJwaW5vcGlub3Bpbm9AZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.51svr-vlCmeTW1hwiHl6RbAFJ_9Y8uzQKKVzvbC-VAc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaBene",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaBene"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AcquistaBeneErrore",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjoxLCJjb25zdW1hdG9yZSI6InJvc3NpTWFyaW9AZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.2B3d95TIs2b7kwoIeYB12Esq3X5NNi6L0BsdaWmxczY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaBene",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaBene"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Download",
+			"item": [
+				{
+					"name": "DownloadOriginale",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjoxLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.O6y7R34yzAjYZOKwmjf6TGV_uLjcr-1NzcW0MdDASPc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/download/Aristotle_latin_manuscript.jpg/png/DownloadOriginale/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"download",
+								"Aristotle_latin_manuscript.jpg",
+								"png",
+								"DownloadOriginale",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

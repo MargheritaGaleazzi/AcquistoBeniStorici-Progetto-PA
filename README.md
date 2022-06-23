@@ -211,6 +211,10 @@ middleware ->> middleware: controlloPresenza()
 middleware ->>+ model: Utente.findAll()
 model ->>- middleware: result: utente
 middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloUser()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloTokenNullo()
 middleware ->>+ model: Utente.findByPk()
 model ->>- middleware: result: utente

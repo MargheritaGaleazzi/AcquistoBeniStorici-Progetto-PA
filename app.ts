@@ -64,7 +64,7 @@ applicazione.get('/download/:bene/:formato/:tipoDownload/:idAcquisto', Middlewar
  * Rotta per richiedere un nuovo link per un acquisto già fatto e bene già scaricato
  */
 
-applicazione.post('/NuovoLink', Middleware.JWT, function (req: any, res: any) {    
+applicazione.post('/NuovoLink', Middleware.JWT, Middleware.NuovoLink, function (req: any, res: any) {    
     Controller.nuovoLink(req.body.id_acquisto, res);
 });
 

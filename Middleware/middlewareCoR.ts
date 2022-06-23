@@ -12,6 +12,7 @@ export const AcquistoBene = [
     Middleware.ControlloUser,
     Middleware.ControlloTokenNullo,
     Middleware.controlloValoriAcquistoBene,
+    Middleware.controlloPresenzaBene,
     Middleware.ControlloCredito,
     Middleware.controlloFormatoImmagine   
 ]
@@ -28,7 +29,8 @@ export const NuovoLink = [
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloUser,
     Middleware.ControlloTokenNullo,
-    //Middleware.controlloValoriNuovoLink
+    Middleware.controlloValoriNuovoLink,
+    Middleware.controlloPresenzaAcquisto
 ]
 
 export const JWT = [

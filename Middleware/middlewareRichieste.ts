@@ -55,15 +55,17 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
  * @param next riferimento al middleware successivo
  */
  export function controlloAnno(req: any, res: any, next: any) : void {
-    Bene.findAll({attributes: ['anno'], raw: true}).then((utente: object[]) => {
-        var json = JSON.parse(JSON.stringify(utente));
-        var array: number[] = [];
+    Bene.findAll({attributes: ['id','anno','tipo'], raw: true}).then((bene: object[]) => {
+        var json = JSON.parse(JSON.stringify(bene));
+        var anno: number[] = [];
+        var tipo: string[] = [];
         for(var i=0; i<json.length; i++){
-            array.push(json[i]['anno']);
+            anno.push(json[i]['anno']);
+            tipo.push(json[i]['tipo'])
         }
         var j=0;
-        while(req.body.anno != array[j] && req.body.anno != null){
-            if(j==array.length-1 && req.body.anno != array[j]){
+        while((req.body.anno != anno[j] || req.body.tipo != tipo[j]) && req.body.anno != null && req.body.tipo != null){
+            if(j==anno.length-1 && (req.body.anno != anno[j] || req.body.tipo != tipo[j])){
                 const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
                 next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
                 break;
@@ -92,6 +94,32 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
 }
 
 /**
+ * Funzione che controlla se il bene esiste
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+export function controlloPresenzaBene(req: any, res: any, next: any) : void {
+    Bene.findAll({attributes: ['id'], raw: true}).then((utente: object[]) => {
+        var json = JSON.parse(JSON.stringify(utente));
+        var array: number[] = [];
+        console.log(json.length)
+        for(var i=0; i<json.length; i++){
+            array.push(json[i]['id']);
+        }
+        if(array.find(element => element === req.body.id_bene)){
+            next();
+        } else {
+            const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }
+        
+    });
+}
+
+
+/**
  * Funzione che controlla se i valori inseriti per il download sono coerenti con i tipi richiesti
  * 
  * @param req richiesta del client
@@ -116,10 +144,6 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
  * @param next riferimento al middleware successivo
  */
  export function controlloValoriNuovoLink(req: any, res: any, next: any) : void {
-    if (req.body.risultato == undefined) {
-        const new_err = getMsg(MsgEnum.ErrAcquistoNonTrovato).getMsg();
-        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-    }
     if(typeof req.body.id_acquisto == "number" && typeof req.body.consumatore == "string" 
         && typeof req.body.ruolo == "string"){
         next();
@@ -128,6 +152,31 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
         const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
+}
+
+/**
+ * Funzione che controlla se è presente l'id dell'acquisto nel database
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloPresenzaAcquisto(req: any, res: any, next: any) : void {
+    Acquisto.findAll({attributes: ['id'], raw: true}).then((acquisto: object[]) => {
+        var json = JSON.parse(JSON.stringify(acquisto));
+        var array: number[] = [];
+        console.log(json.length)
+        for(var i=0; i<json.length; i++){
+            array.push(json[i]['id']);
+        }
+        if(array.find(element => element === req.body.id_acquisto)){
+            next();
+        } else {
+            const new_err = getMsg(MsgEnum.ErrAcquistoNonTrovato).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }
+        
+    });
 }
 
 /**
@@ -178,7 +227,7 @@ export function controlloFormatoImmagine(req: any, res: any, next: any) : void {
     var formato: string[] = ["jpg","png","tiff"];
     var i=0;
     while(req.body.formato != formato[i]){
-        if(i==2 && req.body.formato != formato[i]){
+        if(i==formato.length-1 && req.body.formato != formato[i]){
             const new_err = getMsg(MsgEnum.ErrFormatoNonEsistente).getMsg();
             next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
             break;

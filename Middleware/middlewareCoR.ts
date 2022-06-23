@@ -37,6 +37,7 @@ export const AdminRicarica = [
 export const NuovoUtente = [
     Middleware.ControlloPresenzaAdmin,
     Middleware.ControlloAdmin,
+    Middleware.controlloValoriNuovoUtente,
     Middleware.valMailNuovoConsumatore,
     Middleware.EmailUnivoca
 ]

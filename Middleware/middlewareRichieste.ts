@@ -389,3 +389,23 @@ export function EmailUnivoca(req:any, res:any, next:any) {
         
     });
 }
+
+/**
+ * Funzione utilizzata per il controllo dei valori che vengono inseriti quando
+ * si effettua un filtro per tipo o anno
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloValoriNuovoUtente(req: any, res: any, next: any) : void {
+    if (typeof req.body.email == 'string' && 
+        typeof req.body.nome == 'string' &&
+        typeof req.body.cognome == 'string' &&
+        typeof req.body.username == 'string'){
+        next();
+        }
+    else if (!req.body.risultato) {
+        const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+}

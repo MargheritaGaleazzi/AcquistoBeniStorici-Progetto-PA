@@ -294,6 +294,27 @@ controller ->>+ model : Utente.increment()
 controller ->>- client:  risp.status().json()
 ```
 
+#### Fare un regalo ad un amico (Regalo)
+
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /Regalo
+app ->>+ CoR: Regalo
+CoR ->>+ middleware: controlloDownloadRegalo()
+middleware ->>+ model: Acquisto.count()
+model ->>- middleware: reslut: risultato
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: regalo()
+controller ->>+ model : Acquisto.create()
+model ->>- controller : result: acquisto
+controller ->>+ model : Bene.findByPk()
+model ->>- controller : result: bene
+controller ->>+ model : Utente.decrement()
+controller ->>- client:  risp.status().json()
+```
+
 ## Pattern utilizzati
 
 ### Factory Method

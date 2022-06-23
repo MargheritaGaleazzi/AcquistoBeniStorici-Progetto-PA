@@ -305,10 +305,17 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
 export function download(nome:string,formato:string,id_acquisto:number,risp:any):void{
     const pathImg=path.join(curr_path,"img/"+nome);
     var tipo:string=selFormato(formato);
-    try {gm(pathImg).gravity('Center')
+    try {/*gm(pathImg)
+        .gravity('Center')
         .fill('#ff0080')
         .font(path.join(curr_path,'img/Black Ravens.ttf'), 40) 
-        .drawText(0, 0, "CodinGirl")
+        .drawText(0, 0, "CodinGirl")*/
+        gm()
+        .command("composite") 
+        .in("-gravity", "center")
+        .in("-dissolve",78)
+        .in(path.join(curr_path,'img_doc/filigrana.png'))
+        .in(pathImg)
         .toBuffer(tipo,function (err:any, buffer:any) {
             if (err) return console.log('err');
             risp.set('Content-Disposition','attachment')

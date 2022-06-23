@@ -44,7 +44,7 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
 
 export function controlloValoriRicarica(req: any, res: any, next: any) : void {
     if(typeof req.body.consumatore == "string" && typeof req.body.ricarica == "number" && 
-        typeof req.body.email_admin == "string"){
+        typeof req.body.email_admin == "string" && typeof req.body.ruolo == "string"){
         next();
     }
     else if (!req.body.accredito) {
@@ -159,7 +159,7 @@ export function ControlloTokenNullo(req: any, res: any, next: any) : void {
 
 export function ControlloAdmin(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.email_admin).then((utente:any) => {
-        if(utente.ruolo == "admin"){
+        if(utente.ruolo == req.body.ruolo){
             next();
         }
         else {

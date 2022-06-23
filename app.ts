@@ -102,7 +102,7 @@ applicazione.get('/VisualizzaCredito/:email', /*aggiungi middleware,*/ function 
  * Rotta per la ricaricare i crediti
  */
 
-applicazione.post('/Ricarica/', Middleware.JWT, Middleware.Admin, function (req: any, res: any) {    
+applicazione.post('/Ricarica/', Middleware.JWT, Middleware.AdminRicarica, function (req: any, res: any) {    
     Controller.ricarica(req.body.consumatore,req.body.ricarica, res);
 });
 

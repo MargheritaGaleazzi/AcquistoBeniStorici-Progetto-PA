@@ -26,7 +26,7 @@ export const JWT = [
     Middleware.ControlloChiaveSegreta
 ]
 
-export const Admin = [
+export const AdminRicarica = [
     Middleware.controlloValoriRicarica,
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloPresenzaAdmin,

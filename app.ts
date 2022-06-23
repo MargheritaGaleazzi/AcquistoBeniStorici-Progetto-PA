@@ -19,11 +19,14 @@ const PORT = 8080;
 const HOST = '0.0.0.0';
 
 
+/**
+ * rotta utilizzata per verificare se l'applicazione è stata avviata in modo corretto
+ */
 applicazione.get('/', function (req:any,res:any) {
     res.send('L\'applicazione è stata avviata correttamente')
 });
 
-/*
+/**
  * Rotta per la visualizzazione della lista dei beni
  */
 

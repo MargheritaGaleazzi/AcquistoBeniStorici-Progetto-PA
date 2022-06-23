@@ -241,7 +241,7 @@ factory ->>- controller: obj:AcquistaBene
 controller ->>- client:  risp.status().json()
 ```
 
-#### Effettuare il download di un bene acquistato (/download)
+#### Effettuare il download di un bene acquistato (download)
 
 ```mermaid
 sequenceDiagram
@@ -275,7 +275,7 @@ middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloChiaveSegreta()
 middleware ->>- CoR:  next()
 CoR ->>- app : next()
-app ->>+ CoR: Admin
+app ->>+ CoR: AdminRicarica
 CoR ->>+ middleware: controlloValoriRicarica()
 middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloPresenzaUser()

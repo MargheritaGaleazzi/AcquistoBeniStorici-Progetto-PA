@@ -123,6 +123,14 @@ I filtri possono andare in AND, e si può filtrare per:
  - tipologia (manoscritti, cartografie storiche);
  - anno (relativo al bene di interesse storico).
 
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+	{
+		"tipo":"manoscritto",
+		"anno":355
+	}
+~~~
+
 ### Effettuare l'acquisto di uno specifico bene (AcquistaBene)
 Mediante l'utilizzo di questa rotta si può acquistare un bene, specificandone l'id. Questa rotta può essere richiamata dall'utente autenticato, con il ruolo di user.
 
@@ -133,13 +141,32 @@ Nella richiesta deve essere specificato il formato di uscita, che può essere:
 2. **Tiff**;
 3. **Png**.
 
-### Scaricare il bene acquistato (ScaricaBene)
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+	{
+		"id_bene":1,
+		"formato":"png",
+		"consumatore":"luigiVerdi@alice.it"
+	}
+~~~
+
+### Scaricare il bene acquistato (download)
 Mediante l'utilizzo di questa rotta si può scaricare il bene acquistato se il pagamento è effettuato con successo. Questa rotta può essere richiamata solamente dagli utenti autenticati con ruolo user.
 
 Nota che il bene acquistato può essere scaricato solamente 1 volta; le richieste successive verranno rifiutate.
 
 ### Richiedi nuovo link (NuovoLink)
 Mediante l'utilizzo di questa rotta si può richiedere un nuovo link per un bene già scaricato. Il costo di questa operazione è di 1 token. Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+	{
+		"id_bene":1,
+		"formato":"png",
+		"consumatore":"luigiVerdi@alice.it"
+	}
+~~~
+
 
 ### Visualizzazione dei beni acquistati (VediAcquisti)
 Mediante l'utilizzo di questa rotta si può visualizzare l’elenco degli acquisti effettuati per ogni utente. 
@@ -151,9 +178,28 @@ Questa rotta può essere richiamata solamente dall'utente autenticato.
 Mediante l'utilizzo di questa rotta si possono effettuare acquisti multipli. L'output sarà in questo caso uno zip.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
 
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+	{
+		"ids": [1,2,3],
+		"formato": "png",
+		"compr": "giovi@alice.it"
+	}
+~~~
+
 ### Fare un regalo ad un amico (Regalo)
 Mediante l'utilizzo di questa rotta si ha a possibilità di effettuare un regalo ad un “amico”, fornendo il suo indirizzo mail.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+	{
+		"email_amico":"ciao@ciao.it",
+		"formato_bene":"png",
+		"compr":"giovi@alice.it",
+		"id_bene":2
+	}
+~~~
 
 ### Visualizzare il credito (VisualizzaCredito)
 Mediante l'utilizzo di questa rotta si può visualizzare  il credito residuo di un utente.
@@ -162,6 +208,15 @@ Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruol
 ### Effettuare la ricarica dei crediti (Ricarica)
 Mediante l'utilizzo di questa rotta si può ricaricare  il credito di un utente.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+~~~
+	{
+		"email":"luigiVerdi@alice.it",
+		"ricarica":700
+	}
+~~~
+
 
 ## Diagrammi UML
 ### Use case

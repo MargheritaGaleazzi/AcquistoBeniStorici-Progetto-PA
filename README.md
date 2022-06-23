@@ -183,13 +183,14 @@ controller ->>- client:  risp.status().json()
 
 ```mermaid
 sequenceDiagram
-client ->> app: 1./Lista
-app ->> controller: 7.lista()
-controller ->> model : 8.Bene.findAll()
-model ->> controller : 9.result: bene
-controller ->> factory : 10.getMsg().getMsg()
-factory ->> controller: 11.obj:ListaBeni
-controller ->> client: 12. risp.status().json()
+autonumber
+client ->> app: /Lista
+app ->>+ controller: lista()
+controller ->>+ model : Bene.findAll()
+model ->>- controller : result: bene
+controller ->>+ factory : getMsg().getMsg()
+factory ->>- controller: obj:ListaBeni
+controller ->>- client:  risp.status().json()
 ```
 
 ## Pattern utilizzati

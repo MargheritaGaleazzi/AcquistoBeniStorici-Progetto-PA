@@ -115,12 +115,22 @@ class ErrRottaNonTrovata implements Msg {
     }
 }
 
-//errore che viene lanciato quando si inserisce l'id di un bene non presente
+//errore che viene lanciato quando si inseriscono valori non conformi
 class ErrNonTrovato implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
             codice: 404,
-            msg: "ERRORE - ID non trovato"
+            msg: "ERRORE - Non sono stati trovati beni relativamente ai valori inseriti"
+        }
+    }
+}
+
+//errore che viene lanciato quando si inseriscono valori non conformi
+class ErrAcquistoNonTrovato implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Non sono stati trovati acquisti relativamente all ID inserito"
         }
     }
 }
@@ -155,12 +165,31 @@ class ErrInserimentoValori implements Msg {
     }
 }
 
-//errore che viene lanciato nel caso in cui non ci sono beni presenti
+//errore che viene lanciato quando il valore dell'accredito risulta essere negativo
+class ErrValoreNegativo implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Il valore relativo all'accredito deve essere un numero positivo maggiore di zero."
+        }
+    }
+}
+
+//errore che viene lanciato nel caso in cui si inserisce un formato non esistente
 class ErrFormatoNonEsistente implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
             codice: 404,
             msg: "ERRORE - Hai inserito un formato non esistente"
+        }
+    }
+}
+
+class ErrImg implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 404,
+            msg: "ERRORE - Errore nel caricamento dell'immagine"
         }
     }
 }
@@ -195,14 +224,6 @@ class ErrServizioNonDisp implements Msg {
     }
 }
 
-class ErrImg implements Msg {
-    getMsg(): { codice: number; msg: string; } {
-        return {
-            codice: 404,
-            msg: "ERRORE - Errore nel caricamento dell'immagine"
-        }
-    }
-}
 
 class ErrEmailDuplicata implements Msg {
     getMsg(): { codice: number; msg: string; } {
@@ -287,9 +308,11 @@ export enum MsgEnum {
     ErrNonAutorizzato,
     ErrProibito,
     ErrNonTrovato,
+    ErrAcquistoNonTrovato,
     ErrUtenteNonTrovato,
     ErrInserimentoFiltriValori,
     ErrInserimentoValori,
+    ErrValoreNegativo,
     ErrFormatoNonEsistente,
     ErrEmailNonConforme,
     ErrServer,
@@ -322,8 +345,14 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
         case MsgEnum.ErrNonTrovato:
             val = new ErrNonTrovato();
             break;
+        case MsgEnum.ErrAcquistoNonTrovato:
+            val = new ErrAcquistoNonTrovato();
+            break;
         case MsgEnum.ErrUtenteNonTrovato:
             val = new ErrUtenteNonTrovato();
+            break;
+        case MsgEnum.ErrValoreNegativo:
+            val = new ErrValoreNegativo();
             break;
         case MsgEnum.ErrFormatoNonEsistente:
             val = new ErrFormatoNonEsistente();

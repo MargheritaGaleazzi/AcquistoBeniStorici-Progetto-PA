@@ -13,7 +13,11 @@ import { Utente, Bene, Acquisto} from "../models/models";
  * @param next riferimento al middleware successivo
  */
 export function controlloValoriFiltro(req: any, res: any, next: any) : void {
-    if ((typeof req.body.tipo == 'string' && 
+    if (req.body.risultato == undefined) {
+        const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+    else if ((typeof req.body.tipo == 'string' && 
         typeof req.body.anno == 'number') || (typeof req.body.tipo == 'string' && 
         req.body.anno == null) || (req.body.tipo == null && 
         typeof req.body.anno == 'number')) {
@@ -23,6 +27,7 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
         const new_err = getMsg(MsgEnum.ErrInserimentoFiltriValori).getMsg();
         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
+    
 }
 
 /**
@@ -32,6 +37,10 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
  * @param next riferimento al middleware successivo
  */
 export function controlloValoriAcquistoBene(req: any, res: any, next: any) : void {
+    if (req.body.risultato == undefined) {
+        const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
     if(typeof req.body.id_bene == "number" && typeof req.body.formato == "string" && 
         typeof req.body.consumatore == "string" && typeof req.body.ruolo == "string"){
         next();
@@ -60,6 +69,28 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
 }
 
 /**
+ * Funzione che controlla se i valori inseriti per il nuovo link sono coerenti con i tipi richiesti
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloValoriNuovoLink(req: any, res: any, next: any) : void {
+    if (req.body.risultato == undefined) {
+        const new_err = getMsg(MsgEnum.ErrAcquistoNonTrovato).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+    if(typeof req.body.id_acquisto == "number" && typeof req.body.consumatore == "string" 
+        && typeof req.body.ruolo == "string"){
+        next();
+    }
+    else if (!req.body.risultato) {
+        const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+}
+
+/**
  * Funzione utilizzata per controllare che i valori inseriti nel token siano del tipo richiesto
  * 
  * @param req richiesta del client
@@ -73,6 +104,24 @@ export function controlloValoriRicarica(req: any, res: any, next: any) : void {
     }
     else if (!req.body.accredito) {
         const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+}
+
+/**
+ * Funzione utilizzata per controllare che il valore inserito per l'accredito sia
+ * un numero positivo e maggiore di zero
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloPositivita(req: any, res: any, next: any) : void {
+    if(req.body.ricarica > 0) {
+        next();
+    }
+    else {
+        const new_err = getMsg(MsgEnum.ErrValoreNegativo).getMsg();
         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
 }

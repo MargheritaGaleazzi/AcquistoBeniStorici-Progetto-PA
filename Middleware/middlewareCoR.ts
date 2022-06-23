@@ -22,6 +22,14 @@ export const ControlloDownload = [
     Middleware.controlloDownload
 ]
 
+export const NuovoLink = [
+    Middleware.ControlloPresenzaUser,
+    Middleware.ControlloUser,
+    Middleware.ControlloTokenNullo,
+    Middleware.controlloValoriNuovoLink,
+    Middleware.controlloDownload
+]
+
 export const JWT = [
     Middleware.controlloPresenzaToken,
     Middleware.ControlloChiaveSegreta
@@ -29,6 +37,7 @@ export const JWT = [
 
 export const AdminRicarica = [
     Middleware.controlloValoriRicarica,
+    Middleware.controlloPositivita,
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloPresenzaAdmin,
     Middleware.ControlloAdmin

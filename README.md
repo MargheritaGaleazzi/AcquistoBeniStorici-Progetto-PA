@@ -193,6 +193,50 @@ factory ->>- controller: obj:ListaBeni
 controller ->>- client:  risp.status().json()
 ```
 
+#### Effettuare l'acquisto di uno specifico bene (AcquistaBene)
+
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /AcquistaBene
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: AcquistoBene
+CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloTokenNullo()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriAcquistoBene()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloCredito()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>+ model: Bene.findByPk()
+model ->>- middleware: result: bene
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloFormatoImmagine()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: acquistaBene()
+controller ->>+ model : Acquisto.create()
+model ->>- controller : result: acquisto
+controller ->>+ model : Bene.findByPk()
+model ->>- controller : result: bene
+controller ->>+ model : Utente.decrement()
+controller ->>+ factory : getMsg().getMsg()
+factory ->>- controller: obj:AcquistaBene
+controller ->>- client:  risp.status().json()
+```
+
 ## Pattern utilizzati
 
 ### Factory Method

@@ -83,7 +83,6 @@ class ErrNonAutorizzato implements Msg {
 }
 
 //errore che viene lanciato quando il token inserito non risulta essere valido 
-//quando scade la sessione
 class ErrTokenInvalido implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -162,6 +161,16 @@ class ErrFormatoNonEsistente implements Msg {
         return {
             codice: 404,
             msg: "ERRORE - Hai inserito un formato non esistente"
+        }
+    }
+}
+
+//errore che viene lanciato nel caso di email inserita non conforme agli standard
+class ErrEmailNonConforme implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 406,
+            msg: "ERRORE - Hai inserito un formato email non conforme agli standard"
         }
     }
 }
@@ -273,6 +282,7 @@ export enum MsgEnum {
     ErrInserimentoFiltriValori,
     ErrInserimentoValori,
     ErrFormatoNonEsistente,
+    ErrEmailNonConforme,
     ErrServer,
     ErrServizioNonDisp,
     ErrRichiestaErrata,
@@ -328,6 +338,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.ErrRottaNonTrovata:
             val = new ErrRottaNonTrovata();
+            break;
+        case MsgEnum.ErrEmailNonConforme:
+            val = new ErrEmailNonConforme();
             break;
         case MsgEnum.ErrServer:
             val = new ErrServer();

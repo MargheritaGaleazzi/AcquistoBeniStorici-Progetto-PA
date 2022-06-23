@@ -97,6 +97,10 @@ export function ControlloPresenzaUser(req: any, res: any, next: any) : void {
     controlloPresenza(req.body.consumatore,res,next);
 }
 
+export function valMail(req: any, res: any, next: any) : void {
+    ValidazioneEmail(req.body.consumatore,res,next);
+}
+
 export function ControlloCredito(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.consumatore).then((utente:any) => {
         Bene.findByPk(req.body.id_bene).then((bene:any) => {
@@ -182,7 +186,16 @@ export function ControlloUser(req: any, res: any, next: any) : void {
     });
 }
 
-
+export function ValidazioneEmail(email: string, res: any, next: any): void{
+    let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    if(regex.test(email)) {
+        next();
+    }
+    else {
+        const new_err = getMsg(MsgEnum.ErrEmailNonConforme).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg})); 
+    }
+}
 
 export function verificaContentType(req: any, res: any, next: any): void{
     if (req.headers["content-type"] == 'application/json') next();

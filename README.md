@@ -237,6 +237,28 @@ factory ->>- controller: obj:AcquistaBene
 controller ->>- client:  risp.status().json()
 ```
 
+#### Effettuare il download di un bene acquistato (/download)
+
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /download
+app ->>+ CoR: ControlloDownload
+CoR ->>+ middleware: controlloDownload()
+middleware ->>+ model: Acquito.findByPk()
+model ->>- middleware: result: risultato
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: download()
+controller ->>+ utility: selFormato()
+utility ->>- controller: result: formato
+controller ->>+ utility: filigrana()
+utility ->>- controller: result: immagine
+controller ->>+ model : Acquisto.findByPk()
+model ->>- controller : result: acquisto
+controller ->>- client:  risp.end()
+```
+
 ## Pattern utilizzati
 
 ### Factory Method

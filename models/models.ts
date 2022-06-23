@@ -35,6 +35,10 @@ export const Acquisto = sequelize.define('acquisto',{
     tipo_acq:{
         type:DataTypes.ENUM("download originale", "download aggiuntivo"),
         defaultValue: "download originale"
+    },
+    nDownload:{
+        type:DataTypes.INTEGER,
+        allowNull: false
     }
 },
 {

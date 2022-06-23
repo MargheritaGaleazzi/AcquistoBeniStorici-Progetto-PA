@@ -91,10 +91,10 @@ export function lista(risp: any): void{
  * @param risp -> la risposta che darà il server
  */
 export function nuovoLink(id_bene:number,formato_bene:string,compr:string, risp:any):void{
-    Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download aggiuntivo"}).then((acquisto:any)=>{
+    Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download aggiuntivo",nDownload:0}).then((acquisto:any)=>{
         Bene.findByPk(id_bene).then((bene:any)=>{
             Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo"
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadAggiuntivo/"+acquisto.id;
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink};
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
@@ -143,22 +143,9 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
     var i:number=1;
     ids.forEach(async id => {
         risp.headersSet=false
-        var tipo:String
-    var ac = await Acquisto.count({where:{email_compr:compr,beneId:id}});
-        if (ac==0){
-            tipo = "download originale"
-        } else {
-            tipo = "download aggiuntivo"
-        }
-        await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id,tipo_acq:tipo}).then(async (acquisto:any)=>{
+    await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id,tipo_acq:'download originale',nDownload:0}).then(async (acquisto:any)=>{
     await Bene.findByPk(id).then(async (bene:any)=>{
-        var prezzo:number
-        if (ac==0){
-            prezzo=bene.prezzo
-        } else {
-            prezzo=1
-        }
-        await Utente.decrement("credito",{by:prezzo,where: { email: compr }});
+        await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
                 const image=curr_path+"\\img\\"+bene.nome;
                 const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
                 var tipo=selFormato(formato_bene)
@@ -197,10 +184,10 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
  * @param risp -> la risposta che darà il server
  */
 export async function regalo(email_amico:string,formato_bene:string,compr:string,id_bene:number,risp:any):Promise<void>{
-    await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download aggiuntivo"}).then((acquisto:any)=>{
+    await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download originale",nDownload:0}).then((acquisto:any)=>{
          Bene.findByPk(id_bene).then((bene:any)=>{
              Utente.decrement("credito",{by:bene.prezzo+0.5,where: { email: compr }});
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo"
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadRegalo/"+acquisto.id
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, regalato_a:email_amico,formato:acquisto.formato, link:urLink}
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
@@ -295,10 +282,10 @@ export function EstrazioneImmagini(curr_path: string) {
  * @param risp -> la risposta che darà il server
  */
 export function acquistaBene(id_bene:number,formato_bene:string,compr:string, risp:any):void{
-    Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download originale"}).then((acquisto:any)=>{
+    Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id_bene,tipo_acq:"download originale",nDownload:0}).then((acquisto:any)=>{
         Bene.findByPk(id_bene).then((bene:any)=>{
             Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
-            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadOriginale"
+            const urLink="http://localhost:8080/download/"+bene.nome+"/"+formato_bene+"/DownloadOriginale/"+acquisto.id
             const nuova_risp = getMsg(MsgEnum.AcquistaBene).getMsg();
             var link={bene:bene.nome, formato:acquisto.formato, link:urLink};
             risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, risultato:link});
@@ -315,7 +302,7 @@ export function acquistaBene(id_bene:number,formato_bene:string,compr:string, ri
  * @param formato -> stringa che identifica il formato richiesto dall'acquirente
  * @param risp -> la risposta che darà il server
  */
-export function download(nome:string,formato:string,risp:any):void{
+export function download(nome:string,formato:string,id_acquisto:number,risp:any):void{
     const pathImg=path.join(curr_path,"img/"+nome);
     var tipo:string=selFormato(formato);
     try {gm(pathImg).gravity('Center')
@@ -328,6 +315,11 @@ export function download(nome:string,formato:string,risp:any):void{
             risp.end(buffer);
             
             console.log('done!');
+            Acquisto.findByPk(id_acquisto).then((acquisto:any)=>{
+                acquisto.nDownload+=1;
+                acquisto.save()
+            })
+
             })
     } catch {
         ((error:any) => {

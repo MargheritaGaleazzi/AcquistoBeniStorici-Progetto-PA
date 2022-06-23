@@ -32,6 +32,7 @@ CREATE TABLE `utente`(
         'download originale',
         'download aggiuntivo'
     ) DEFAULT 'download originale',
+    `nDownload` INT(1) NOT NULL,
     PRIMARY KEY(`id`),
     FOREIGN KEY(`email_compr`) REFERENCES `utente`(`email`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`beneId`) REFERENCES `bene`(id) ON DELETE CASCADE ON UPDATE CASCADE 
@@ -136,17 +137,20 @@ VALUES(
     'jpg',
     'rossiMario@gmail.com',
     1,
-    'download originale'
+    'download originale',
+    1
     ),(
     2, 
     'png', 
     'giovi@alice.it', 
     4, 
-    'download originale'
+    'download originale',
+    0
     ),(
     3, 
     'jpg', 
     'giovi@alice.it', 
     4, 
-    'download aggiuntivo'
+    'download aggiuntivo',
+    1
     );

@@ -72,7 +72,7 @@ applicazione.post('/NuovoLink', Middleware.JWT, Middleware.NuovoLink, function (
  * Rotta per la visualizzazione di tutti gli acquisti
  */
 
-applicazione.get('/VediAcquisti', /*aggiungi middleware,*/ function (req: any, res: any) {    
+applicazione.get('/VediAcquisti', Middleware.JWT, function (req: any, res: any) {    
     Controller.vediAcquisti(res);
 });
 
@@ -88,7 +88,7 @@ applicazione.post('/AcquistaMultiplo', /*aggiungi middleware,*/ function (req: a
  * Rotta per la effettuare un regalo ad un amico
  */
 
-applicazione.post('/Regalo', Middleware.JWT, function (req: any, res: any) {    
+applicazione.post('/Regalo', Middleware.JWT/*aggiungi middleware,*/, function (req: any, res: any) {    
     Controller.regalo(req.body.email_amico,req.body.formato_bene,req.body.consumatore,req.body.id_bene,res);
 });
 

@@ -384,6 +384,10 @@ CoR ->>+ middleware: controlloDownload()
 middleware ->>+ model: Acquito.findByPk()
 model ->>- middleware: result: risultato
 middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPropietarioAcquisto()
+middleware ->>+ model: Acquito.findByPk()
+model ->>- middleware: result: risultato
+middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: download()
 controller ->>+ utility: selFormato()

@@ -500,6 +500,51 @@ controller ->>- client:  risp.status().json()
 
 #### Effettuare un acquisto multiplo (AcquistaMultiplo)
 
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /AcquistaMultiplo
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: Multiplo
+CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloUser()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloTokenNullo()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriAcquistoMultiplo()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware:  controlloPresenzaBeni()
+middleware ->>+ model: Bene.findAll()
+model ->>- middleware: result: bene
+middleware ->>- CoR:  next()
+CoR ->>+ middleware:  controlloCreditoAcquistoMultiplo()
+middleware ->>+ model: Utente.findByPk()
+middleware ->>+ model: Bene.findByPk()
+model ->>- middleware: result: bene
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloFormatoImmagine()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: visualizzaCredito()
+controller ->>+ model: Utente.findByPk()
+model ->>- controller: result: utente
+controller ->>- client:  risp.status().json()
+```
+
 #### Fare un regalo ad un amico (Regalo)
 
 

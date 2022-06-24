@@ -764,7 +764,7 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
  export function controlloNomeBene(req: any, res: any, next: any) : void {
     Bene.findAll({attributes: ['nome'], raw: true}).then((bene: object[]) => {
         var json = JSON.parse(JSON.stringify(bene));
-        var array: number[] = [];
+        var array: string[] = [];
         console.log(json.length)
         for(var i=0; i<json.length; i++){
             array.push(json[i]['nome']);
@@ -775,6 +775,5 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
         } else {
             next();
         }
-        
     });
 }

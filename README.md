@@ -373,7 +373,7 @@ CoR ->>- app : next()
 app ->>+ controller: acquistaBene()
 controller ->>+ model : Acquisto.create()
 controller ->>+ model : Bene.findByPk()
-controller ->>+ model : Utente.decrement()
+controller ->> model : Utente.decrement()
 model ->>- controller : result: bene
 model ->>- controller : result: acquisto
 controller ->>+ factory : getMsg().getMsg()

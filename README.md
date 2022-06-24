@@ -266,6 +266,27 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
   <img width="1020" src="https://github.com/MargheritaGaleazzi/AcquistoBeniStorici-Progetto-PA/blob/main/img_doc/UseCase.jpg">
 </p>
 
+### FlowChart
+```mermaid
+flowchart LR 
+A[Client]-->|richiesta|B[app]
+B[app]  -->  C{Rotta \n esistente?}  
+ C  -- Si -->  D[Middleware]  
+ D  -->  E{Middleware \n rispettati?}  
+ E  --Si-->  F[app] 
+  F --> H[controller]
+  H -->M{Si verificano \n errori?}
+  M --No--> L[messaggi di \n successo]
+  M--Si-->G
+  L --> Z
+ E  -- No ----> G[messaggi \n di errore]
+ G --> Z[risposta]
+ C  -- No -->  G
+ H --> J[singleton]
+ J --> K[ORM \n Sequelize] 
+ K --> Database 
+ ```
+
 ### Sequence Diagram
 
 #### Visualizzazione dei beni (ListaBeni)

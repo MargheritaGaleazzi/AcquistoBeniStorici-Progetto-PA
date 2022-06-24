@@ -47,8 +47,10 @@ export const JWT = [
 ]
 
 export const VediCredito = [
-    Middleware.ValMailCredito,
-    Middleware.ControlloPresenzaUser
+    Middleware.ControlloPresenzaUser,
+    Middleware.ControlloUser,
+    Middleware.ControlloTokenNullo,
+    Middleware.ControlloPresenzaUtente
 ]
 
 export const AdminRicarica = [
@@ -84,6 +86,7 @@ export const Multiplo = [
     Middleware.ControlloCreditoAcquistoMultiplo,
     Middleware.controlloFormatoImmagine
 ]
+
 
 export const RottaSbagliata = [
     Middleware.RottaNonTrovata

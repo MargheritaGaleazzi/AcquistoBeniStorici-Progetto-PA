@@ -88,7 +88,7 @@ applicazione.post('/AcquistaMultiplo', Middleware.JWT, Middleware.Multiplo, func
  * Rotta per la effettuare un regalo ad un amico
  */
 
-applicazione.post('/Regalo', Middleware.JWT/*aggiungi middleware,*/, function (req: any, res: any) {    
+applicazione.post('/Regalo', Middleware.JWT, function (req: any, res: any) {    
     Controller.regalo(req.body.email_amico,req.body.formato_bene,req.body.consumatore,req.body.id_bene,res);
 });
 
@@ -96,8 +96,8 @@ applicazione.post('/Regalo', Middleware.JWT/*aggiungi middleware,*/, function (r
  * Rotta per la visualizzazione dei crediti rimasti
  */
 
-applicazione.get('/VisualizzaCredito/:email', Middleware.JWT, Middleware.VediCredito, function (req: any, res: any) {    
-    Controller.visualizzaCredito(req.params.email, res);
+applicazione.get('/VisualizzaCredito', Middleware.JWT, Middleware.VediCredito, function (req: any, res: any) {    
+    Controller.visualizzaCredito(req.body.email, res);
 });
 
 

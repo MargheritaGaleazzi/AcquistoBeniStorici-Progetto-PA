@@ -388,6 +388,18 @@ export function ControlloPresenzaUser(req: any, res: any, next: any) : void {
 }
 
 /**
+ * Viene richiamata la funzione per il controllo della presenza per verificare
+ * se l'utente di cui si richiede il credito è presente nel database
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function ControlloPresenzaUtente(req: any, res: any, next: any) : void {
+    controlloPresenza(req.body.email,res,next);
+}
+
+/**
  * Viene richiamata la funzione per il controllo del formato dell'email inserito
  * dall'admin per l'inserimento di un nuovo utente
  * 

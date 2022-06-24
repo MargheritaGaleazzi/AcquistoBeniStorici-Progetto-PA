@@ -518,10 +518,20 @@ CoR ->>+ middleware: controlloChiaveSegreta()
 middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ CoR: VediCredito
-CoR ->>+ middleware: ValMailCredito()
-middleware ->> middleware: ValidazioneEmail()
-middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloUser()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloTokenNullo()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPresenzaUtente()
 middleware ->> middleware: controlloPresenza()
 middleware ->>+ model: Utente.findAll()
 model ->>- middleware: result: utente

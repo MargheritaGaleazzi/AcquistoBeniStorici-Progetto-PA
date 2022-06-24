@@ -365,6 +365,21 @@ sequenceDiagram
 autonumber
 client ->> app: /download
 app ->>+ CoR: ControlloDownload
+CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloUser()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloTokenNullo()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriDownload()
+middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloDownload()
 middleware ->>+ model: Acquito.findByPk()
 model ->>- middleware: result: risultato
@@ -372,7 +387,7 @@ middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: download()
 controller ->>+ utility: selFormato()
-utility ->>- controller: result: formato
+utility ->>- controller: result: tipo
 controller ->>+ utility: filigrana()
 utility ->>- controller: result: immagine
 controller ->>+ model : Acquisto.findByPk()

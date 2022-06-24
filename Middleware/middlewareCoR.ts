@@ -81,7 +81,8 @@ export const Multiplo = [
     Middleware.ControlloTokenNullo,
     Middleware.controlloValoriAcquistoMultiplo,
     Middleware.controlloPresenzaBeni,
-    Middleware.controlloFormatoImmagine,
+    Middleware.ControlloCreditoAcquistoMultiplo,
+    Middleware.controlloFormatoImmagine
 ]
 
 export const RottaSbagliata = [

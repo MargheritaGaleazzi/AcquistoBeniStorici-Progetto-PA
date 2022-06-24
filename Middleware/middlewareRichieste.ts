@@ -1,6 +1,6 @@
 require('dotenv').config();
 import * as jwt from 'jsonwebtoken';
-import { where } from 'sequelize/types';
+import { Identifier, where } from 'sequelize/types';
 import { isNullishCoalesce, JsonObjectExpression } from 'typescript';
 import { getMsg,MsgEnum } from '../Factory/messaggi';
 import { Utente, Bene, Acquisto} from "../models/models";
@@ -154,6 +154,7 @@ export function controlloPresenzaBene(req: any, res: any, next: any) : void {
 }
 
 
+
 /**
  * Funzione che controlla se i beni inseriti nell'array sono presenti nel database
  * 
@@ -181,6 +182,40 @@ export function controlloPresenzaBene(req: any, res: any, next: any) : void {
         }  
     });
  }
+
+ /**
+ * Funzione utilizzata per controllare se l'utente dispone di un numero
+ * sufficiente di token per l'acquisto dei beni
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+export function ControlloCreditoAcquistoMultiplo(req: any, res: any, next: any) : void {
+    Utente.findByPk(req.body.consumatore).then((utente:any) => {
+        var totale = 0;
+        var i = 1;
+        req.body.ids.forEach( async function(id:any){            
+            console.log("id: "+id);
+            await Bene.findByPk(id).then((bene:any) => {
+                console.log("prezzo: " + bene.prezzo);
+                totale+= bene.prezzo;
+                if (i==req.body.ids.length){
+                    console.log("totale: " + totale);
+                    console.log(utente.credito);
+                    if(totale <= utente.credito){
+                        next();
+                    }
+                    else {
+                        const new_err = getMsg(MsgEnum.ErrTokenNonSufficienti).getMsg();
+                        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+                    }
+                }
+                i++;
+            });
+        }); 
+    });
+}
 
 /**
  * Funzione che controlla se i valori inseriti per il download sono coerenti con i tipi richiesti

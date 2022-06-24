@@ -80,8 +80,8 @@ applicazione.get('/VediAcquisti', Middleware.JWT, Middleware.VediAcquisti, funct
  * Rotta per effettuare acquisti multipli
  */
 
-applicazione.post('/AcquistaMultiplo', /*aggiungi middleware,*/ function (req: any, res: any) {    
-    Controller.acquistaMultiplo(req.body.ids,req.body.formato, req.body.compr, res);
+applicazione.post('/AcquistaMultiplo', Middleware.JWT, Middleware.Multiplo, function (req: any, res: any) {    
+    Controller.acquistaMultiplo(req.body.ids,req.body.formato, req.body.consumatore, res);
 });
 
 /*

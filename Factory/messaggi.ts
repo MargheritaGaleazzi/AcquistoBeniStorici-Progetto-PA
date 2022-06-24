@@ -62,6 +62,26 @@ class ErrTokenNonSufficienti implements Msg {
     }
 }
 
+//errore che viene lanciato in caso non inserimento di un array di immagini per l'acquisto multiplo
+class ErroreNoArray implements Msg {
+    getMsg(): { codice: number,  msg: string } {
+        return {
+            codice: 400,
+            msg: "ERRORE - Non hai inserito un array per indicare gli id dei beni che si vogliono acquistare"
+        }
+    }
+}
+
+//errore che viene lanciato in caso in cui non sono presenti id sottoforma di numero per indicare l'id delle immagini
+class ErroreNoNumeri implements Msg {
+    getMsg(): { codice: number,  msg: string } {
+        return {
+            codice: 400,
+            msg: "ERRORE - Non hai inserito gli id delle immagini in modo corretto"
+        }
+    }
+}
+
 //errore che viene lanciato in caso di errore generico da parte del server
 class BadRequest implements Msg {
     getMsg(): { codice: number,  msg: string } {
@@ -350,6 +370,8 @@ export enum MsgEnum {
     ErrEmailDuplicata,
     ErrImgUnivoca,
     ErrNomeBene,
+    ErroreNoArray,
+    ErroreNoNumeri,
     BadRequest,
     ListaBeni,
     AcquistaBene,
@@ -425,6 +447,12 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.ErrTokenMancante:
             val = new ErrTokenMancante();
+            break;
+        case MsgEnum.ErroreNoArray:
+            val = new ErroreNoArray();
+            break;
+        case MsgEnum.ErroreNoNumeri:
+            val = new ErroreNoNumeri();
             break;
         case MsgEnum.BadRequest:
             val = new BadRequest();

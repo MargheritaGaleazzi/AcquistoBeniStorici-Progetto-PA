@@ -38,6 +38,7 @@ export const NuovoLink = [
 export const VediAcquisti = [
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloUser,
+    Middleware.ControlloTokenNullo
 ]
 
 export const JWT = [
@@ -74,6 +75,13 @@ export const NuovoBene = [
     Middleware.controlloImgUnivoca
 ]
 
+export const Multiplo = [
+    Middleware.ControlloPresenzaUser,
+    Middleware.ControlloUser,
+    Middleware.ControlloTokenNullo,
+    Middleware.controlloValoriAcquistoMultiplo,
+    Middleware.controlloFormatoImmagine,
+]
 
 export const RottaSbagliata = [
     Middleware.RottaNonTrovata

@@ -150,11 +150,13 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
     await Acquisto.create({formato:formato_bene,email_compr:compr,beneId:id,tipo_acq:'download originale',nDownload:0}).then(async (acquisto:any)=>{
     await Bene.findByPk(id).then(async (bene:any)=>{
         await Utente.decrement("credito",{by:bene.prezzo,where: { email: compr }});
-                const image=curr_path+"\\img\\"+bene.nome;
+                const image=path.join(curr_path,"img/"+bene.nome);
                 const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
-                var tipo=selFormato(formato_bene)
+                var tipo=selFormato(formato_bene);
+                console.log(image);
+                console.log(tipo);
                 filigrana(image).toBuffer(tipo, function (err:any, buffer:any) {
-                    if (err) return console.log('err');
+                    if (err) return console.log(err);
                     zip.addFile(nomebene,buffer);
                     console.log('done!');
                     if (i==ids.length){

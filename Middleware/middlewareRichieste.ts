@@ -94,6 +94,41 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
 }
 
 /**
+ * Funzione che controlla se i valori inseriti per l'acquisto multiplo sono coerenti con i tipi richiesti
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloValoriAcquistoMultiplo(req: any, res: any, next: any) : void {
+    if(Array.isArray(req.body.ids)){
+        var bool = true;
+        req.body.ids.forEach(function(item:any) {
+            if(typeof item !== "number"){
+                bool=false;
+            }
+        })
+        if(bool) {
+            if(typeof req.body.formato == "string" && typeof req.body.consumatore == "string" 
+            && typeof req.body.ruolo == "string"){
+            next();
+            }
+            else if (!req.body.risultato) {
+                const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
+                next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+            }
+        }
+        else {
+            const new_err = getMsg(MsgEnum.ErroreNoNumeri).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }    
+    }
+    else {
+        const new_err = getMsg(MsgEnum.ErroreNoArray).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+}
+
+/**
  * Funzione che controlla se il bene esiste
  * 
  * @param req richiesta del client

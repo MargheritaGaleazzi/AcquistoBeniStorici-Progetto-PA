@@ -303,6 +303,18 @@ export function valMailNuovoConsumatore(req: any, res: any, next: any) : void {
 
 /**
  * Viene richiamata la funzione per il controllo del formato dell'email inserito
+ * dall'admin per l'inserimento di un nuovo utente
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function ValMailCredito(req: any, res: any, next: any) : void {
+    ValidazioneEmail(req.params.email,res,next);
+}
+
+/**
+ * Viene richiamata la funzione per il controllo del formato dell'email inserito
  * dall'utente per indicare la mail dell'amico per la richiesta del regalo
  * 
  * @param req richiesta del client

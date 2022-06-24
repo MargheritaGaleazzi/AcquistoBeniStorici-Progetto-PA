@@ -38,6 +38,10 @@ export const JWT = [
     Middleware.ControlloChiaveSegreta
 ]
 
+export const VediCredito = [
+    Middleware.ValMailCredito
+]
+
 export const AdminRicarica = [
     Middleware.controlloValoriRicarica,
     Middleware.controlloPositivita,

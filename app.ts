@@ -96,7 +96,7 @@ applicazione.post('/Regalo', Middleware.JWT, function (req: any, res: any) {
  * Rotta per la visualizzazione dei crediti rimasti
  */
 
-applicazione.get('/VisualizzaCredito/:email', /*aggiungi middleware,*/ function (req: any, res: any) {    
+applicazione.get('/VisualizzaCredito/:email', Middleware.JWT, Middleware.VediCredito, function (req: any, res: any) {    
     Controller.visualizzaCredito(req.params.email, res);
 });
 
@@ -117,7 +117,7 @@ applicazione.post('/AggiungiUtente', Middleware.JWT, Middleware.NuovoUtente, fun
     Controller.aggiungiUtente(req.body.email,req.body.username,req.body.nome,req.body.cognome, res);
 });
 
-applicazione.post('/AggiungiBene', /*Middleware.JWT, */Middleware.NuovoBene, function (req: any, res: any) {    
+applicazione.post('/AggiungiBene', Middleware.JWT, Middleware.NuovoBene, function (req: any, res: any) {    
     Controller.aggiungiBene(req.body.nome,req.body.tipo,req.body.anno,req.body.prezzo,req.body.path_img, res);
 });
 

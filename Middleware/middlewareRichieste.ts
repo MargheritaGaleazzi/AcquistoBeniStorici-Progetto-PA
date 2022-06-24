@@ -413,18 +413,6 @@ export function valMailNuovoConsumatore(req: any, res: any, next: any) : void {
 
 /**
  * Viene richiamata la funzione per il controllo del formato dell'email inserito
- * dall'admin per l'inserimento di un nuovo utente
- * 
- * @param req richiesta del client
- * @param res risposta del server
- * @param next riferimento al middleware successivo
- */
- export function ValMailCredito(req: any, res: any, next: any) : void {
-    ValidazioneEmail(req.params.email,res,next);
-}
-
-/**
- * Viene richiamata la funzione per il controllo del formato dell'email inserito
  * dall'utente per indicare la mail dell'amico per la richiesta del regalo
  * 
  * @param req richiesta del client
@@ -432,7 +420,7 @@ export function valMailNuovoConsumatore(req: any, res: any, next: any) : void {
  * @param next riferimento al middleware successivo
  */
 export function valMailAmico(req: any, res: any, next: any) : void {
-    ValidazioneEmail(req.body.consumatore,res,next);
+    ValidazioneEmail(req.body.email_amico,res,next);
 }
 
 /**
@@ -578,7 +566,7 @@ export function ControlloUser(req: any, res: any, next: any) : void {
  * @param next riferimento al middleware successivo
  */
 export function ValidazioneEmail(email: string, res: any, next: any): void{
-    let regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+    let regex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     if(regex.test(email)) {
         next();
     }

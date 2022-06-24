@@ -87,6 +87,16 @@ export const Multiplo = [
     Middleware.controlloFormatoImmagine
 ]
 
+export const Regalo = [
+    Middleware.ControlloPresenzaUser,
+    Middleware.ControlloUser,
+    Middleware.ControlloTokenNullo,
+    Middleware.controlloValoriAcquistoBene,
+    Middleware.controlloPresenzaBene,
+    Middleware.ControlloCredito,
+    Middleware.controlloFormatoImmagine,
+    Middleware.valMailAmico
+]
 
 export const RottaSbagliata = [
     Middleware.RottaNonTrovata

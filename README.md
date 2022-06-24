@@ -432,6 +432,10 @@ CoR ->>+ middleware: controlloPresenzaAcquisto()
 middleware ->>+ model: Acquito.findAll()
 model ->>- middleware: result: acquisto
 middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPropietarioAcquisto()
+middleware ->>+ model: Acquito.findByPk()
+model ->>- middleware: result: risultato
+middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: nuovoLink()
 controller ->>+ model: Acquisto.findByPk()

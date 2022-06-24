@@ -101,8 +101,8 @@ export function controlloValoriAcquistoBene(req: any, res: any, next: any) : voi
  * @param next riferimento al middleware successivo
  */
 export function controlloPresenzaBene(req: any, res: any, next: any) : void {
-    Bene.findAll({attributes: ['id'], raw: true}).then((utente: object[]) => {
-        var json = JSON.parse(JSON.stringify(utente));
+    Bene.findAll({attributes: ['id'], raw: true}).then((bene: object[]) => {
+        var json = JSON.parse(JSON.stringify(bene));
         var array: number[] = [];
         console.log(json.length)
         for(var i=0; i<json.length; i++){

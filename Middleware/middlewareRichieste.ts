@@ -155,6 +155,34 @@ export function controlloPresenzaBene(req: any, res: any, next: any) : void {
 
 
 /**
+ * Funzione che controlla se i beni inseriti nell'array sono presenti nel database
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloPresenzaBeni(req: any, res: any, next: any) : void {
+    Bene.findAll({attributes: ['id'], raw: true}).then((bene: object[]) => {
+        var json = JSON.parse(JSON.stringify(bene));
+        var array: number[] = [];
+        console.log(json.length)
+        for(var i=0; i<json.length; i++){
+            array.push(json[i]['id']);
+        }
+        const containsAll = req.body.ids.every((element: number) => {
+            return array.includes(element);
+          });
+        if(containsAll){
+            next();
+        }
+        else {
+            const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }  
+    });
+ }
+
+/**
  * Funzione che controlla se i valori inseriti per il download sono coerenti con i tipi richiesti
  * 
  * @param req richiesta del client

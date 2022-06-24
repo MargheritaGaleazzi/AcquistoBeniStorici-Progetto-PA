@@ -80,6 +80,7 @@ export const Multiplo = [
     Middleware.ControlloUser,
     Middleware.ControlloTokenNullo,
     Middleware.controlloValoriAcquistoMultiplo,
+    Middleware.controlloPresenzaBeni,
     Middleware.controlloFormatoImmagine,
 ]
 

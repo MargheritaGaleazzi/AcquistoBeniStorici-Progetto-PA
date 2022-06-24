@@ -467,6 +467,32 @@ controller ->>- client:  risp.status().json()
 
 #### Visualizzare il credito (VisualizzaCredito)
 
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /VisualizzaCredito
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: VediCredito
+CoR ->>+ middleware: ValMailCredito()
+middleware ->> middleware: ValidazioneEmail()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: visualizzaCredito()
+controller ->>+ model: Utente.findByPk()
+model ->>- controller: result: utente
+controller ->>- client:  risp.status().json()
+```
+
 #### Effettuare la ricarica dei crediti (Ricarica)
 
 ```mermaid

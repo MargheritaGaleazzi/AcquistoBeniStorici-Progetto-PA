@@ -448,6 +448,32 @@ controller ->>- client:  risp.status().json()
 
 #### Visualizzazione dei beni acquistati (VediAcquisti)
 
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /VediAcquisti
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: VediAcquisti
+CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloUser()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: vediAcquisti()
+controller ->>+ model: Acquisto.findAll()
+model ->>- controller: result: acquisti
+controller ->>- client:  risp.status().json()
+```
 
 #### Effettuare un acquisto multiplo (AcquistaMultiplo)
 
@@ -515,6 +541,8 @@ middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ CoR: AdminRicarica
 CoR ->>+ middleware: controlloValoriRicarica()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPositivita()
 middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloPresenzaUser()
 middleware ->> middleware: controlloPresenza()

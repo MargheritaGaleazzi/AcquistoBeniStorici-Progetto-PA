@@ -372,10 +372,10 @@ middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: acquistaBene()
 controller ->>+ model : Acquisto.create()
-model ->>- controller : result: acquisto
 controller ->>+ model : Bene.findByPk()
-model ->>- controller : result: bene
 controller ->>+ model : Utente.decrement()
+model ->>- controller : result: bene
+model ->>- controller : result: acquisto
 controller ->>+ factory : getMsg().getMsg()
 factory ->>- controller: obj:AcquistaBene
 controller ->>- client:  risp.status().json()
@@ -462,10 +462,10 @@ middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: nuovoLink()
 controller ->>+ model: Acquisto.findByPk()
-model ->>- controller: result: acquisto
 controller ->>+ model: Bene.findByPk()
-model ->>- controller: result: bene
 controller ->> model: Utente.decrement()
+model ->>- controller: result: bene
+model ->>- controller: result: acquisto
 controller ->>- client:  risp.status().json()
 ```
 

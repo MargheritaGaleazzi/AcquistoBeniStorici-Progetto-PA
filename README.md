@@ -660,12 +660,14 @@ Gli step sono i seguenti:
  2. Attivare docker,
  3. All'interno della cartella, aprire il terminale e digitare:
     `docker compose build`
+    (Attendere che l'esecuzione sia completata)
  4. Successivamente digitare:
     `docker compose up` 
+    (Attendere che l'esecuzione sia completata)
  5. Il programma è in esecuzione 
 
 ## Testing
-Si può testare il progetto eseguendo una serie di test predefiniti, per fare ciò basterà importare all'interno di Postman la collection [postman_collection.json](postman_collection.json) che si trova in questo repository.
+Si può testare il progetto eseguendo una serie di test predefiniti, per fare ciò basterà importare all'interno di Postman la collection [TestingGestioneBeni.postman_collection.json](TestingGestioneBeni.postman_collection.json) che si trova in questo repository.
 I token JWT, sono stati generati, utilizzando [JWT.IO](https://jwt.io/), tramite la chiave *'chiavegestionebeni'*
 
 ## Autori

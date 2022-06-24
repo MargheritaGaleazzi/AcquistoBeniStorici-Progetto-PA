@@ -549,6 +549,42 @@ controller ->>- client:  risp.status().json()
 
 #### Aggiungere un nuovo utente (AggiungiUtente)
 
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /AggiungiUtente
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: NuovoUtente
+CoR ->>+ middleware: controlloPresenzaAdmin()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloAdmin()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriNuovoUtente()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: valMailNuovoConsumatore()
+middleware ->> middleware: ValidazioneEmail()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: EmailUnivoca()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: aggiungiUtente()
+controller ->>+ model: Utente.create()
+model ->>- controller: result: nuovoUtente
+controller ->>- client:  risp.status().json()
+```
+
 #### Aggiungere un nuovo bene (AggiungiBene)
 
 ## Pattern utilizzati

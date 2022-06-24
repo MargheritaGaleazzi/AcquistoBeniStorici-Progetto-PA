@@ -258,6 +258,8 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 }
 ~~~
 
+> `Per questa rotta abbiamo deciso di implementare un middleware che vada a verificare che l'immagine (e no solo il nome della stessa), non sia già presente nel database. Questa è però un'operazione computazionalmente onerosa che richiede un pò più tempo rispetto alle altre. Abbiamo pensato però di inserirla in quanto le dimensioni del dataset di immagini sono limitate.`
+
 ## Diagrammi UML
 ### Use case
 <p align="center">
@@ -586,6 +588,43 @@ controller ->>- client:  risp.status().json()
 ```
 
 #### Aggiungere un nuovo bene (AggiungiBene)
+
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /AggiungiBene
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: NuovoBene
+CoR ->>+ middleware: controlloPresenzaAdmin()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloAdmin()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriBene()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloNomeBene()
+middleware ->>+ model: Bene.findAll()
+model ->>- middleware: result: bene
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloImgUnivoca()
+middleware ->>+ model: Bene.findAll()
+model ->>- middleware: result: beni
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: aggiungiBene()
+controller ->>+ model: Bene.create()
+model ->>- controller: result: nuovoUtente
+controller ->>- client:  risp.status().json()
+```
 
 ## Pattern utilizzati
 

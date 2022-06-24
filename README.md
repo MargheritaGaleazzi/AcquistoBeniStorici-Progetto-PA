@@ -398,6 +398,45 @@ controller ->>- client:  risp.end()
 
 #### Richiedi nuovo link (NuovoLink)
 
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /nuovoLink
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: NuovoLink
+CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloUser()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloTokenNullo()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriNuovoLink()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPresenzaAcquisto()
+middleware ->>+ model: Acquito.findAll()
+model ->>- middleware: result: acquisto
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: nuovoLink()
+controller ->>+ model: Acquisto.findByPk()
+model ->>- controller: result: acquisto
+controller ->>+ model: Bene.findByPk()
+model ->>- controller: result: bene
+controller ->> model: Utente.decrement()
+controller ->>- client:  risp.status().json()
+```
 
 #### Visualizzazione dei beni acquistati (VediAcquisti)
 

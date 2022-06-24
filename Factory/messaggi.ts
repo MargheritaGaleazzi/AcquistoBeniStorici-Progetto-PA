@@ -105,6 +105,15 @@ class ErrProibito implements Msg {
     }
 }
 
+class ErrProprietaAcquisto implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 403,
+            msg: "ERRORE - Non risulti essere il proprietario di questo acquisto"
+        }
+    }
+}
+
 //errore che viene lanciato quando non viene trovata la rotta cercata
 class ErrRottaNonTrovata implements Msg {
     getMsg(): { codice: number; msg: string; } {
@@ -316,6 +325,7 @@ export enum MsgEnum {
     ErrRottaNonTrovata,
     ErrNonAutorizzato,
     ErrProibito,
+    ErrProprietaAcquisto,
     ErrNonTrovato,
     ErrAcquistoNonTrovato,
     ErrUtenteNonTrovato,
@@ -381,6 +391,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.ErrProibito:
             val = new ErrProibito();
+            break;
+        case MsgEnum.ErrProprietaAcquisto:
+            val = new ErrProprietaAcquisto();
             break;
         case MsgEnum.ErrRichiestaErrata:
             val = new ErrRichiestaErrata();

@@ -366,11 +366,38 @@ export function controlloDownload(req: any, res: any, next: any) : void {
         else if (risultato.nDownload == 1 && req.params.tipoDownload == "DownloadRegalo") {
             next();
         }
+        else if (req.params.tipoDownload == "DownloadAggiuntivo") {
+            next();
+        }
         else {
             const new_err = getMsg(MsgEnum.ErrProibito).getMsg();
             next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
         }
 
+    });
+}
+
+/**
+ * Funzione utilizzata per il controllo del proprietario dell'acquisto
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloProprietarioAcquisto(req: any, res: any, next: any) : void {
+    console.log(req.params.idAcquisto);
+    var proprietario = req.params.idAcquisto != null ? req.params.idAcquisto : req.body.id_acquisto
+    console.log(proprietario);
+    Acquisto.findByPk(proprietario).then((risultato: any) => {
+        console.log(risultato);
+        console.log(risultato.nDownload);
+        if (risultato.email_compr == req.body.consumatore){
+            next();
+        }
+        else {
+            const new_err = getMsg(MsgEnum.ErrProprietaAcquisto).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }
     });
 }
 

@@ -89,12 +89,12 @@ INSERT INTO `acquisto`(
     `nDownload`
 )
 VALUES(1,'jpg','rossiMario@gmail.com',1,'download originale',1),
-(2, 'jpg', 'giovi@alice.it', 4, 'download originale',1),
-(3, 'jpg', 'giovi@alice.it', 4, 'download aggiuntivo',1),
+(2, 'jpg', 'giovi@alice.it', 3, 'download originale',1),
+(3, 'jpg', 'giovi@alice.it', 4, 'download aggiuntivo',2),
 (4, 'tiff', 'pino@alice.it', 5, 'download originale',1),
 (5, 'tiff', 'cass.lof@alice.it', 2, 'download originale',0),
 (6, 'png', 'stellamari@gmail.com', 11, 'download originale',1),
-(7, 'png', 'stellamari@gmail.com', 11, 'download aggiuntivo',0),
+(7, 'png', 'stellamari@gmail.com', 13, 'download aggiuntivo',2),
 (8, 'jpg', 'giovi@alice.it', 20, 'download originale',1),
 (9, 'tiff', 'anse@alice.it', 7, 'download originale',1),
-(10, 'tiff', 'anse@alice.it', 7, 'download aggiuntivo',0);
+(10, 'tiff', 'anse@alice.it', 19, 'download aggiuntivo',2);

@@ -72,7 +72,7 @@ applicazione.post('/NuovoLink', Middleware.JWT, Middleware.NuovoLink, function (
  * Rotta per la visualizzazione di tutti gli acquisti
  */
 
-applicazione.get('/VediAcquisti', Middleware.JWT, function (req: any, res: any) {    
+applicazione.get('/VediAcquisti', Middleware.JWT, Middleware.VediAcquisti, function (req: any, res: any) {    
     Controller.vediAcquisti(res);
 });
 

@@ -73,6 +73,7 @@ export const NuovoBene = [
     Middleware.ControlloPresenzaAdmin,
     Middleware.ControlloAdmin,
     Middleware.controlloValoriBene,
+    Middleware.controlloFormatoImmagine,  
     Middleware.controlloNomeBene,
     Middleware.controlloImgUnivoca
 ]

@@ -770,10 +770,10 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
             array.push(json[i]['nome']);
         }
         if(array.find(element => element === req.body.nome)){
-            next();
-        } else {
             const new_err = getMsg(MsgEnum.ErrNomeBene).getMsg();
             next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        } else {
+            next();
         }
         
     });

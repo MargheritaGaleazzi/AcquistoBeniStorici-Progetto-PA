@@ -566,9 +566,11 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
     if (typeof req.body.nome == 'string' && 
         typeof req.body.tipo == 'string' &&
         typeof req.body.anno == 'number' &&
+        req.body.anno >=0 &&
         typeof req.body.email_admin == 'string' &&
         typeof req.body.ruolo == 'string' &&
         typeof req.body.prezzo == 'number' &&
+        req.body.prezzo>0 &&
         typeof req.body.path_img == 'string'){
         next();
         }
@@ -601,7 +603,6 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
                .compareTo(b_path)
                .ignoreColors()
                .onComplete(function (data:any) {
-                   //console.log(data);
                    var json = JSON.parse(JSON.stringify(data));
                    console.log(json['misMatchPercentage'])
                    if(json['misMatchPercentage']<=1.00){
@@ -609,10 +610,6 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
                     next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
                    }
                });
-               /*if (cv.countNonZero(diff)){
-                const new_err = getMsg(MsgEnum.ErrImgUnivoca).getMsg();
-                next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-               }*/
             });
             next()
 

@@ -243,6 +243,15 @@ class ErrImgUnivoca implements Msg {
     }
 }
 
+class ErrNomeBene implements Msg {
+    getMsg(): { codice: number; msg: string; } {
+        return {
+            codice: 409,
+            msg: "ERRORE - Errore il nome dell'immagine che hai tentato di inserire è già presente"
+        }
+    }
+}
+
 class ListaBeni implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -330,6 +339,7 @@ export enum MsgEnum {
     ErrImg,
     ErrEmailDuplicata,
     ErrImgUnivoca,
+    ErrNomeBene,
     BadRequest,
     ListaBeni,
     AcquistaBene,
@@ -414,6 +424,9 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break;
         case MsgEnum.ErrImgUnivoca:
             val = new ErrImgUnivoca();
+            break;
+        case MsgEnum.ErrNomeBene:
+            val = new ErrNomeBene();
             break;
         case MsgEnum.ListaBeni:
             val = new ListaBeni();

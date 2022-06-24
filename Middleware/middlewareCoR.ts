@@ -39,7 +39,8 @@ export const JWT = [
 ]
 
 export const VediCredito = [
-    Middleware.ValMailCredito
+    Middleware.ValMailCredito,
+    Middleware.ControlloPresenzaUser
 ]
 
 export const AdminRicarica = [
@@ -62,6 +63,7 @@ export const NuovoBene = [
     Middleware.ControlloPresenzaAdmin,
     Middleware.ControlloAdmin,
     Middleware.controlloValoriBene,
+    Middleware.controlloNomeBene,
     Middleware.controlloImgUnivoca
 ]
 

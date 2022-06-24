@@ -577,6 +577,7 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
  export function controlloValoriBene(req: any, res: any, next: any) : void {
     if (typeof req.body.nome == 'string' && 
         typeof req.body.tipo == 'string' &&
+        (req.body.tipo == 'manoscritto' || req.body.tipo == 'cartografia storica') &&
         typeof req.body.anno == 'number' &&
         req.body.anno >=0 &&
         typeof req.body.email_admin == 'string' &&
@@ -626,4 +627,29 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
             next()
 
  })
+}
+
+/**
+ * Funzione che controlla se il bene esiste
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloNomeBene(req: any, res: any, next: any) : void {
+    Bene.findAll({attributes: ['nome'], raw: true}).then((bene: object[]) => {
+        var json = JSON.parse(JSON.stringify(bene));
+        var array: number[] = [];
+        console.log(json.length)
+        for(var i=0; i<json.length; i++){
+            array.push(json[i]['nome']);
+        }
+        if(array.find(element => element === req.body.nome)){
+            next();
+        } else {
+            const new_err = getMsg(MsgEnum.ErrNomeBene).getMsg();
+            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+        }
+        
+    });
 }

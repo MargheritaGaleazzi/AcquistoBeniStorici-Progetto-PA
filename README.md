@@ -363,9 +363,9 @@ model ->>- middleware: result: bene
 middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloCredito()
 middleware ->>+ model: Utente.findByPk()
-model ->>- middleware: result: utente
 middleware ->>+ model: Bene.findByPk()
 model ->>- middleware: result: bene
+model ->>- middleware: result: utente
 middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloFormatoImmagine()
 middleware ->>- CoR:  next()

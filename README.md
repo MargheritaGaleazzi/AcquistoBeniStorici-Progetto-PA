@@ -547,7 +547,56 @@ controller ->>- client:  risp.status().json()
 
 #### Fare un regalo ad un amico (Regalo)
 
-
+```mermaid
+sequenceDiagram
+autonumber
+client ->> app: /Regalo
+app ->>+ CoR: JWT
+CoR ->>+ middleware: controlloPresenzaToken()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloChiaveSegreta()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ CoR: Regalo
+CoR ->>+ middleware: controlloPresenzaUser()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Utente.findAll()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloUser()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloTokenNullo()
+middleware ->>+ model: Utente.findByPk()
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriAcquistoBene()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware:  controlloPresenzaBene()
+middleware ->>+ model: Bene.findAll()
+model ->>- middleware: result: bene
+middleware ->>- CoR:  next()
+CoR ->>+ middleware:  controlloCredito()
+middleware ->>+ model: Utente.findByPk()
+middleware ->>+ model: Bene.findByPk()
+model ->>- middleware: result: bene
+model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloFormatoImmagine()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: valMailAmico()
+middleware ->> middleware: ValidazioneEmail()
+middleware ->>- CoR:  next()
+CoR ->>- app : next()
+app ->>+ controller: regalo()
+controller ->>+ model: Acquisto.create()
+controller ->>+ model: Bene.findByPk()
+controller ->> model: Utente.decrement()
+model ->>- controller: result: bene
+model ->>- controller: result: acquisto
+controller ->>- client:  risp.status().json()
+```
 
 
 #### Visualizzare il credito (VisualizzaCredito)

@@ -12,7 +12,7 @@ console.log("current path: "+curr_path);
 var zip = new admzip();
 
 // File .zip contenente le immagini, salvato su DropBox
-var url ="https://www.dropbox.com/s/di9e852o5l8bklt/ImmaginiPA.zip?dl=1";
+var url ="https://www.dropbox.com/s/viova118s4e0mu0/ImmaginiPA.zip?dl=1";
 //chiamata alla funzione che verifica la presenza delle immagini e le scarica se necessario
 PresenzaImmagini(curr_path,url);
 

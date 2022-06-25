@@ -22,6 +22,7 @@ export const ControlloDownload = [
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloUser,
     Middleware.ControlloTokenNullo,
+    Middleware.controlloPresenzaAcquisto,
     Middleware.controlloValoriDownload,
     Middleware.controlloDownload,
     Middleware.controlloProprietarioAcquisto

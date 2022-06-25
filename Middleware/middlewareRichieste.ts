@@ -104,16 +104,7 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
                     next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
                 }
                 else 
-                    next(); 
-            // while((req.body.anno != array_anni[j] && req.body.tipo != tipo[j]) && (req.body.anno != null || req.body.tipo != null)){
-            //     if(j==array_anni.length-1 && (req.body.anno != array_anni[j] && req.body.tipo != tipo[j])){
-            //         const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
-            //         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-            //         break;
-            //     }
-            //     j++;
-            // }
-            
+                    next();             
         });
     }
     else 
@@ -307,11 +298,12 @@ export function ControlloCreditoAcquistoMultiplo(req: any, res: any, next: any) 
     Acquisto.findAll({attributes: ['id'], raw: true}).then((acquisto: object[]) => {
         var json = JSON.parse(JSON.stringify(acquisto));
         var array: number[] = [];
+        var presenza = req.params.idAcquisto != null ? req.params.idAcquisto : req.body.id_acquisto
         console.log(json.length)
         for(var i=0; i<json.length; i++){
             array.push(json[i]['id']);
         }
-        if(array.find(element => element === req.body.id_acquisto)){
+        if(array.find(element => element === presenza)){
             next();
         } else {
             const new_err = getMsg(MsgEnum.ErrAcquistoNonTrovato).getMsg();

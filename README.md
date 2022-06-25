@@ -740,6 +740,9 @@ CoR ->>+ middleware: controlloNomeBene()
 middleware ->>+ model: Bene.findAll()
 model ->>- middleware: result: bene
 middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloLink()
+middleware ->> utility: ValidHttpUrl()
+middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloImgUnivoca()
 middleware ->>+ model: Bene.findAll()
 model ->>- middleware: result: beni
@@ -747,7 +750,7 @@ middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: aggiungiBene()
 controller ->>+ model: Bene.create()
-model ->>- controller: result: nuovoUtente
+model ->>- controller: result: nuovoBene
 controller ->>- client:  risp.status().json()
 ```
 

@@ -117,13 +117,6 @@ applicazione.post('/AggiungiUtente', Middleware.JWT, Middleware.NuovoUtente, fun
     Controller.aggiungiUtente(req.body.email,req.body.username,req.body.nome,req.body.cognome, res);
 });
 
-/**
- * Rotta per aggiungere un nuovo bene
- */
-applicazione.post('/AggiungiBene', Middleware.JWT, Middleware.NuovoBene, function (req: any, res: any) {    
-    Controller.aggiungiBene(req.body.nome,req.body.tipo,req.body.anno,req.body.prezzo,req.body.path_img, res);
-});
-
 
 
 /*

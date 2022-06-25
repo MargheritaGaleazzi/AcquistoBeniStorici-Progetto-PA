@@ -3,6 +3,7 @@ import * as Middleware from './middlewareRichieste';
 export const FiltroTipoAnno = [
     Middleware.verificaContentType,
     Middleware.controlloValoriFiltro,
+    Middleware.controlloTipoAnno,
     Middleware.controlloTipo,
     Middleware.controlloAnno
 ];

@@ -55,17 +55,15 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
  * @param next riferimento al middleware successivo
  */
  export function controlloAnno(req: any, res: any, next: any) : void {
-    Bene.findAll({attributes: ['id','anno','tipo'], raw: true}).then((bene: object[]) => {
+    Bene.findAll({attributes: ['anno'], raw: true}).then((bene: object[]) => {
         var json = JSON.parse(JSON.stringify(bene));
         var anno: number[] = [];
-        var tipo: string[] = [];
         for(var i=0; i<json.length; i++){
             anno.push(json[i]['anno']);
-            tipo.push(json[i]['tipo'])
         }
         var j=0;
-        while((req.body.anno != anno[j] || req.body.tipo != tipo[j]) && req.body.anno != null && req.body.tipo != null){
-            if(j==anno.length-1 && (req.body.anno != anno[j] || req.body.tipo != tipo[j])){
+        while(req.body.anno != anno[j] && req.body.anno != null){
+            if(j==anno.length-1 && req.body.anno != anno[j]){
                 const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
                 next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
                 break;
@@ -74,6 +72,52 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
         }
         next();
     });
+}
+
+/**
+ * Funzione utilizzata per controllare se l'anno inserito per il filtro è presente nel database
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloTipoAnno(req: any, res: any, next: any) : void {
+    if(req.body.anno != null && req.body.tipo != null){
+        Bene.findAll({attributes: ['anno','tipo'], raw: true}).then((bene: object[]) => {
+            var json = JSON.parse(JSON.stringify(bene));
+            var array_anni: number[] = [];
+            var array_tipi: string[] = [];
+            for(var i=0; i<json.length; i++){
+                array_anni.push(json[i]['anno']);
+                array_tipi.push(json[i]['tipo'])
+            }
+
+            var notFound=true;
+                for(var j=0; notFound && j<array_anni.length; j++){
+                    if(req.body.anno == array_anni[j] && req.body.tipo == array_tipi[j]){
+                        notFound=false;
+                    }
+                }
+
+                if(notFound) {
+                    const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
+                    next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+                }
+                else 
+                    next(); 
+            // while((req.body.anno != array_anni[j] && req.body.tipo != tipo[j]) && (req.body.anno != null || req.body.tipo != null)){
+            //     if(j==array_anni.length-1 && (req.body.anno != array_anni[j] && req.body.tipo != tipo[j])){
+            //         const new_err = getMsg(MsgEnum.ErrNonTrovato).getMsg();
+            //         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+            //         break;
+            //     }
+            //     j++;
+            // }
+            
+        });
+    }
+    else 
+        next(); 
 }
 
 /**

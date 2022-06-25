@@ -735,7 +735,7 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
         }
         const curr_path = __dirname.slice(0,-11);
             array.forEach(element => {
-               var b_path = curr_path + '\\img\\' + element;
+               var b_path = curr_path + '/img/' + element;
                console.log(b_path)
                resemble(req.body.path_img)
                .compareTo(b_path)
@@ -748,8 +748,12 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
                     next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
                    }
                });
+               if (i==array.length){
+                next()
+               }
+               i++
             });
-            next()
+            
 
  })
 }

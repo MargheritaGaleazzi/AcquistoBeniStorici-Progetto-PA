@@ -414,9 +414,9 @@ middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: download()
 controller ->>+ utility: selFormato()
-utility ->>- controller: result: tipo
+utility ->>- controller: 
 controller ->>+ utility: filigrana()
-utility ->>- controller: result: immagine
+utility ->>- controller: 
 controller ->>+ model : Acquisto.findByPk()
 model ->>- controller : result: acquisto
 controller ->>- client:  risp.end()
@@ -741,7 +741,8 @@ middleware ->>+ model: Bene.findAll()
 model ->>- middleware: result: bene
 middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloLink()
-middleware ->> utility: ValidHttpUrl()
+middleware ->>+ utility: ValidHttpUrl()
+utility ->>- middleware: 
 middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloImgUnivoca()
 middleware ->>+ model: Bene.findAll()

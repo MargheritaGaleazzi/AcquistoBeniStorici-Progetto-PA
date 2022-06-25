@@ -4,6 +4,7 @@ import { Identifier, where } from 'sequelize/types';
 import { isNullishCoalesce, JsonObjectExpression } from 'typescript';
 import { getMsg,MsgEnum } from '../Factory/messaggi';
 import { Utente, Bene, Acquisto} from "../models/models";
+import { filigrana, PresenzaImmagini,selFormato,ValidHttpUrl } from "../utility";
 
 const resemble = require('resemblejs')
 /**
@@ -734,24 +735,25 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
             array.push(json[i]['nome']);
         }
         const curr_path = __dirname.slice(0,-11);
+        var k = 1;
             array.forEach(element => {
                var b_path = curr_path + '/img/' + element;
                console.log(b_path)
                resemble(req.body.path_img)
                .compareTo(b_path)
                .ignoreColors()
-               .onComplete(function (data:any) {
-                   var json = JSON.parse(JSON.stringify(data));
+               .onComplete(async function (data:any) {
+                   var json = await JSON.parse(JSON.stringify(data));
                    console.log(json['misMatchPercentage'])
                    if(json['misMatchPercentage']<=1.00){
                     const new_err = getMsg(MsgEnum.ErrImgUnivoca).getMsg();
                     next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-                   }
+                    }
+                    if (k==array.length){
+                        next();
+                    }
+                    k++;      
                });
-               if (i==array.length){
-                next()
-               }
-               i++
             });
             
 
@@ -773,7 +775,8 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
         for(var i=0; i<json.length; i++){
             array.push(json[i]['nome']);
         }
-        if(array.find(element => element === req.body.nome)){
+        console.log(array);
+        if(array.find(element => element === req.body.nome+".jpg")){
             const new_err = getMsg(MsgEnum.ErrNomeBene).getMsg();
             next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
         } else {
@@ -781,3 +784,19 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
         }
     });
 }
+
+/**
+ * Funzione che controlla se il bene esiste
+ * 
+ * @param req richiesta del client
+ * @param res risposta del server
+ * @param next riferimento al middleware successivo
+ */
+ export function controlloLink(req: any, res: any, next: any) : void {
+    if(ValidHttpUrl(req.body.path_img)){
+        next();
+    } else {
+        const new_err = getMsg(MsgEnum.ErrImg).getMsg();
+        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
+    }
+ }    

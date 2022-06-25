@@ -316,15 +316,11 @@ export function download(nome:string,formato:string,id_acquisto:number,risp:any)
  */
  export  function aggiungiBene(nome:string, tipo:string, anno:number, prezzo:number, path_img:string, risp: any): void{
      Bene.create({nome:nome+'.jpg',tipo:tipo, anno:anno,prezzo:prezzo}).then((nuovoBene:any)=>{
-        if(ValidHttpUrl(path_img)){
-            gm(request(path_img)).write('img/'+nome+'.jpg', function (err:any) {
-                if (err) controllerErrori(MsgEnum.ErrImg, err, risp);;
-                });
-        } else {
-            gm(path_img).write('img/'+nome+'.jpg', function (err:any) {
-            if (err) controllerErrori(MsgEnum.ErrImg, err, risp);;
-            });
-        }
+        console.log(request(path_img));
+        console.log(gm(request(path_img)));
+        gm(request(path_img)).write('img/'+nome+'.jpg', function (err:any) {
+            if (err) controllerErrori(MsgEnum.ErrImg, err, risp);
+        });
         const nuova_risp = getMsg(MsgEnum.NuovoBene).getMsg();
         var bn={nome:nuovoBene.nome, tipo:nuovoBene.tipo, anno:nuovoBene.anno, prezzo:nuovoBene.prezzo};
         risp.status(nuova_risp.codice).json({stato:nuova_risp.msg, nuovo_bene:bn});

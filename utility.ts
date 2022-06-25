@@ -33,15 +33,14 @@ export function ValidHttpUrl(urlDaVerificare:string) {
 function checkImage(url:any):any {
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
-    request.send();
-    request.onload = function() {
-      if (request.status == 200) //if(statusText == OK)
+    request.send().then((richiesta:any)=>{
+        if (richiesta.status == 200) //if(statusText == OK)
       {
         return true;
       } else {
         return false;
       }
-    }
+    });
   }
 
   

@@ -19,8 +19,27 @@ export function ValidHttpUrl(urlDaVerificare:string) {
     } catch (_) {
       return false;  
     }
+
+    if(checkImage(url)){
+        return url.protocol === "http:" || url.protocol === "https:"
+    }
   
-    return url.protocol === "http:" || url.protocol === "https:";
+    return false;
+  }
+
+function checkImage(url:any):boolean {
+    var request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.send();
+    request.onload = function() {
+      if (request.status == 200) //if(statusText == OK)
+      {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return true
   }
 
   

@@ -20,7 +20,8 @@ export function ValidHttpUrl(urlDaVerificare:string) {
     } catch (_) {
       return false;  
     }
-    if (urlDaVerificare.match(/\.(jpeg|jpg|gif|png)$/) != null){
+    if (urlDaVerificare.includes('jpeg')|| urlDaVerificare.includes('jpg')||
+    urlDaVerificare.includes('png') || urlDaVerificare.includes('images?')){
         if(checkImage(url)){
             return url.protocol === "http:" || url.protocol === "https:"
         }

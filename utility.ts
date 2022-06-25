@@ -22,9 +22,7 @@ export function ValidHttpUrl(urlDaVerificare:string) {
     }
     if (urlDaVerificare.includes('jpeg')|| urlDaVerificare.includes('jpg')||
     urlDaVerificare.includes('png') || urlDaVerificare.includes('images?')){
-        if(checkImage(url)){
             return url.protocol === "http:" || url.protocol === "https:"
-        }
     }
     
     return false;
@@ -33,14 +31,15 @@ export function ValidHttpUrl(urlDaVerificare:string) {
 function checkImage(url:any):any {
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
-    request.send().then((richiesta:any)=>{
-        if (richiesta.status == 200) //if(statusText == OK)
+    request.send();
+    request.onload = function() {
+        if (request.status == 404) //if(statusText == OK)
       {
-        return true;
-      } else {
         return false;
+      } else {
+        return true;
       }
-    });
+    };
   }
 
   

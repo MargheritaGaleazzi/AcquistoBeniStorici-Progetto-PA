@@ -3,7 +3,7 @@ import * as path from 'path';
 const gm = require('gm'),
       fs = require('fs'),
       fs_extra = require('fs-extra')
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
+      var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
     const curr_path=__dirname
 
 /**
@@ -20,8 +20,10 @@ export function ValidHttpUrl(urlDaVerificare:string) {
     } catch (_) {
       return false;  
     }
+    if (urlDaVerificare.match(/\.(jpeg|jpg|gif|png)$/) != null){
         if(checkImage(url)){
             return url.protocol === "http:" || url.protocol === "https:"
+        }
     }
     
     return false;

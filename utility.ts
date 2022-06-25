@@ -30,7 +30,7 @@ export function ValidHttpUrl(urlDaVerificare:string) {
     return false;
   }
 
-function checkImage(url:any):boolean {
+function checkImage(url:any):any {
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
     request.send();
@@ -42,7 +42,6 @@ function checkImage(url:any):boolean {
         return false;
       }
     }
-    return true
   }
 
   

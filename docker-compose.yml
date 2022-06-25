@@ -11,7 +11,8 @@ services:
         env_file:
           - .env
         volumes:
-        - ./seeder/seed.sql:/docker-entrypoint-initdb.d/seed.sql        
+        - ./seeder/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+        - ./img:/usr/src/app/img        
     node:
         build: .
         restart: always

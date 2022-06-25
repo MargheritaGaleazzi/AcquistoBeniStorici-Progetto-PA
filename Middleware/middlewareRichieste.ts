@@ -4,7 +4,6 @@ import { Identifier, where } from 'sequelize/types';
 import { isNullishCoalesce, JsonObjectExpression } from 'typescript';
 import { getMsg,MsgEnum } from '../Factory/messaggi';
 import { Utente, Bene, Acquisto} from "../models/models";
-import { filigrana, PresenzaImmagini,selFormato,ValidHttpUrl } from "../utility";
 
 const resemble = require('resemblejs')
 /**
@@ -693,110 +692,5 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
     }
 }
 
-/**
- * Funzione utilizzata per il controllo dei valori che vengono inseriti quando
- * si effettua l'inserimento di un nuovo utente
- * @param req richiesta del client
- * @param res risposta del server
- * @param next riferimento al middleware successivo
- */
- export function controlloValoriBene(req: any, res: any, next: any) : void {
-    if (typeof req.body.nome == 'string' && 
-        typeof req.body.tipo == 'string' &&
-        (req.body.tipo == 'manoscritto' || req.body.tipo == 'cartografia storica') &&
-        typeof req.body.anno == 'number' &&
-        req.body.anno >=0 &&
-        typeof req.body.email_admin == 'string' &&
-        typeof req.body.ruolo == 'string' &&
-        typeof req.body.prezzo == 'number' &&
-        req.body.prezzo>0 &&
-        typeof req.body.path_img == 'string'){
-        next();
-        }
-    else if (!req.body.risultato) {
-        const new_err = getMsg(MsgEnum.ErrInserimentoValori).getMsg();
-        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-    }
-}
 
-/**
- * Funzione utilizzata per controllare che l'immagine inserita 
- * non sia già presente
- * @param req richiesta del client
- * @param res risposta del server
- * @param next riferimento al middleware successivo
- */
- export function controlloImgUnivoca(req: any, res: any, next: any) : void {
-    Bene.findAll({attributes: ['nome'], raw: true}).then((beni: object[]) => {
-        var json = JSON.parse(JSON.stringify(beni));
-        var array: string[] = [];
-        console.log(json.length)
-        for(var i=0; i<json.length; i++){
-            array.push(json[i]['nome']);
-        }
-        const curr_path = __dirname.slice(0,-11);
-        var k = 1;
-            array.forEach(element => {
-               var b_path = curr_path + '/img/' + element;
-               console.log(b_path)
-               resemble(req.body.path_img)
-               .compareTo(b_path)
-               .ignoreColors()
-               .onComplete(async function (data:any) {
-                   var json = await JSON.parse(JSON.stringify(data));
-                   console.log(json['misMatchPercentage'])
-                   if(json['misMatchPercentage']<=1.00){
-                    const new_err = getMsg(MsgEnum.ErrImgUnivoca).getMsg();
-                    next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-                    }
-                    if (k==array.length){
-                        next();
-                    }
-                    k++;      
-               });
-            });
-            
-
- })
-}
-
-/**
- * Funzione che controlla se il bene esiste
- * 
- * @param req richiesta del client
- * @param res risposta del server
- * @param next riferimento al middleware successivo
- */
- export function controlloNomeBene(req: any, res: any, next: any) : void {
-    Bene.findAll({attributes: ['nome'], raw: true}).then((bene: object[]) => {
-        var json = JSON.parse(JSON.stringify(bene));
-        var array: string[] = [];
-        console.log(json.length)
-        for(var i=0; i<json.length; i++){
-            array.push(json[i]['nome']);
-        }
-        console.log(array);
-        if(array.find(element => element === req.body.nome+".jpg")){
-            const new_err = getMsg(MsgEnum.ErrNomeBene).getMsg();
-            next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-        } else {
-            next();
-        }
-    });
-}
-
-/**
- * Funzione che controlla se il bene esiste
- * 
- * @param req richiesta del client
- * @param res risposta del server
- * @param next riferimento al middleware successivo
- */
- export function controlloLink(req: any, res: any, next: any) : void {
-    if(ValidHttpUrl(req.body.path_img)){
-        next();
-    } else {
-        const new_err = getMsg(MsgEnum.ErrImg).getMsg();
-        next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-    }
- }    
+ 

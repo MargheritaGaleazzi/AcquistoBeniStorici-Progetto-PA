@@ -69,15 +69,6 @@ export const NuovoUtente = [
     Middleware.EmailUnivoca
 ]
 
-export const NuovoBene = [
-    Middleware.ControlloPresenzaAdmin,
-    Middleware.ControlloAdmin,
-    Middleware.controlloValoriBene, 
-    Middleware.controlloNomeBene,
-    Middleware.controlloLink,
-    Middleware.controlloImgUnivoca
-]
-
 export const Multiplo = [
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloUser,

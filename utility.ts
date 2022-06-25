@@ -3,8 +3,9 @@ import * as path from 'path';
 const gm = require('gm'),
       fs = require('fs'),
       fs_extra = require('fs-extra')
-
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
     const curr_path=__dirname
+
 /**
  * Funzione che controlla se la variabile passata è un URL oppure no
  * 
@@ -19,11 +20,12 @@ export function ValidHttpUrl(urlDaVerificare:string) {
     } catch (_) {
       return false;  
     }
-
-    if(checkImage(url)){
-        return url.protocol === "http:" || url.protocol === "https:"
+    if (urlDaVerificare.match(/\.(jpeg|jpg|gif|png)$/) != null){
+        if(checkImage(url)){
+            return url.protocol === "http:" || url.protocol === "https:"
+        }
     }
-  
+    
     return false;
   }
 

@@ -691,6 +691,3 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
         next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
     }
 }
-
-
- 

@@ -158,7 +158,9 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 {
     "id_bene":1,
     "formato":"png",
-    "consumatore":"luigiVerdi@alice.it"
+    "consumatore":"luigiVerdi@alice.it",
+    "consumatore": "babiFre@alice.it",
+    "ruolo":"user"
 }
 ~~~
 
@@ -175,7 +177,9 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 {
     "id_bene":1,
     "formato":"png",
-    "consumatore":"luigiVerdi@alice.it"
+    "consumatore":"luigiVerdi@alice.it",
+    "consumatore": "babiFre@alice.it",
+    "ruolo":"user"
 }
 ~~~
 
@@ -195,7 +199,9 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 {
     "ids": [1,2,3],
     "formato": "png",
-    "compr": "giovi@alice.it"
+    "compr": "giovi@alice.it",
+    "consumatore": "babiFre@alice.it",
+    "ruolo":"user"
 }
 ~~~
 
@@ -209,7 +215,9 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
     "email_amico":"ciao@ciao.it",
     "formato_bene":"png",
     "compr":"giovi@alice.it",
-    "id_bene":2
+    "id_bene":2,
+    "consumatore": "babiFre@alice.it",
+    "ruolo":"user"
 }
 ~~~
 
@@ -225,7 +233,9 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 ~~~
 {
     "email":"luigiVerdi@alice.it",
-    "ricarica":700
+    "ricarica":700,
+    "email_admin": "babiFre@alice.it",
+    "ruolo":"admin"
 }
 ~~~
 
@@ -238,7 +248,9 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
     "email": "gianni@alice.it",
     "username": "Gialbe",
     "nome": "Giovanni",
-    "cognome": "Alberti"
+    "cognome": "Alberti",
+    "email_admin": "babiFre@alice.it",
+    "ruolo":"admin"
 }
 ~~~
 
@@ -254,7 +266,9 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
     "tipo": "manoscritto",
     "anno": 2022,
     "prezzo": 102,
-    "path_img":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Suit_Hearts_%28open_clipart%29.svg/1200px-Suit_Hearts_%28open_clipart%29.svg.png"
+    "path_img":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Suit_Hearts_%28open_clipart%29.svg/1200px-Suit_Hearts_%28open_clipart%29.svg.png",
+    "email_admin": "babiFre@alice.it",
+    "ruolo":"admin"
 }
 ~~~
 
@@ -414,9 +428,9 @@ middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: download()
 controller ->>+ utility: selFormato()
-utility ->>- controller: result: tipo
+utility ->>- controller: 
 controller ->>+ utility: filigrana()
-utility ->>- controller: result: immagine
+utility ->>- controller: 
 controller ->>+ model : Acquisto.findByPk()
 model ->>- controller : result: acquisto
 controller ->>- client:  risp.end()
@@ -740,6 +754,10 @@ CoR ->>+ middleware: controlloNomeBene()
 middleware ->>+ model: Bene.findAll()
 model ->>- middleware: result: bene
 middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloLink()
+middleware ->>+ utility: ValidHttpUrl()
+utility ->>- middleware: 
+middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloImgUnivoca()
 middleware ->>+ model: Bene.findAll()
 model ->>- middleware: result: beni
@@ -747,7 +765,7 @@ middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: aggiungiBene()
 controller ->>+ model: Bene.create()
-model ->>- controller: result: nuovoUtente
+model ->>- controller: result: nuovoBene
 controller ->>- client:  risp.status().json()
 ```
 

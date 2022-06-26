@@ -1,7 +1,7 @@
 import { Utente,Bene,Acquisto} from "./models/models";
 import { MsgEnum, getMsg } from "./Factory/messaggi";
 import * as path from 'path';
-import { filigrana, PresenzaImmagini,selFormato,ValidHttpUrl } from "./utility";
+import { filigrana, PresenzaImmagini,selFormato} from "./utility";
 
 const gm = require('gm'),
     admzip = require('adm-zip'),

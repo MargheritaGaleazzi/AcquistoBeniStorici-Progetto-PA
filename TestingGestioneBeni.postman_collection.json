@@ -339,6 +339,16 @@
 				{
 					"name": "AcquistaBeneTokenJWTNonPresente",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"url": {
@@ -785,6 +795,16 @@
 				{
 					"name": "ErroreTokenJWTNonPresente",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -986,7 +1006,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/download/fiume_PO.jpg/png/DownloadRegalo/14",
+							"raw": "http://localhost:8080/download/fiume_PO.jpg/png/DownloadRegalo/12",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -997,7 +1017,40 @@
 								"fiume_PO.jpg",
 								"png",
 								"DownloadRegalo",
-								"14"
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreIdAcquistoNonEsistente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zdW1hdG9yZSI6InJvc3NpTWFyaW9AZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.HHao2Jvbn3dC4zTYgqqoOE6Pfciq6zxlyQHIsZjkfhA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/download/Aristotle_latin_manuscript.jpg/png/DownloadOriginale/500",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"download",
+								"Aristotle_latin_manuscript.jpg",
+								"png",
+								"DownloadOriginale",
+								"500"
 							]
 						}
 					},
@@ -1016,7 +1069,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.kLMxVTt6I66fqnUlMDGlJdt9XBCbUXg25c9k5FIHdYQ",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MTEsImNvbnN1bWF0b3JlIjoicm9zc2lNYXJpb0BnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.XBSZLYQE_5B6-CCqEXBqWKCjz6D_e-2tXKvXdeEWdIQ",
 									"type": "string"
 								}
 							]
@@ -1243,6 +1296,16 @@
 				{
 					"name": "ErroreTokenJWTNonPresente",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"url": {
@@ -1887,6 +1950,1130 @@
 							"port": "8080",
 							"path": [
 								"Prova"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AcquistoMultiplo",
+			"item": [
+				{
+					"name": "AcquistaMultiplo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.IdhPNEY6oW_KgxxKtYwBuqK-Z7xVpueH_LDW6Am2Q_o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						},
+						"description": "Per effettuare il download dello zip, premere il pulsante \"send and download\", posto nel menu a tendina accanto al pulsante \"send\""
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InBpcHBvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.UYFFAzNvmQ7CyYZDhCNDhUpc_gcrVTUZqbuq1DyRACk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreRuoloNonCorretto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJhZG1pbiJ9.RIg7eMb33uEUM0uyYmS3zvdYjXzx-ohxEcqouBdRUCs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNoUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6ImJhYmlGcmVAYWxpY2UuaXQiLCJydW9sbyI6InVzZXIifQ.rylWl0rSsv9qfq1Fgl-FNiLu9hRddGKkxr1TwzB-cK0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenNullo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6ImNhc3MubG9mQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.evJKu5GpwfjiX2OC8LF0QfSpqjKNEkRnjs0LzhfqPW0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreValoriIdImmagini",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLCJwcm92YSIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.pd4Sj-PjrXv-c57PTPhSakTq0P_BpkVNXVCm1zPSIXQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreNoArray",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOjEsImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.OmQavgAn_qR15ZCZjI3vvjfy3Nj8Qq8rXgoJ8B8dWA0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreFormatoNonEsistente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwcm92YSIsImNvbnN1bWF0b3JlIjoic3RlbGxhbWFyaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.vADOMXeR2Y6FZ3a40xRGHxl3ae-f3oY8ADpetrRNE8Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreBeniNonPresenti",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDM1MCwzXSwiZm9ybWF0byI6InBuZyIsImNvbnN1bWF0b3JlIjoic3RlbGxhbWFyaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.oselZYTklgaUVkB8ZFhF1boT6HRzCYhnFPPquqyEeus",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenNonSufficienti",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6Im1hcmlhQmlhbmNoaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.yra9fQlgR3HSOGqPd81eRL4eqI2mmlaHa1DtNVtybgs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTNonPresente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenInvalido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "prova",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Per effettuare il download dello zip, premere il pulsante \"send and download\", posto nel menu a tendina accanto al pulsante \"send\""
+		},
+		{
+			"name": "Visualizza Credito",
+			"item": [
+				{
+					"name": "VisualizzaCredito",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmlhQmlhbmNoaUBnbWFpbC5jb20iLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.J1F2R4TmP87AFqvyicGnHpWipDlpxwyuwWb3hZd61O0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/VisualizzaCredito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"VisualizzaCredito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTNonPresente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/VisualizzaCredito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"VisualizzaCredito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTInvalido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "prova",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/VisualizzaCredito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"VisualizzaCredito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenNullo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmlhQmlhbmNoaUBnbWFpbC5jb20iLCJjb25zdW1hdG9yZSI6ImNhc3MubG9mQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.HxvQJ3-d9yLuDuz4XpFEWSeBvu2TZRcW8kyi3_TsGqQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/VisualizzaCredito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"VisualizzaCredito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmlhQmlhbmNoaUBnbWFpbC5jb20iLCJjb25zdW1hdG9yZSI6InByb3ZhQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.HtTbfHmioT_V9bI2Egh4t9z3JnRrnJI2lMrOs2aggPs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/VisualizzaCredito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"VisualizzaCredito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreRuoloNonCorretto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmlhQmlhbmNoaUBnbWFpbC5jb20iLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJhZG1pbiJ9.U3VYP3GtBlPRi-RaWkIXRq-w7TYh_1AeHSO2lYmiTDQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/VisualizzaCredito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"VisualizzaCredito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNoUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1hcmlhQmlhbmNoaUBnbWFpbC5jb20iLCJjb25zdW1hdG9yZSI6ImJhYmlGcmVAYWxpY2UuaXQiLCJydW9sbyI6InVzZXIifQ.2UFCV4iGI-DVdog2MHKKahrhjnWAWU9zeiG4K3OyrIc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/VisualizzaCredito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"VisualizzaCredito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteDaVisualizzareNonPresente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InByb3ZhQGdtYWlsLmNvbSIsImNvbnN1bWF0b3JlIjoic3RlbGxhbWFyaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.IWurAlKPZM5DEAcdnbd5lGVQKFuLo1t54BK1ge2x-0o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/VisualizzaCredito",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"VisualizzaCredito"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RicaricaAdmin",
+			"item": [
+				{
+					"name": "Ricarica",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicmljYXJpY2EiOjUwLCJlbWFpbF9hZG1pbiI6ImJhYmlGcmVAYWxpY2UuaXQiLCJydW9sbyI6ImFkbWluIn0.JY8MkO75QXAjqm1Iuq6OYts_drLoSAyWTgoyMzHzb18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zdW1hdG9yZSI6InByb3ZhQGdtYWlsLmNvbSIsInJpY2FyaWNhIjo1MCwiZW1haWxfYWRtaW4iOiJiYWJpRnJlQGFsaWNlLml0IiwicnVvbG8iOiJhZG1pbiJ9.7FhOXXbXD34KXzkTSTOOu6ppR9Fx-dGg-CHxH0q6w9E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreAdminNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicmljYXJpY2EiOjUwLCJlbWFpbF9hZG1pbiI6InByb3ZhQGFsaWNlLml0IiwicnVvbG8iOiJhZG1pbiJ9.h4A0N-lmveAdsbCx9tYmMxWyeCU1mZJYvc_nn-Sjd1E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreRuoloNonCorretto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicmljYXJpY2EiOjUwLCJlbWFpbF9hZG1pbiI6ImJhYmlGcmVAYWxpY2UuaXQiLCJydW9sbyI6InVzZXIifQ.-72j8pNCf96m_V4X4QmpEl03nhqykQjZMs8sacqDFBQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNoAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicmljYXJpY2EiOjUwLCJlbWFpbF9hZG1pbiI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJhZG1pbiJ9.r6XgSN5xnw0tQ5ks7LhaRME-K16a9bCRlaC1Z3zYvb0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreValoreRicarica",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicmljYXJpY2EiOiJwcm92YSIsImVtYWlsX2FkbWluIjoiYmFiaUZyZUBhbGljZS5pdCIsInJ1b2xvIjoiYWRtaW4ifQ.ExfkUVJ5Dd7-Dd_CE5t_6FE70AjMcKZYURyByTJ8Y-E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreRicaricaNegativo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicmljYXJpY2EiOi0yMCwiZW1haWxfYWRtaW4iOiJiYWJpRnJlQGFsaWNlLml0IiwicnVvbG8iOiJhZG1pbiJ9.jmPX2BU0IE1aEYtRTi4itunfuIS7vVp56WEHiUXTWi8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTNonPresente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTInvalido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "prova",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Ricarica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Ricarica"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AggiungiUtente",
+			"item": [
+				{
+					"name": "ErroreTokenJWTInvalido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "prova",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTNonPresente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AggiungiUtente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoaWFyYS5jYXBvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiY2hpYSIsIm5vbWUiOiJjaGlhcmEiLCJjb2dub21lIjoiY2Fwb3J1c3NvIiwiZW1haWxfYWRtaW4iOiJiYWJpRnJlQGFsaWNlLml0IiwicnVvbG8iOiJhZG1pbiJ9.V4-cUtM6yzXV5HMjVVqyJAe8tdhaGi7yi-VISMZJr7g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreAdminNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoaWFyYS5jYXBvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiY2hpYSIsIm5vbWUiOiJjaGlhcmEiLCJjb2dub21lIjoiY2Fwb3J1c3NvIiwiZW1haWxfYWRtaW4iOiJwaXBwb0BhbGljZS5pdCIsInJ1b2xvIjoiYWRtaW4ifQ.JEepCsWx793ZIrCIgV-FWZDEuTA_Z5gbafDyIFdIKY8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreRuoloNonCorretto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoaWFyYS5jYXBvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiY2hpYSIsIm5vbWUiOiJjaGlhcmEiLCJjb2dub21lIjoiY2Fwb3J1c3NvIiwiZW1haWxfYWRtaW4iOiJiYWJpRnJlQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.TUmvnkvA8M7P7nBQfCEC4zTZE_CubnX0YVwgBDCfdKQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNoAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoaWFyYS5jYXBvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiY2hpYSIsIm5vbWUiOiJjaGlhcmEiLCJjb2dub21lIjoiY2Fwb3J1c3NvIiwiZW1haWxfYWRtaW4iOiJhbnNlQGFsaWNlLml0IiwicnVvbG8iOiJhZG1pbiJ9.rIzEDewzNE6mE95Gj81O9WtPyiLq6VvWc8LESa9SCeg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreInserimentoValori",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoaWFyYS5jYXBvQGdtYWlsLmNvbSIsInVzZXJuYW1lIjozLCJub21lIjoiY2hpYXJhIiwiY29nbm9tZSI6ImNhcG9ydXNzbyIsImVtYWlsX2FkbWluIjoiYmFiaUZyZUBhbGljZS5pdCIsInJ1b2xvIjoiYWRtaW4ifQ.7i-Qleq2E0TsULCTzn8wyhc18TZ1wyMRkHrmOVrOgHQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreEmailNuovoUtenteNonConforme",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoaWFyYS5jYXBvZ21haWwuY29tIiwidXNlcm5hbWUiOiJjaGlhIiwibm9tZSI6ImNoaWFyYSIsImNvZ25vbWUiOiJjYXBvcnVzc28iLCJlbWFpbF9hZG1pbiI6ImJhYmlGcmVAYWxpY2UuaXQiLCJydW9sbyI6ImFkbWluIn0.xmMfhgLFwgK4ZCKiTPUJRgeJkPtLoAOSVN0eHV56KZU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreEmailDuplicata",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwidXNlcm5hbWUiOiJjaGlhIiwibm9tZSI6ImNoaWFyYSIsImNvZ25vbWUiOiJjYXBvcnVzc28iLCJlbWFpbF9hZG1pbiI6ImJhYmlGcmVAYWxpY2UuaXQiLCJydW9sbyI6ImFkbWluIn0.e7dS4F_xkH9jBjo79RBsuod-VWJD8Teppp4LO6iXfkQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AggiungiUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AggiungiUtente"
 							]
 						}
 					},

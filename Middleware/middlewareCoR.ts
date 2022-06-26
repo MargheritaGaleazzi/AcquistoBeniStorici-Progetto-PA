@@ -56,11 +56,11 @@ export const VediCredito = [
 ]
 
 export const AdminRicarica = [
-    Middleware.controlloValoriRicarica,
-    Middleware.controlloPositivita,
     Middleware.ControlloPresenzaUser,
     Middleware.ControlloPresenzaAdmin,
-    Middleware.ControlloAdmin
+    Middleware.ControlloAdmin,
+    Middleware.controlloValoriRicarica,
+    Middleware.controlloPositivita
 ]
 
 export const NuovoUtente = [

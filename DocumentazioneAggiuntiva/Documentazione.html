@@ -22,7 +22,7 @@
 </dl>
     </div>
         <h3 class="subsection-title">Methods</h3>
-    <h4 class="name" id="acquistaBene"><span class="type-signature"></span>acquistaBene<span class="signature">(id_bene, formato_bene, compr, risp)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="acquistaBene"><span class="type-signature"></span>acquistaBene<span class="signature">(id_bene, formato, consumatore, risp)</span><span class="type-signature"></span></h4>
 <div class="description">
     Funzione che permette di acquistare un bene
 </div>
@@ -40,11 +40,11 @@
             <td class="description last">> numero che identifica il bene da acquistare</td>
         </tr>
         <tr>
-                <td class="name"><code>formato_bene</code></td>
+                <td class="name"><code>formato</code></td>
             <td class="description last">> stringa che identifica il formato richiesto dall'acquirente</td>
         </tr>
         <tr> 
-                <td class="name"><code>compr</code></td>
+                <td class="name"><code>consumatore</code></td>
             <td class="description last">> email dell'utente che vuole acquistare il bene</td>
         </tr>
         <tr>
@@ -55,7 +55,7 @@
 </table>
 <dl class="details">
 </dl>
-    <h4 class="name" id="acquistaMultiplo"><span class="type-signature"></span>acquistaMultiplo<span class="signature">(ids, formato_bene, compr, risp)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="acquistaMultiplo"><span class="type-signature"></span>acquistaMultiplo<span class="signature">(ids, formato, consumatore, risp)</span><span class="type-signature"></span></h4>
 <div class="description">
     Funzione che permette di acquistare più beni in
 una volta e restituisce uno zip contenente tutti i beni
@@ -74,11 +74,11 @@ una volta e restituisce uno zip contenente tutti i beni
             <td class="description last">> array contenente gli id di tutti i beni da acquistare</td>
         </tr>
         <tr>
-                <td class="name"><code>formato_bene</code></td>
+                <td class="name"><code>formato</code></td>
             <td class="description last">> stringa che identifica il formato richiesto dall'acquirente</td>
         </tr>
         <tr>
-                <td class="name"><code>compr</code></td>
+                <td class="name"><code>consumatore</code></td>
             <td class="description last">> email dell'utente che vuole acquistare il bene</td>
         </tr>
         <tr>
@@ -278,7 +278,7 @@ acquistato, di cui si era già quindi avuto un altro link
 </dl>        
     
     
-    <h4 class="name" id="regalo"><span class="type-signature"></span>regalo<span class="signature">(email_amico, formato_bene, compr, id_bene, risp)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="regalo"><span class="type-signature"></span>regalo<span class="signature">(email_amico, formato, consumatore, id_bene, risp)</span><span class="type-signature"></span></h4>
     
     
 
@@ -307,12 +307,12 @@ acquistato, di cui si era già quindi avuto un altro link
         </tr>
     
         <tr>
-                <td class="name"><code>formato_bene</code></td>
+                <td class="name"><code>formato</code></td>
             <td class="description last">> stringa che identifica il formato richiesto dall'acquirente</td>
         </tr>
     
         <tr>
-                <td class="name"><code>compr</code></td>
+                <td class="name"><code>consumatore</code></td>
             <td class="description last">> email dell'utente che vuole acquistare il bene</td>
         </tr>
     

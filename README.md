@@ -118,8 +118,6 @@ La seguente tabella mostra le richieste possibili:
     </tbody>
  </table>
  
- ### Nel caso di token terminati da parte di un utente, l'accesso a tutte le rotte che richiedono l'autenticazione di Token JWT non sarà autorizzato, restituendo un Errore 401 - Non autorizzato.
- 
 ### Visualizzazione dei beni (ListaBeni)
 Mediante l'utilizzo di questa rotta si può visualizzare la lista di tutti i beni presenti. Questa rotta può essere richiamata da chiunque.
 
@@ -277,6 +275,8 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
     "ruolo":"admin"
 }
 ~~~
+
+ #### Nel caso di token terminati da parte di un utente, l'accesso a tutte le rotte che richiedono l'autenticazione di Token JWT non sarà autorizzato, restituendo un Errore 401 - Non autorizzato.
 
 ## Diagrammi UML
 ### Use case

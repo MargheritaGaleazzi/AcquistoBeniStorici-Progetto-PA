@@ -245,7 +245,7 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 ~~~
 
 ### Effettuare la ricarica dei crediti (Ricarica)
-Mediante l'utilizzo di questa rotta si può ricaricare  il credito di un utente.
+Mediante l'utilizzo di questa rotta si può ricaricare il credito di un utente.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
@@ -260,7 +260,7 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 ~~~
 
 ### Aggiungere un nuovo utente (AggiungiUtente)
-Mediante l'utilizzo di questa rotta si l'admin può aggiungere un nuovo utente (con ruolo user).
+Mediante l'utilizzo di questa rotta l'admin può aggiungere un nuovo utente (con ruolo user).
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:

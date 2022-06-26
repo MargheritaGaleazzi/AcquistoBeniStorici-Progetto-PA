@@ -105,7 +105,7 @@ La seguente tabella mostra le richieste possibili:
         </tr>
         <tr>
          <td> GET </td>
-         <td> /VisualizzaCredito/:email </td>
+         <td> /VisualizzaCredito </td>
         </tr>
         <tr>
          <td> POST </td>

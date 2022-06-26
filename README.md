@@ -729,6 +729,11 @@ La funzione middleware successiva è comunemente indicata da una variabile denom
 
 Nel progetto utilizziamo la catena di responsabilità insieme al middleware per verificare che per ciascuna delle operazioni che si vogliono compiere siano rispettati tutti i requisiti, se così non fosse il middleware che non viene rispettato segnalerà l'errore opportuno.
 
+### DAO
+Il pattern DAO è usato per separare la logica di business dalla logica di acceso ai dati. Infatti, i componenti della logica di business non dovrebbero mai accedere direttamente al database, solo gli oggetti previsti dal pattern DAO possono accedervi.
+
+Nel progetto questo pattern è implementato tramite l'utilizzo dell'ORM Sequelize, e viene utilizzato per interfacciarsi con il database che contiene gli utenti, lo storico degli acquisti ed i beni.
+
 ## Come avviare il progetto
 
 Per poter eseguire il programma è necessario avere installato sul PC: [**docker**](https://www.docker.com/)

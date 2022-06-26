@@ -58,7 +58,7 @@ Ogni bene ha associato un costo in termini di token.
 </table>
 
 
-Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per aclcune delle quali è prevista un'autenticazione tramite token JWT.
+Ogni funzione è associata ad una diversa richiesta HTTP (POST o GET), per alcune delle quali è prevista un'autenticazione tramite token JWT.
 
 ## Rotte
 La seguente tabella mostra le richieste possibili:

@@ -118,6 +118,8 @@ La seguente tabella mostra le richieste possibili:
     </tbody>
  </table>
  
+ ### Nel caso di token terminati da parte di un utente, l'accesso a tutte le rotte che richiedono l'autenticazione di Token JWT non sarà autorizzato, restituendo un Errore 401 - Non autorizzato.
+ 
 ### Visualizzazione dei beni (ListaBeni)
 Mediante l'utilizzo di questa rotta si può visualizzare la lista di tutti i beni presenti. Questa rotta può essere richiamata da chiunque.
 
@@ -125,7 +127,8 @@ I filtri possono andare in AND, e si può filtrare per:
  - tipologia (manoscritti, cartografie storiche);
  - anno (relativo al bene di interesse storico).
 
-Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+Il payload deve essere inserito nel body della richiesta in formato JSON con la seguente struttura:
+
 ~~~
 {
     "tipo":"manoscritto",
@@ -147,53 +150,69 @@ Nella richiesta deve essere specificato il formato di uscita, che può essere:
 3. **Png**.
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
 ~~~
 {
     "id_bene":1,
     "formato":"png",
     "consumatore":"luigiVerdi@alice.it",
-    "consumatore": "babiFre@alice.it",
     "ruolo":"user"
 }
 ~~~
 
 ### Effettuare il download di un bene acquistato (download)
-Mediante l'utilizzo di questa rotta si può scaricare il bene acquistato se il pagamento è effettuato con successo. Questa rotta può essere richiamata solamente dagli utenti autenticati con ruolo user.
+Mediante l'utilizzo di questa rotta si può scaricare il bene acquistato se il pagamento è effettuato con successo. Questa rotta può essere richiamata solamente dagli utenti autenticati con ruolo user. Il download andrà a buon fine solamente se l'utente che lo richiede risulta essere il proprietario di quell'acquisto.
 
 Nota che il bene acquistato può essere scaricato solamente 1 volta; le richieste successive verranno rifiutate.
 
-### Richiedi nuovo link (NuovoLink)
-Mediante l'utilizzo di questa rotta si può richiedere un nuovo link per un bene già scaricato. Il costo di questa operazione è di 1 token. Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
-
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
 ~~~
 {
-    "id_bene":1,
-    "formato":"png",
-    "consumatore":"luigiVerdi@alice.it",
-    "consumatore": "babiFre@alice.it",
+    "consumatore":"rossiMario@gmail.com",
     "ruolo":"user"
 }
 ~~~
 
+### Richiedi nuovo link (NuovoLink)
+Mediante l'utilizzo di questa rotta si può richiedere un nuovo link per un bene già scaricato. Il costo di questa operazione è di 1 token. Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user. La richiesta del nuovo link andrà a buon fine solo se l'utente che richiede il nuovo link risulta essere il proprietario di quell'acquisto.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
+~~~
+{
+    "id_acquisto":1,
+    "consumatore":"rossiMario@gmail.com",
+    "ruolo":"user"
+}
+~~~
 
 ### Visualizzazione dei beni acquistati (VediAcquisti)
 Mediante l'utilizzo di questa rotta si può visualizzare l’elenco degli acquisti effettuati per ogni utente. 
 Gli acquisti saranno divisi per tipologia (download originale vs downloads aggiuntivi).
 
-Questa rotta può essere richiamata solamente dall'utente autenticato.
+Questa rotta può essere richiamata solamente dall'utente autenticato con il ruolo di user.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
+~~~
+{
+    "consumatore":"rossiMario@gmail.com",
+    "ruolo":"user"
+}
+~~~
 
 ### Effettuare un acquisto multiplo (AcquistaMultiplo)
 Mediante l'utilizzo di questa rotta si possono effettuare acquisti multipli. L'output sarà in questo caso uno zip.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
 ~~~
 {
     "ids": [1,2,3],
     "formato": "png",
-    "compr": "giovi@alice.it",
-    "consumatore": "babiFre@alice.it",
+    "consumatore": "giovi@alice.it",
     "ruolo":"user"
 }
 ~~~
@@ -203,26 +222,36 @@ Mediante l'utilizzo di questa rotta si ha a possibilità di effettuare un regalo
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
 ~~~
 {
-    "email_amico":"ciao@ciao.it",
-    "formato_bene":"png",
-    "compr":"giovi@alice.it",
     "id_bene":2,
-    "consumatore": "babiFre@alice.it",
+    "formato":"png",
+    "email_amico":"ciao@ciao.it",
+    "consumatore":"giovi@alice.it",
     "ruolo":"user"
 }
 ~~~
 
 ### Visualizzare il credito (VisualizzaCredito)
-Mediante l'utilizzo di questa rotta si può visualizzare  il credito residuo di un utente.
+Mediante l'utilizzo di questa rotta si può visualizzare il credito residuo di un utente.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo user.
+
+Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
+~~~
+{
+    "consumatore":"rossiMario@gmail.com",
+    "ruolo":"user"
+}
+~~~
 
 ### Effettuare la ricarica dei crediti (Ricarica)
 Mediante l'utilizzo di questa rotta si può ricaricare  il credito di un utente.
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
 ~~~
 {
     "email":"luigiVerdi@alice.it",
@@ -235,11 +264,13 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
 ### Aggiungere un nuovo utente (AggiungiUtente)
 Mediante l'utilizzo di questa rotta si l'admin può aggiungere un nuovo utente (con ruolo user).
 Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
+
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
+
 ~~~
 {
     "email": "gianni@alice.it",
-    "username": "Gialbe",
+    "username": "Giovalb",
     "nome": "Giovanni",
     "cognome": "Alberti",
     "email_admin": "babiFre@alice.it",
@@ -728,11 +759,6 @@ Le funzioni **middleware** sono funzioni che hanno accesso all'oggetto richiesta
 La funzione middleware successiva è comunemente indicata da una variabile denominata next.
 
 Nel progetto utilizziamo la catena di responsabilità insieme al middleware per verificare che per ciascuna delle operazioni che si vogliono compiere siano rispettati tutti i requisiti, se così non fosse il middleware che non viene rispettato segnalerà l'errore opportuno.
-
-### DAO
-Il pattern DAO è usato per separare la logica di business dalla logica di acceso ai dati. Infatti, i componenti della logica di business non dovrebbero mai accedere direttamente al database, solo gli oggetti previsti dal pattern DAO possono accedervi.
-
-Nel progetto questo pattern è implementato tramite l'utilizzo dell'ORM Sequelize, e viene utilizzato per interfacciarsi con il database che contiene gli utenti, lo storico degli acquisti ed i beni.
 
 ## Come avviare il progetto
 

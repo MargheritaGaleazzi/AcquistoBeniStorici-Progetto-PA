@@ -3,6 +3,8 @@
 Il progetto consiste in un sistema che consenta di gestire l’acquisto di un prodotto digitale sotto forma di immagine relativo ad acquisizioni di bene di interesse storico (es. manoscritto, cartografia storica; ogni documento è caratterizzato da un preciso anno).
  
 Ogni bene ha associato un costo in termini di token.
+
+> `Nella cartella DocumentazioneAggiuntiva si può trovare ulteriore documentazione relativa al codice.`
  
 ## Funzioni del sistema
 <table align="center">
@@ -388,6 +390,11 @@ model ->>- middleware: result: utente
 middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloValoriDownload()
 middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPresenzaAcquisto()
+middleware ->> middleware: controlloPresenza()
+middleware ->>+ model: Acquisto.findAll()
+model ->>- middleware: result: acquisto
+middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloDownload()
 middleware ->>+ model: Acquito.findByPk()
 model ->>- middleware: result: risultato
@@ -635,10 +642,6 @@ CoR ->>+ middleware: controlloChiaveSegreta()
 middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ CoR: AdminRicarica
-CoR ->>+ middleware: controlloValoriRicarica()
-middleware ->>- CoR:  next()
-CoR ->>+ middleware: controlloPositivita()
-middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloPresenzaUser()
 middleware ->> middleware: controlloPresenza()
 middleware ->>+ model: Utente.findAll()
@@ -652,6 +655,10 @@ middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloAdmin()
 middleware ->>+ model: Utente.findByPk()
 model ->>- middleware: result: utente
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloValoriRicarica()
+middleware ->>- CoR:  next()
+CoR ->>+ middleware: controlloPositivita()
 middleware ->>- CoR:  next()
 CoR ->>- app : next()
 app ->>+ controller: ricarica()

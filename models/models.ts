@@ -12,7 +12,15 @@ const sequelize: Sequelize = Singleton.getConnessione();
  * Sequelize.
  */
 
-//Modella l'acquisto.
+/** Modella l'acquisto.
+  * @typedef {Object} Acquisto
+  * @property {number} id           - L'id dell'acquisto
+  * @property {string} formato      - Il formato nel quale si vuole la foto acquistata
+  * @property {string} email_compr  - L'email dell'utente che ha effettuato l'acquisto
+  * @property {number} beneId       - L'id del bene acquistato
+  * @property {string} tipo_acq     - Il tipo dell'acquisto
+  * @property {number} nDownload    - Il numero di download effettuati
+ */
 
 export const Acquisto = sequelize.define('acquisto',{
     id:{
@@ -48,7 +56,14 @@ export const Acquisto = sequelize.define('acquisto',{
     freezeTableName: true
 });
 
-//Modella il bene.
+/** Modella il bene.
+  * @typedef {Object} Bene
+  * @property {number} id      - L'id del bene
+  * @property {string} nome    - Il nome del bene
+  * @property {string} tipo    - La categoria nella quale rientra il bene
+  * @property {number} anno    - L'anno del bene
+  * @property {number} prezzo  - Il costo del bene
+ */
 export const Bene = sequelize.define('bene', {
     id:{
         type: DataTypes.INTEGER,
@@ -84,7 +99,15 @@ Bene.hasMany(Acquisto, {
   });
 Acquisto.belongsTo(Bene);
 
-//Modella l'utente.
+/** Modella l'utente.
+  * @typedef {Object} Utente
+  * @property {string} email     - L'email dell'utente
+  * @property {string} username  - Lo username dell'utente
+  * @property {string} nome      - Il nome dell'utente
+  * @property {string} cognome   - Il cognome dell'utente
+  * @property {string} ruolo     - Il ruolo dell'utente (user/admin)
+  * @property {number} credito   - Il credito a disposizione dell'utente
+ */
 export const Utente = sequelize.define('utente',{
     email: {
         type: DataTypes.STRING(35),

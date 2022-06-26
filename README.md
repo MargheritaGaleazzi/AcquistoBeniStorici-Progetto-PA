@@ -52,8 +52,6 @@ Ogni bene ha associato un costo in termini di token.
             <td>Aggiungere un utente</td>
            <td>admin</td>
         </tr>
-
-     </tr>
     </tbody>
 </table>
 

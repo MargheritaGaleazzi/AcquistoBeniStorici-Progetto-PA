@@ -1,5 +1,9 @@
 import * as Middleware from './middlewareRichieste';
 
+/**
+ * Chain of responsability utilizzata per richiamare i middleware in cascata
+ */
+
 export const FiltroTipoAnno = [
     Middleware.verificaContentType,
     Middleware.controlloValoriFiltro,

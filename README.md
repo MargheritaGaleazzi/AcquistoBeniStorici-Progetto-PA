@@ -143,9 +143,9 @@ Mediante l'utilizzo di questa rotta si può acquistare un bene, specificandone l
 Se il credito è sufficiente viene restituito il bene sotto forma di immagine.
 
 Nella richiesta deve essere specificato il formato di uscita, che può essere:
-1. **Jpg**;
-2. **Tiff**;
-3. **Png**.
+1. **jpg**;
+2. **tiff**;
+3. **png**.
 
 Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
 

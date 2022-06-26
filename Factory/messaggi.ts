@@ -1,3 +1,9 @@
+import { download } from "../controller";
+
+/*
+ * Interfaccia che definisce come deve essere fatto il messaggio
+ * (sia di errore che di successo) che il server restituisce al client
+ */
 interface Msg {
     getMsg():{codice: number, msg: string};
 }
@@ -112,10 +118,11 @@ class ErrTokenInvalido implements Msg {
     }
 }
 
-//errore che viene lanciato in caso di accesso negato
-//quando si prova ad utilizzare lo stesso link di download due volte
-//nel caso di acquisto per se stessi o comunque alla terza volta
-//se incluso l'acquisto per un amico
+/* errore che viene lanciato in caso di accesso negato
+ * quando si prova ad utilizzare lo stesso link di download due volte
+ * nel caso di acquisto per se stessi o comunque alla terza volta
+ * se incluso l'acquisto per un amico
+ */
 class ErrProibito implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -125,6 +132,9 @@ class ErrProibito implements Msg {
     }
 }
 
+/* errore che viene lanciato se un utente che non è il proprietario del bene
+ * prova a farne il download
+ */
 class ErrProprietaAcquisto implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -214,6 +224,7 @@ class ErrFormatoNonEsistente implements Msg {
     }
 }
 
+//errore che viene lanciato se si hanno problemi nel caricamento di un'immagine
 class ErrImg implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -253,7 +264,9 @@ class ErrServizioNonDisp implements Msg {
     }
 }
 
-
+/* errore che viene lanciato se si prova a creare un nuovo utente con una mail 
+ * che è già presente nel database
+ */
 class ErrEmailDuplicata implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -263,24 +276,7 @@ class ErrEmailDuplicata implements Msg {
     }
 }
 
-class ErrImgUnivoca implements Msg {
-    getMsg(): { codice: number; msg: string; } {
-        return {
-            codice: 409,
-            msg: "ERRORE - Errore l'immagine che hai tentato di inserire è già presente"
-        }
-    }
-}
-
-class ErrNomeBene implements Msg {
-    getMsg(): { codice: number; msg: string; } {
-        return {
-            codice: 409,
-            msg: "ERRORE - Errore il nome dell'immagine che hai tentato di inserire è già presente"
-        }
-    }
-}
-
+// messaggio di successo se si è visualizzata correttamente la lista
 class ListaBeni implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -290,6 +286,7 @@ class ListaBeni implements Msg {
     }
 }
 
+// messaggio di successo se l'acquisto è andato a buon fine
 class AcquistaBene implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -299,6 +296,7 @@ class AcquistaBene implements Msg {
     }
 }
 
+// messaggio di successo se lo storico degli acquisti è visualizzato correttamente
 class VediAcquisti implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -308,6 +306,7 @@ class VediAcquisti implements Msg {
     }
 }
 
+// messaggio di successo se il credito dell'utente è visualizzato con successo
 class VediCredito implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -317,6 +316,7 @@ class VediCredito implements Msg {
     }
 }
 
+// messaggio di successo se la ricarica ad un utente è andata a buon fine 
 class RicaricaEffettuata implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -326,6 +326,7 @@ class RicaricaEffettuata implements Msg {
     }
 }
 
+// messaggio di successo se l'utente è stato creato correttamente
 class NuovoUtente implements Msg {
     getMsg(): { codice: number; msg: string; } {
         return {
@@ -335,14 +336,6 @@ class NuovoUtente implements Msg {
     }
 }
 
-class NuovoBene implements Msg {
-    getMsg(): { codice: number; msg: string; } {
-        return {
-            codice:201,
-            msg: "SUCCESSO - Il nuovo bene è stato aggiunto con successo"
-        }
-    }
-}
 
 export enum MsgEnum {
     ErrNoAuth,
@@ -368,8 +361,6 @@ export enum MsgEnum {
     ErrRichiestaErrata,
     ErrImg,
     ErrEmailDuplicata,
-    ErrImgUnivoca,
-    ErrNomeBene,
     ErroreNoArray,
     ErroreNoNumeri,
     BadRequest,
@@ -379,12 +370,16 @@ export enum MsgEnum {
     VediCredito,
     RicaricaEffettuata,
     NuovoUtente,
-    NuovoBene
 }
 
-export function getMsg (tipoErrore: MsgEnum): Msg{
+/**
+ * Funzione che prende costruisce l'oggetto messagio relativo all'evento che accade
+ * @param tipoEvento -> evento che accade
+ * @returns l'oggetto di errore o successo relativo all'evento accaduto
+ */
+export function getMsg (tipoEvento: MsgEnum): Msg{
     let val: Msg;
-    switch (tipoErrore){
+    switch (tipoEvento){
         case MsgEnum.ErrNoAuth:
             val = new ErrNoAuth();
             break;
@@ -463,12 +458,6 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
         case MsgEnum.ErrEmailDuplicata:
             val = new ErrEmailDuplicata();
             break;
-        case MsgEnum.ErrImgUnivoca:
-            val = new ErrImgUnivoca();
-            break;
-        case MsgEnum.ErrNomeBene:
-            val = new ErrNomeBene();
-            break;
         case MsgEnum.ListaBeni:
             val = new ListaBeni();
             break;
@@ -486,9 +475,6 @@ export function getMsg (tipoErrore: MsgEnum): Msg{
             break; 
         case MsgEnum.NuovoUtente:
             val = new NuovoUtente();
-            break;
-        case MsgEnum.NuovoBene:
-            val = new NuovoBene();
             break;
     }
     return val;

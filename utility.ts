@@ -5,43 +5,6 @@ const gm = require('gm'),
       fs_extra = require('fs-extra')
       var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
     const curr_path=__dirname
-
-/**
- * Funzione che controlla se la variabile passata è un URL oppure no
- * 
- * @param urlDaVerificare -> variabile di cui si vuole eseguire la verifica
- * @returns -> false se non è un URL altrimenti il protocollo
- */
-export function ValidHttpUrl(urlDaVerificare:string) {
-    let url;
-    
-    try {
-      url = new URL(urlDaVerificare);
-    } catch (_) {
-      return false;  
-    }
-    if (urlDaVerificare.includes('jpeg')|| urlDaVerificare.includes('jpg')||
-    urlDaVerificare.includes('png') || urlDaVerificare.includes('images?')){
-            return url.protocol === "http:" || url.protocol === "https:"
-    }
-    
-    return false;
-  }
-
-function checkImage(url:any):any {
-    var request = new XMLHttpRequest();
-    request.open("GET", url, true);
-    request.send();
-    request.onload = function() {
-        if (request.status == 404) //if(statusText == OK)
-      {
-        return false;
-      } else {
-        return true;
-      }
-    };
-  }
-
   
 /**
  * Funzione per verificare la presenza delle immagini
@@ -107,6 +70,11 @@ export function EstrazioneImmagini(curr_path: string) {
     return tipo;
 }
 
+/**
+ * Funzione che aggiunge la filigrana alle immagini acquistate
+ * @param immagine -> path dell'immagine di cui è richiesto il download
+ * @returns -> l'immagine con la filigrana
+ */
 export function filigrana(immagine:string):any{
     return gm()
     .command("composite") 

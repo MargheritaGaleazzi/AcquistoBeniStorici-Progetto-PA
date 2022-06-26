@@ -9,7 +9,7 @@ import {Sequelize} from 'sequelize';
 const fs = require('fs');
 const mysql = require("mysql2");
 
-// Open the connection to MySQL server
+// Inizia la connessione al server MySQL
 const connection = mysql.createConnection({
   multipleStatements: true,
   host: "gestione_acquisto_beni",
@@ -17,7 +17,7 @@ const connection = mysql.createConnection({
   password: "password",
 });
 
-// Run create database statement
+// Esegue la creazione del database
 connection.query(
   `CREATE DATABASE IF NOT EXISTS gestione_acquisto_beni`,
   function (err:any, results:any) {
@@ -26,24 +26,9 @@ connection.query(
   }
 );
 
-//connection.end();
-
 export class Singleton{
     private static istanza: Singleton;
     private connessione: Sequelize;
-    //private MYSQL_DATABASE = "gestione_acquisto_beni"
-    //private MYSQL_HOST="localhost"
-    //private MYSQL_PORT=3306
-
-    /*
-      private constructor(){
-        this.connessione = new Sequelize(this.MYSQL_DATABASE,  'root', '',{
-            host: this.MYSQL_HOST,
-            port: this.MYSQL_PORT,
-            dialect: 'mysql'
-        });
-      }
-    */  
 
     private constructor(){
       this.connessione = new Sequelize(process.env.MYSQL_DATABASE!, process.env.MYSQL_USER!, process.env.MYSQL_PASSWORD, {
@@ -58,6 +43,5 @@ export class Singleton{
             this.istanza = new Singleton();
         }
         return Singleton.istanza.connessione;    
-
     }
 }

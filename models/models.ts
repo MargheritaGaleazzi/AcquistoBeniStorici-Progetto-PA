@@ -12,7 +12,8 @@ const sequelize: Sequelize = Singleton.getConnessione();
  * Sequelize.
  */
 
-//modella l'acquisto
+//Modella l'acquisto.
+
 export const Acquisto = sequelize.define('acquisto',{
     id:{
         type: DataTypes.INTEGER,
@@ -47,7 +48,7 @@ export const Acquisto = sequelize.define('acquisto',{
     freezeTableName: true
 });
 
-//Modella il bene
+//Modella il bene.
 export const Bene = sequelize.define('bene', {
     id:{
         type: DataTypes.INTEGER,
@@ -83,7 +84,7 @@ Bene.hasMany(Acquisto, {
   });
 Acquisto.belongsTo(Bene);
 
-//Modella l'utente
+//Modella l'utente.
 export const Utente = sequelize.define('utente',{
     email: {
         type: DataTypes.STRING(35),

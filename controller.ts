@@ -153,26 +153,18 @@ export async function acquistaMultiplo(ids:number[],formato_bene:string,compr:st
                 const image=path.join(curr_path,"img/"+bene.nome);
                 const nomebene=bene.nome.split(".")[0]+"."+formato_bene;
                 var tipo=selFormato(formato_bene);
-                console.log(image);
-                console.log(tipo);
                 filigrana(image).toBuffer(tipo, function (err:any, buffer:any) {
                     if (err) return console.log(err);
                     zip.addFile(nomebene,buffer);
-                    console.log('done!');
                     if (i==ids.length){
-                        console.log("siamo qua!!!!!!!!!!!!!!!!!!!!!")
                         risp.send(zip.toBuffer());
                     }
                     i++
                     })
         });
-
-    }).catch((error) => {
-        controllerErrori(MsgEnum.ErrServer, error, risp);
-    });
-    console.log(i)
-
-        //i++
+        }).catch((error) => {
+            controllerErrori(MsgEnum.ErrServer, error, risp);
+        });
     });
 }
 
@@ -269,8 +261,6 @@ export function download(nome:string,formato:string,id_acquisto:number,risp:any)
             if (err) return console.log('err');
             risp.set('Content-Disposition','attachment')
             risp.end(buffer);
-            
-            console.log('done!');
             Acquisto.findByPk(id_acquisto).then((acquisto:any)=>{
                 acquisto.nDownload+=1;
                 acquisto.save()

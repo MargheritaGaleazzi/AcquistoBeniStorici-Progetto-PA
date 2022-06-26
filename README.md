@@ -20,7 +20,7 @@ Ogni bene ha associato un costo in termini di token.
          <td>general</td>
         </tr>
         <tr>
-            <td rowspan=9>con token</td>
+            <td rowspan=8>con token</td>
             <td>Effettuare l’acquisto di uno specifico bene </td>
          <td>user</td>
         </tr>
@@ -52,10 +52,7 @@ Ogni bene ha associato un costo in termini di token.
             <td>Aggiungere un utente</td>
            <td>admin</td>
         </tr>
-        <tr>
-            <td>Aggiungere un bene</td>
-           <td>admin</td>
-        </tr>
+
      </tr>
     </tbody>
 </table>
@@ -117,10 +114,6 @@ La seguente tabella mostra le richieste possibili:
              <tr>
          <td> POST </td>
          <td> /AggiungiUtente </td>
-        </tr>
-             <tr>
-         <td> POST </td>
-         <td> /AggiungiBene </td>
         </tr>
     </tbody>
  </table>
@@ -253,26 +246,6 @@ Da effettuare tramite token JWT che deve contenere un payload JSON con la seguen
     "ruolo":"admin"
 }
 ~~~
-
-### Aggiungere un nuovo bene (AggiungiBene)
-Mediante l'utilizzo di questa rotta si l'admin può aggiungere un nuovo bene.
-L'immagine relativa al nuovo bene potrà essere caricata da un'immagine "locale" o da un immpagine presa da internet.
-Nel caso di immagine locale come path, bisogna specificare qullo assoluto, nel caso di immagine presa da internet basta passare l'url.
-Questa rotta può essere richiamata solamente dagli utenti autenticati, con ruolo admin.
-Da effettuare tramite token JWT che deve contenere un payload JSON con la seguente struttura:
-~~~
-{
-    "nome": "cuori",
-    "tipo": "manoscritto",
-    "anno": 2022,
-    "prezzo": 102,
-    "path_img":"https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Suit_Hearts_%28open_clipart%29.svg/1200px-Suit_Hearts_%28open_clipart%29.svg.png",
-    "email_admin": "babiFre@alice.it",
-    "ruolo":"admin"
-}
-~~~
-
-> `Per questa rotta abbiamo deciso di implementare un middleware che vada a verificare che l'immagine (e no solo il nome della stessa), non sia già presente nel database. Questa è però un'operazione computazionalmente onerosa che richiede un pò più tempo rispetto alle altre. Abbiamo pensato però di inserirla in quanto le dimensioni del dataset di immagini sono limitate.`
 
 ## Diagrammi UML
 ### Use case
@@ -723,49 +696,6 @@ CoR ->>- app : next()
 app ->>+ controller: aggiungiUtente()
 controller ->>+ model: Utente.create()
 model ->>- controller: result: nuovoUtente
-controller ->>- client:  risp.status().json()
-```
-
-#### Aggiungere un nuovo bene (AggiungiBene)
-
-```mermaid
-sequenceDiagram
-autonumber
-client ->> app: /AggiungiBene
-app ->>+ CoR: JWT
-CoR ->>+ middleware: controlloPresenzaToken()
-middleware ->>- CoR:  next()
-CoR ->>+ middleware: controlloChiaveSegreta()
-middleware ->>- CoR:  next()
-CoR ->>- app : next()
-app ->>+ CoR: NuovoBene
-CoR ->>+ middleware: controlloPresenzaAdmin()
-middleware ->> middleware: controlloPresenza()
-middleware ->>+ model: Utente.findAll()
-model ->>- middleware: result: utente
-middleware ->>- CoR:  next()
-CoR ->>+ middleware: controlloAdmin()
-middleware ->>+ model: Utente.findByPk()
-model ->>- middleware: result: utente
-middleware ->>- CoR:  next()
-CoR ->>+ middleware: controlloValoriBene()
-middleware ->>- CoR:  next()
-CoR ->>+ middleware: controlloNomeBene()
-middleware ->>+ model: Bene.findAll()
-model ->>- middleware: result: bene
-middleware ->>- CoR:  next()
-CoR ->>+ middleware: controlloLink()
-middleware ->>+ utility: ValidHttpUrl()
-utility ->>- middleware: 
-middleware ->>- CoR:  next()
-CoR ->>+ middleware: controlloImgUnivoca()
-middleware ->>+ model: Bene.findAll()
-model ->>- middleware: result: beni
-middleware ->>- CoR:  next()
-CoR ->>- app : next()
-app ->>+ controller: aggiungiBene()
-controller ->>+ model: Bene.create()
-model ->>- controller: result: nuovoBene
 controller ->>- client:  risp.status().json()
 ```
 

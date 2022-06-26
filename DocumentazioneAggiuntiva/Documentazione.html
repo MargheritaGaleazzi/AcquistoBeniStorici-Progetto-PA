@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentazione progetto PA</title>
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+<div id="main">
+    <h1 class="page-title">Documentazione del progetto di PA</h1>
+<section>
+<h2>Controller</h2>
+<article>
+    <div class="container-overview">
+<dl class="details">    
+</dl>
+    </div>
+        <h3 class="subsection-title">Methods</h3>
+    <h4 class="name" id="acquistaBene"><span class="type-signature"></span>acquistaBene<span class="signature">(id_bene, formato_bene, compr, risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette di acquistare un bene
+</div>
+    <h5>Parameters:</h5>
+<table class="params">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="name"><code>id_bene</code></td>
+            <td class="description last">> numero che identifica il bene da acquistare</td>
+        </tr>
+        <tr>
+                <td class="name"><code>formato_bene</code></td>
+            <td class="description last">> stringa che identifica il formato richiesto dall'acquirente</td>
+        </tr>
+        <tr> 
+                <td class="name"><code>compr</code></td>
+            <td class="description last">> email dell'utente che vuole acquistare il bene</td>
+        </tr>
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    </tbody>
+</table>
+<dl class="details">
+</dl>
+    <h4 class="name" id="acquistaMultiplo"><span class="type-signature"></span>acquistaMultiplo<span class="signature">(ids, formato_bene, compr, risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette di acquistare più beni in
+una volta e restituisce uno zip contenente tutti i beni
+</div>
+    <h5>Parameters:</h5>
+<table class="params">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="name"><code>ids</code></td>
+            <td class="description last">> array contenente gli id di tutti i beni da acquistare</td>
+        </tr>
+        <tr>
+                <td class="name"><code>formato_bene</code></td>
+            <td class="description last">> stringa che identifica il formato richiesto dall'acquirente</td>
+        </tr>
+        <tr>
+                <td class="name"><code>compr</code></td>
+            <td class="description last">> email dell'utente che vuole acquistare il bene</td>
+        </tr>
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    </tbody>
+</table>
+<dl class="details">
+</dl>        
+    
+    
+    <h4 class="name" id="aggiungiUtente"><span class="type-signature"></span>aggiungiUtente<span class="signature">(email, username, nome, cognome, risp)</span><span class="type-signature"></span></h4>
+    
+    
+
+<div class="description">
+    Funzione che permette la registrazione nel database di un nuovo utente
+che avrà il ruolo di 'user' e come credito 0
+</div>
+    <h5>Parameters:</h5>
+    
+<table class="params">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="name"><code>email</code></td>
+            <td class="description last">> email dell'utente da aggiungere</td>
+        </tr>
+        <tr>
+                <td class="name"><code>username</code></td>
+            <td class="description last">> username dell'utente</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>nome</code></td>
+            <td class="description last">> nome dell'utente da aggiungere</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>cognome</code></td>
+            <td class="description last">> Cognome dell'utente da aggiungere</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    
+    </tbody>
+</table><dl class="details">
+</dl>        
+    <h4 class="name" id="controllerErrori"><span class="type-signature"></span>controllerErrori<span class="signature">(enumMsg, msg, risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che viene richiamata dalle altre funzioni del Controller in caso di errori.
+</div>
+    <h5>Parameters:</h5>
+<table class="params">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+                <td class="name"><code>enumMsg</code></td>
+            <td class="description last">> Il tipo di messaggio da costruire</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>msg</code></td>
+            <td class="description last">> la situazione che si verifica</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> Risposta del server</td>
+        </tr>
+    
+    </tbody>
+</table><dl class="details">
+</dl>        
+    <h4 class="name" id="download"><span class="type-signature"></span>download<span class="signature">(nome, formato, risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette eseguire il download di un bene acquistato
+</div>
+    <h5>Parameters:</h5>
+<table class="params">
+    <thead>
+    <tr>  
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="name"><code>nome</code></td>
+            <td class="description last">> nome del bene acquistato</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>formato</code></td>
+            <td class="description last">> stringa che identifica il formato richiesto dall'acquirente</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    </tbody>
+</table><dl class="details">  
+</dl>        
+    <h4 class="name" id="lista"><span class="type-signature"></span>lista<span class="signature">(risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette di visualizzare tutti i beni che sono presenti
+</div>
+    <h5>Parameters:</h5>  
+<table class="params">
+    <thead>
+    <tr> 
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    </tbody>
+</table><dl class="details">
+</dl>        
+    <h4 class="name" id="listaBeni"><span class="type-signature"></span>listaBeni<span class="signature">(tipo, anno, risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette di visualizzare tutti i beni che sono presenti. Applicando
+filtri in base al tipo o all'anno del bene
+</div>
+    <h5>Parameters:</h5>   
+<table class="params">
+    <thead>
+    <tr> 
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="name"><code>tipo</code></td>
+            <td class="description last">> il tipo dei beni che si vogliono visualizzare nella risposta</td>
+        </tr>
+        <tr>
+                <td class="name"><code>anno</code></td>
+            <td class="description last">> l'anno dei beni che si vogliono visualizzare nella risposta</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    
+    </tbody>
+</table><dl class="details">
+
+</dl>        
+    <h4 class="name" id="nuovoLink"><span class="type-signature"></span>nuovoLink<span class="signature">(id_acquisto, risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette di ottenere un nuovo link per il bene
+acquistato, di cui si era già quindi avuto un altro link
+</div>
+    <h5>Parameters:</h5>
+    
+<table class="params">
+    <thead>
+    <tr>  
+        <th>Name</th> 
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="name"><code>id_acquisto</code></td>
+            <td class="description last">> numero identificativo dell'acquisto di cui si vuole ottenere un secondo link</td>
+        </tr>
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    </tbody>
+</table><dl class="details"> 
+</dl>        
+    
+    
+    <h4 class="name" id="regalo"><span class="type-signature"></span>regalo<span class="signature">(email_amico, formato_bene, compr, id_bene, risp)</span><span class="type-signature"></span></h4>
+    
+    
+
+<div class="description">
+    Funzione che permette di fare un regalo ad un amico
+</div>
+    <h5>Parameters:</h5>
+    
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        
+        
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+                <td class="name"><code>email_amico</code></td>
+            <td class="description last">> email dell'utente al quale si vuole fare un regalo</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>formato_bene</code></td>
+            <td class="description last">> stringa che identifica il formato richiesto dall'acquirente</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>compr</code></td>
+            <td class="description last">> email dell'utente che vuole acquistare il bene</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>id_bene</code></td>
+            <td class="description last">> id del bene che si vuole regalare</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    
+    </tbody>
+</table><dl class="details">
+ 
+</dl>        
+    
+    
+    <h4 class="name" id="ricarica"><span class="type-signature"></span>ricarica<span class="signature">(email, ricarica, risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette all'amministratore di ricaricare
+il credito di un dato utente
+</div>
+    <h5>Parameters:</h5>
+    
+<table class="params">
+    <thead>
+    <tr> 
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+                <td class="name"><code>email</code></td>
+            <td class="description last">> email dell'utente al quale si vuole ricaricare il credito</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>ricarica</code></td>
+            <td class="description last">> il numero di crediti che gli si vogliono dare</td>
+        </tr>
+    
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    
+    </tbody>
+</table><dl class="details">
+</dl>        
+    <h4 class="name" id="vediAcquisti"><span class="type-signature"></span>vediAcquisti<span class="signature">(risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette di vedere gli acquisti che sono stati effettuati e
+l'utente che li ha fatti
+</div>
+    <h5>Parameters:</h5>
+    
+<table class="params">
+    <thead>
+    <tr>   
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    
+    </tbody>
+</table><dl class="details">
+
+</dl>        
+    <h4 class="name" id="visualizzaCredito"><span class="type-signature"></span>visualizzaCredito<span class="signature">(email, risp)</span><span class="type-signature"></span></h4>
+<div class="description">
+    Funzione che permette di visualizzare il credito
+residuo di un dato utente
+</div>
+    <h5>Parameters:</h5>
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+                <td class="name"><code>email</code></td>
+            <td class="description last">> email dell'utente del quale si vuole sapere il credito residuo</td>
+        </tr>
+        <tr>
+                <td class="name"><code>risp</code></td>
+            <td class="description last">> la risposta che darà il server</td>
+        </tr>
+    </tbody>
+</table><dl class="details">
+</dl>        
+
+<h2>Utility</h2>
+<div class="container-overview">
+
+            
+<dl class="details">                                                                
+</dl>
+    
+
+</div>                                
+    <h3 class="subsection-title">Methods</h3>        
+                
+<h4 class="name" id="EstrazioneImmagini"><span class="type-signature"></span>EstrazioneImmagini<span class="signature">(curr_path)</span><span class="type-signature"></span></h4>
+    <div class="description">
+Funzione per estrarre le immagini dallo zip
+</div>    <h5>Parameters:</h5>
+<table class="params">
+<thead>
+<tr>
+    
+    <th>Name</th>
+                                   <th class="last">Description</th>
+</tr>
+</thead>    <tbody>
+        <tr>
+        
+            <td class="name"><code>curr_path</code></td>
+                                                <td class="description last">> percorso della cartella nella quale è contenuto il programma</td>
+    </tr>    
+</tbody>
+</table>
+<dl class="details">                                                    
+
+            
+</dl>
+    
+                
+<h4 class="name" id="filigrana"><span class="type-signature"></span>filigrana<span class="signature">(immagine)</span><span class="type-signature"></span></h4>
+    <div class="description">
+Funzione che aggiunge la filigrana alle immagini acquistate
+</div>    <h5>Parameters:</h5>
+<table class="params">
+<thead>
+<tr>
+    
+    <th>Name</th>
+                                   <th class="last">Description</th>
+</tr>
+</thead>    <tbody>
+        <tr>
+        
+            <td class="name"><code>immagine</code></td>
+
+        
+        </td>                                    <td class="description last">> path dell'immagine di cui è richiesto il download</td>
+    </tr>    
+</tbody>
+</table>
+<dl class="details">                                                    
+
+            
+</dl><h5>Returns:</h5>        
+<div class="param-desc">
+-> l'immagine con la filigrana
+</div>            
+                
+<h4 class="name" id="PresenzaImmagini"><span class="type-signature"></span>PresenzaImmagini<span class="signature">(curr_path, url)</span><span class="type-signature"></span></h4>
+    <div class="description">
+Funzione per verificare la presenza delle immagini
+</div>    <h5>Parameters:</h5>
+<table class="params">
+<thead>
+<tr>
+    
+    <th>Name</th>
+                                   <th class="last">Description</th>
+</tr>
+</thead>    <tbody>
+        <tr>
+        
+            <td class="name"><code>curr_path</code></td>
+                               <td class="description last">> percorso della cartella nella quale è contenuto il programma</td>
+    </tr>            <tr>
+        
+            <td class="name"><code>url</code></td>
+                                <td class="description last">> url dal quale scaricare lo zip contenente le immagini</td>
+    </tr>    
+</tbody>
+</table>
+<dl class="details">                                                    
+
+            
+</dl>
+    
+                
+<h4 class="name" id="selFormato"><span class="type-signature"></span>selFormato<span class="signature">(formato)</span><span class="type-signature"></span></h4>
+    <div class="description">
+Funzione utilizzata per selezionare il formato dell'immagine richiesto dall'utente
+</div>    <h5>Parameters:</h5>
+<table class="params">
+<thead>
+<tr>
+    
+    <th>Name</th>
+                                   <th class="last">Description</th>
+</tr>
+</thead>    <tbody>
+        <tr>
+        
+            <td class="name"><code>formato</code></td>
+                                <td class="description last">prende in ingresso il formato richiesto</td>
+    </tr>    
+</tbody>
+</table>
+<dl class="details">                                                    
+
+            
+</dl><h5>Returns:</h5>        
+<div class="param-desc">
+la stringa contentente il formato richiesto
+</div>            
+ 
+
+
+<div class="container-overview">
+    
+                
+    <dl class="details">                                                                
+    </dl>
+            
+        
+        </div>                                    
+            <h3 class="subsection-title">Models</h3>        
+                    
+    <h4 class="name" id="Acquisto">Acquisto</h4>
+    <div class="description">
+        Modella l'acquisto.
+    </div>    <h5>Type:</h5>
+        <ul>
+            <li>
+                
+    <span class="param-type">Object</span>
+            </li>
+        </ul>    <h5 class="subsection-title">Properties:</h5>    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+                    <th>Type</th>                        <th class="last">Description</th>
+        </tr>
+        </thead>    <tbody>
+                <tr>
+                
+                    <td class="name"><code>id</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">number</span>
+                
+                </td>                                    <td class="description last">L'id dell'acquisto</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>formato</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">Il formato nel quale si vuole la foto acquistata</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>email_compr</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">L'email dell'utente che ha effettuato l'acquisto</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>beneId</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">number</span>
+                
+                </td>                                    <td class="description last">L'id del bene acquistato</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>tipo_acq</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">Il tipo dell'acquisto</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>nDownload</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">number</span>
+                
+                </td>                                    <td class="description last">Il numero di download effettuati</td>
+            </tr>    
+        </tbody>
+    </table>
+    <dl class="details">                                                    
+       
+                    
+    </dl>
+                
+                    
+    <h4 class="name" id="Bene">Bene</h4>
+    <div class="description">
+        Modella il bene.
+    </div>    <h5>Type:</h5>
+        <ul>
+            <li>
+                
+    <span class="param-type">Object</span>
+            </li>
+        </ul>    <h5 class="subsection-title">Properties:</h5>    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+                    <th>Type</th>                        <th class="last">Description</th>
+        </tr>
+        </thead>    <tbody>
+                <tr>
+                
+                    <td class="name"><code>id</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">number</span>
+                
+                </td>                                    <td class="description last">L'id del bene</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>nome</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">Il nome del bene</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>tipo</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">La categoria nella quale rientra il bene</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>anno</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">number</span>
+                
+                </td>                                    <td class="description last">L'anno del bene</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>prezzo</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">number</span>
+                
+                </td>                                    <td class="description last">Il costo del bene</td>
+            </tr>    
+        </tbody>
+    </table>
+    <dl class="details">                                                                    
+    </dl>
+                
+                    
+    <h4 class="name" id="Utente">Utente</h4>
+    <div class="description">
+        Modella l'utente.
+    </div>    <h5>Type:</h5>
+        <ul>
+            <li>
+                
+    <span class="param-type">Object</span>
+            </li>
+        </ul>    <h5 class="subsection-title">Properties:</h5>    <table class="props">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+                    <th>Type</th>                        <th class="last">Description</th>
+        </tr>
+        </thead>    <tbody>
+                <tr>
+                
+                    <td class="name"><code>email</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">L'email dell'utente</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>username</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">Lo username dell'utente</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>nome</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">Il nome dell'utente</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>cognome</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">Il cognome dell'utente</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>ruolo</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">string</span>
+                
+                </td>                                    <td class="description last">Il ruolo dell'utente (user/admin)</td>
+            </tr>            <tr>
+                
+                    <td class="name"><code>credito</code></td>
+                            <td class="type">
+                
+                    
+    <span class="param-type">number</span>
+                
+                </td>                                    <td class="description last">Il credito a disposizione dell'utente</td>
+            </tr>    
+        </tbody>
+    </table>
+    <dl class="details">                                                    
+        
+                    
+    </dl>
+      
+    <h3>Middleware</h3>
+    <div class="container-overview">
+    
+                <dl class="details">                                                                
+</dl>        
+    
+    </div>                                
+        <h3 class="subsection-title">Methods</h3>        
+                    
+    <h4 class="name" id="ControlloAdmin"><span class="type-signature"></span>ControlloAdmin<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se il ruolo indicato dall'utente
+è effettivamente quello dell'admin
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloAnno"><span class="type-signature"></span>controlloAnno<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se l'anno inserito per il filtro è presente nel database
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ControlloChiaveSegreta"><span class="type-signature"></span>ControlloChiaveSegreta<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se il token JWT è effettivamente valido,
+richiamando anche la chiave segreta
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ControlloCredito"><span class="type-signature"></span>ControlloCredito<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se l'utente dispone di un numero
+sufficiente di token per l'acquisto del bene
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ControlloCreditoAcquistoMultiplo"><span class="type-signature"></span>ControlloCreditoAcquistoMultiplo<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se l'utente dispone di un numero
+sufficiente di token per l'acquisto dei beni
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloDownload"><span class="type-signature"></span>controlloDownload<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per il controllo del numero di download per ogni acquisto
+effettuato da un dato utente
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloFormatoImmagine"><span class="type-signature"></span>controlloFormatoImmagine<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che consente di controllare se il formato dell'immagine richiesto dall'utente
+è contenuto nei formati messi a disposizionr
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                
+</dl>        
+                    
+    <h4 class="name" id="controlloPositivita"><span class="type-signature"></span>controlloPositivita<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare che il valore inserito per l'accredito sia
+un numero positivo e maggiore di zero
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloPresenza"><span class="type-signature"></span>controlloPresenza<span class="signature">(email, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se la mail inserita dall'utente è presente nel database
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>email</code></td>
+                                                            <td class="description last">email dell'utente</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloPresenzaAcquisto"><span class="type-signature"></span>controlloPresenzaAcquisto<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che controlla se è presente l'id dell'acquisto nel database
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ControlloPresenzaAdmin"><span class="type-signature"></span>ControlloPresenzaAdmin<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Viene richiamata la funzione per il controllo della presenza per verificare
+se l'admin è presente del database
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloPresenzaBene"><span class="type-signature"></span>controlloPresenzaBene<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che controlla se il bene esiste
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloPresenzaBeni"><span class="type-signature"></span>controlloPresenzaBeni<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che controlla se i beni inseriti nell'array sono presenti nel database
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloPresenzaToken"><span class="type-signature"></span>controlloPresenzaToken<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se è presente il JWT
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ControlloPresenzaUser"><span class="type-signature"></span>ControlloPresenzaUser<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Viene richiamata la funzione per il controllo della presenza per verificare
+se l'utente è presente del database
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ControlloPresenzaUtente"><span class="type-signature"></span>ControlloPresenzaUtente<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Viene richiamata la funzione per il controllo della presenza per verificare
+se l'utente di cui si richiede il credito è presente nel database
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloProprietarioAcquisto"><span class="type-signature"></span>controlloProprietarioAcquisto<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per il controllo del proprietario dell'acquisto
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloTipo"><span class="type-signature"></span>controlloTipo<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che consente di controllare se il filtraggio relativo al tipo risulta essere presente
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                
+</dl>        
+                    
+    <h4 class="name" id="controlloTipoAnno"><span class="type-signature"></span>controlloTipoAnno<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se l'anno inserito per il filtro è presente nel database
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ControlloTokenNullo"><span class="type-signature"></span>ControlloTokenNullo<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se il credito a disposizione dell'utente è nullo.
+Se è nullo, tutte le richieste verranno rifiutate ritornando un errore di tipo "Non autorizzato"
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ControlloUser"><span class="type-signature"></span>ControlloUser<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se il ruolo indicato dall'utente
+è effettivamente quello dell'user
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloValoriAcquistoBene"><span class="type-signature"></span>controlloValoriAcquistoBene<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che controlla se i valori inseriti per l'acquisto del bene sono coerenti con i tipi richiesti
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloValoriAcquistoMultiplo"><span class="type-signature"></span>controlloValoriAcquistoMultiplo<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che controlla se i valori inseriti per l'acquisto multiplo sono coerenti con i tipi richiesti
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloValoriDownload"><span class="type-signature"></span>controlloValoriDownload<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che controlla se i valori inseriti per il download sono coerenti con i tipi richiesti
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloValoriFiltro"><span class="type-signature"></span>controlloValoriFiltro<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per il controllo dei valori che vengono inseriti quando
+si effettua un filtro per tipo o anno
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloValoriNuovoLink"><span class="type-signature"></span>controlloValoriNuovoLink<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che controlla se i valori inseriti per il nuovo link sono coerenti con i tipi richiesti
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloValoriNuovoUtente"><span class="type-signature"></span>controlloValoriNuovoUtente<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per il controllo dei valori che vengono inseriti quando
+si effettua l'inserimento di un nuovo utente
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="controlloValoriRicarica"><span class="type-signature"></span>controlloValoriRicarica<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare che i valori inseriti nel token siano del tipo richiesto
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="EmailUnivoca"><span class="type-signature"></span>EmailUnivoca<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare che quando
+si effettua l'inserimento di un nuovo utente si passi una mail
+che non è già stata utilizzata da un altro utente
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="RottaNonTrovata"><span class="type-signature"></span>RottaNonTrovata<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione che viene richiamata quando la rotta è inesistente
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="ValidazioneEmail"><span class="type-signature"></span>ValidazioneEmail<span class="signature">(email, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per verificare se la mail indicata è scritta nel formato corretto
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>email</code></td>
+                                                            <td class="description last">email da verificare</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="valMailAmico"><span class="type-signature"></span>valMailAmico<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Viene richiamata la funzione per il controllo del formato dell'email inserito
+dall'utente per indicare la mail dell'amico per la richiesta del regalo
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="valMailNuovoConsumatore"><span class="type-signature"></span>valMailNuovoConsumatore<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Viene richiamata la funzione per il controllo del formato dell'email inserito
+dall'admin per l'inserimento di un nuovo utente
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>        
+                    
+    <h4 class="name" id="verificaContentType"><span class="type-signature"></span>verificaContentType<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+        
+<div class="description">
+    Funzione utilizzata per controllare se il content-type è effettivamente
+del formato 'application/json'
+</div>
+    <h5>Parameters:</h5>
+    <table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+                                        <th class="last">Description</th>
+    </tr>
+    </thead>    <tbody>
+            <tr>
+            
+                <td class="name"><code>req</code></td>
+                                                            <td class="description last">richiesta del client</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>res</code></td>
+                                                            <td class="description last">risposta del server</td>
+        </tr>            <tr>
+            
+                <td class="name"><code>next</code></td>
+                                                            <td class="description last">riferimento al middleware successivo</td>
+        </tr>    
+    </tbody>
+</table>
+<dl class="details">                                                                    
+</dl>
+        
+
+</article>
+</section></div>
+<nav>
+<h3>Controller</h3><ul><li><a href="global.html#acquistaBene">acquistaBene</a></li><li><a href="global.html#acquistaMultiplo">acquistaMultiplo</a></li><li><a href="global.html#aggiungiUtente">aggiungiUtente</a></li><li><a href="global.html#controllerErrori">controllerErrori</a></li><li><a href="global.html#download">download</a></li><li><a href="global.html#lista">lista</a></li><li><a href="global.html#listaBeni">listaBeni</a></li><li><a href="global.html#nuovoLink">nuovoLink</a></li><li><a href="global.html#regalo">regalo</a></li><li><a href="global.html#ricarica">ricarica</a></li><li><a href="global.html#vediAcquisti">vediAcquisti</a></li><li><a href="global.html#visualizzaCredito">visualizzaCredito</a></li></ul>
+<h3>Utility</h3><ul><li><a href="global.html#EstrazioneImmagini">EstrazioneImmagini</a></li><li><a href="global.html#filigrana">filigrana</a></li><li><a href="global.html#PresenzaImmagini">PresenzaImmagini</a></li><li><a href="global.html#selFormato">selFormato</a></li></ul>
+<h3>Models</h3><ul><li><a href="global.html#Acquisto">Acquisto</a></li><li><a href="global.html#Bene">Bene</a></li><li><a href="global.html#Utente">Utente</a></li></ul>
+<h3>Middleware</h3><ul><li><a href="global.html#ControlloAdmin">ControlloAdmin</a></li><li><a href="global.html#controlloAnno">controlloAnno</a></li><li><a href="global.html#ControlloChiaveSegreta">ControlloChiaveSegreta</a></li><li><a href="global.html#ControlloCredito">ControlloCredito</a></li><li><a href="global.html#ControlloCreditoAcquistoMultiplo">ControlloCreditoAcquistoMultiplo</a></li><li><a href="global.html#controlloDownload">controlloDownload</a></li><li><a href="global.html#controlloFormatoImmagine">controlloFormatoImmagine</a></li><li><a href="global.html#controlloPositivita">controlloPositivita</a></li><li><a href="global.html#controlloPresenza">controlloPresenza</a></li><li><a href="global.html#controlloPresenzaAcquisto">controlloPresenzaAcquisto</a></li><li><a href="global.html#ControlloPresenzaAdmin">ControlloPresenzaAdmin</a></li><li><a href="global.html#controlloPresenzaBene">controlloPresenzaBene</a></li><li><a href="global.html#controlloPresenzaBeni">controlloPresenzaBeni</a></li><li><a href="global.html#controlloPresenzaToken">controlloPresenzaToken</a></li><li><a href="global.html#ControlloPresenzaUser">ControlloPresenzaUser</a></li><li><a href="global.html#ControlloPresenzaUtente">ControlloPresenzaUtente</a></li><li><a href="global.html#controlloProprietarioAcquisto">controlloProprietarioAcquisto</a></li><li><a href="global.html#controlloTipo">controlloTipo</a></li><li><a href="global.html#controlloTipoAnno">controlloTipoAnno</a></li><li><a href="global.html#ControlloTokenNullo">ControlloTokenNullo</a></li><li><a href="global.html#ControlloUser">ControlloUser</a></li><li><a href="global.html#controlloValoriAcquistoBene">controlloValoriAcquistoBene</a></li><li><a href="global.html#controlloValoriAcquistoMultiplo">controlloValoriAcquistoMultiplo</a></li><li><a href="global.html#controlloValoriDownload">controlloValoriDownload</a></li><li><a href="global.html#controlloValoriFiltro">controlloValoriFiltro</a></li><li><a href="global.html#controlloValoriNuovoLink">controlloValoriNuovoLink</a></li><li><a href="global.html#controlloValoriNuovoUtente">controlloValoriNuovoUtente</a></li><li><a href="global.html#controlloValoriRicarica">controlloValoriRicarica</a></li><li><a href="global.html#EmailUnivoca">EmailUnivoca</a></li><li><a href="global.html#RottaNonTrovata">RottaNonTrovata</a></li><li><a href="global.html#ValidazioneEmail">ValidazioneEmail</a></li><li><a href="global.html#valMailAmico">valMailAmico</a></li><li><a href="global.html#valMailNuovoConsumatore">valMailNuovoConsumatore</a></li><li><a href="global.html#verificaContentType">verificaContentType</a></li></ul>
+</nav>
+<br class="clear">
+<footer>
+    Documentazione del progetto di PA 2022
+</footer>
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

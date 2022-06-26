@@ -4,7 +4,7 @@ Il progetto consiste in un sistema che consenta di gestire l’acquisto di un pr
  
 Ogni bene ha associato un costo in termini di token.
 
-| Nella cartella DocumentazioneAggiuntiva si può trovare ulteriore documentazione relativa al codice.
+> Nella cartella DocumentazioneAggiuntiva si può trovare ulteriore documentazione relativa al codice.
  
 ## Funzioni del sistema
 <table align="center">

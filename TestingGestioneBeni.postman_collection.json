@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "51c1c30d-c94f-4d94-ad95-04e155a266f8",
+		"_postman_id": "09a0876a-8ef2-4a88-aa2d-10ef88b65a03",
 		"name": "TestingGestioneBeni",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -658,6 +658,1009 @@
 			]
 		},
 		{
+			"name": "AcquistoMultiplo",
+			"item": [
+				{
+					"name": "AcquistaMultiplo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.IdhPNEY6oW_KgxxKtYwBuqK-Z7xVpueH_LDW6Am2Q_o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						},
+						"description": "Per effettuare il download dello zip, premere il pulsante \"send and download\", posto nel menu a tendina accanto al pulsante \"send\""
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InBpcHBvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.UYFFAzNvmQ7CyYZDhCNDhUpc_gcrVTUZqbuq1DyRACk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreRuoloNonCorretto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJhZG1pbiJ9.RIg7eMb33uEUM0uyYmS3zvdYjXzx-ohxEcqouBdRUCs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNoUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6ImJhYmlGcmVAYWxpY2UuaXQiLCJydW9sbyI6InVzZXIifQ.rylWl0rSsv9qfq1Fgl-FNiLu9hRddGKkxr1TwzB-cK0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenNullo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6ImNhc3MubG9mQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.evJKu5GpwfjiX2OC8LF0QfSpqjKNEkRnjs0LzhfqPW0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreValoriIdImmagini",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLCJwcm92YSIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.pd4Sj-PjrXv-c57PTPhSakTq0P_BpkVNXVCm1zPSIXQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreNoArray",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOjEsImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.OmQavgAn_qR15ZCZjI3vvjfy3Nj8Qq8rXgoJ8B8dWA0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreFormatoNonEsistente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwcm92YSIsImNvbnN1bWF0b3JlIjoic3RlbGxhbWFyaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.vADOMXeR2Y6FZ3a40xRGHxl3ae-f3oY8ADpetrRNE8Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreBeniNonPresenti",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDM1MCwzXSwiZm9ybWF0byI6InBuZyIsImNvbnN1bWF0b3JlIjoic3RlbGxhbWFyaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.oselZYTklgaUVkB8ZFhF1boT6HRzCYhnFPPquqyEeus",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenNonSufficienti",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6Im1hcmlhQmlhbmNoaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.yra9fQlgR3HSOGqPd81eRL4eqI2mmlaHa1DtNVtybgs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTNonPresente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenInvalido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "prova",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/AcquistaMultiplo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"AcquistaMultiplo"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Per effettuare il download dello zip, premere il pulsante \"send and download\", posto nel menu a tendina accanto al pulsante \"send\""
+		},
+		{
+			"name": "Nuovo Link",
+			"item": [
+				{
+					"name": "NuovoLink",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MTEsImNvbnN1bWF0b3JlIjoicm9zc2lNYXJpb0BnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.XBSZLYQE_5B6-CCqEXBqWKCjz6D_e-2tXKvXdeEWdIQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NuovoLinkErroreUtenteNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJwaW5vQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.hdSm3WYQBMsudAPeT34JTU37ckERy3EFxbsRSvi6aTQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreRuoloNonCorretto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoiYWRtaW4ifQ.O5yCnRlsos-wTIaE70NyHut3RnmN_47NeCtDavPL-Rk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNoUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJiYWJpRnJlQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.pIPXkpXDh4OTfUTtlum1F6BR3nEbdxu7CsehWptIiTE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenNullo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJjYXNzLmxvZkBhbGljZS5pdCIsInJ1b2xvIjoidXNlciJ9.yOMINWZS1sOJC_uroauMTMmo9XR0rJKBrkHnIa2n2CQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreInserimentoChiaviValori",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6InByb3ZhIiwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.hC2MOiqckU5HZf3u1oM_Xh1VgwnSlmCZ4No2QesvPiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreBeneNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6NTAsImNvbnN1bWF0b3JlIjoicm9zc2lNYXJpb0BnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.BepeavtE7QqrEYVmTXWObHGEa0kjhZ4hz2V-Py6xM40",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteInseritoDiversoDaProprietario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJhbnNlQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.e0oSP8Css4KcunAWfXgy300XFA4vwraWucl1gECOFDA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTNonPresente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTInvalido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "prova",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/NuovoLink",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"NuovoLink"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Regalo",
+			"item": [
+				{
+					"name": "Regalo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub0BnbWFpbC5jb20ifQ.F1Fh-VB4h9XH_7AUOgesvFWCOZoB_bqxxWBmmstzLdc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJnaW5vQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub0BnbWFpbC5jb20ifQ.iG6DLQo3V6ZmizTr-eCCj0L-e0Mqi-mPyVzmN9WdjW8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTNonPresente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenJWTInvalido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "prova",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreRuoloUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoicHJvdmEiLCJlbWFpbF9hbWljbyI6InBpbm9AZ21haWwuY29tIn0.ZKIykSAHcNdCM_gueG09sZoSXewG8j-joUa9ApSOZ8U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenNullo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJjYXNzLmxvZkBhbGljZS5pdCIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub0BnbWFpbC5jb20ifQ.E47E2xhTa9mnuRG3TRLYh97_GpBDQDwyQE4obGrPtVA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreChiaviValoriInseriti",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9uZSI6MywiZm9ybWF0byI6InBuZyIsImNvbnN1bWF0b3JlIjoicm9zc2lNYXJpb0BnbWFpbC5jb20iLCJydW9sbyI6InVzZXIiLCJlbWFpbF9hbWljbyI6InBpbm9AZ21haWwuY29tIn0.yZPt5L8uugFojN5g8TTc4Zhb2UfLXRrB1EBu1DkIpd0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreBeneNonTrovato",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjoxMjAsImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InJvc3NpTWFyaW9AZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIiwiZW1haWxfYW1pY28iOiJwaW5vQGdtYWlsLmNvbSJ9.aqsoMjzQTHl-hepPXvwz6l7YmYbZocNhWuoLWQD3qh8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreTokenNonSufficienti",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjo0LCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJnaW92aUBhbGljZS5pdCIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub0BnbWFpbC5jb20ifQ._G-MNkVmq6irxk570x6DECl5_jBbMBmkLmqu1frnT30",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreFormatoNonEsistente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicHJvdmEiLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIiwiZW1haWxfYW1pY28iOiJwaW5vQGdtYWlsLmNvbSJ9.bGrxyn_sstUJtdsakO0I9MjzLmI9CKFevqzwV7rIePo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreFormatoEmailAmico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJzdGVsbGFtYXJpQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub2dtYWlsLmNvbSJ9.u4fu1fBV-d_WP3qv0VPKRSwH7KeeAgwuD7XYoLb74Fw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ErroreUtenteNoUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjo0LCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJiYWJpRnJlQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIiwiZW1haWxfYW1pY28iOiJwaW5vQGdtYWlsLmNvbSJ9.cZrZB7XdxW9IxydbtnxK3pLOP6W8TyJXjEkyDsctSNg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Regalo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Regalo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Download",
 			"item": [
 				{
@@ -1059,301 +2062,6 @@
 			]
 		},
 		{
-			"name": "Nuovo Link",
-			"item": [
-				{
-					"name": "NuovoLink",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MTEsImNvbnN1bWF0b3JlIjoicm9zc2lNYXJpb0BnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.XBSZLYQE_5B6-CCqEXBqWKCjz6D_e-2tXKvXdeEWdIQ",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "NuovoLinkErroreUtenteNonTrovato",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJwaW5vQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.hdSm3WYQBMsudAPeT34JTU37ckERy3EFxbsRSvi6aTQ",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreRuoloNonCorretto",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoiYWRtaW4ifQ.O5yCnRlsos-wTIaE70NyHut3RnmN_47NeCtDavPL-Rk",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreUtenteNoUser",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJiYWJpRnJlQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.pIPXkpXDh4OTfUTtlum1F6BR3nEbdxu7CsehWptIiTE",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenNullo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJjYXNzLmxvZkBhbGljZS5pdCIsInJ1b2xvIjoidXNlciJ9.yOMINWZS1sOJC_uroauMTMmo9XR0rJKBrkHnIa2n2CQ",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreInserimentoChiaviValori",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6InByb3ZhIiwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.hC2MOiqckU5HZf3u1oM_Xh1VgwnSlmCZ4No2QesvPiY",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreBeneNonTrovato",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6NTAsImNvbnN1bWF0b3JlIjoicm9zc2lNYXJpb0BnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.BepeavtE7QqrEYVmTXWObHGEa0kjhZ4hz2V-Py6xM40",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreUtenteInseritoDiversoDaProprietario",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9hY3F1aXN0byI6MSwiY29uc3VtYXRvcmUiOiJhbnNlQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.e0oSP8Css4KcunAWfXgy300XFA4vwraWucl1gECOFDA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenJWTNonPresente",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenJWTInvalido",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "prova",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/NuovoLink",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"NuovoLink"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "VediAcquisti",
 			"item": [
 				{
@@ -1560,757 +2268,6 @@
 					"response": []
 				}
 			]
-		},
-		{
-			"name": "Regalo",
-			"item": [
-				{
-					"name": "Regalo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub0BnbWFpbC5jb20ifQ.F1Fh-VB4h9XH_7AUOgesvFWCOZoB_bqxxWBmmstzLdc",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreUtenteNonTrovato",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJnaW5vQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub0BnbWFpbC5jb20ifQ.iG6DLQo3V6ZmizTr-eCCj0L-e0Mqi-mPyVzmN9WdjW8",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenJWTNonPresente",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenJWTInvalido",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "prova",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreRuoloUser",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJyb3NzaU1hcmlvQGdtYWlsLmNvbSIsInJ1b2xvIjoicHJvdmEiLCJlbWFpbF9hbWljbyI6InBpbm9AZ21haWwuY29tIn0.ZKIykSAHcNdCM_gueG09sZoSXewG8j-joUa9ApSOZ8U",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenNullo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJjYXNzLmxvZkBhbGljZS5pdCIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub0BnbWFpbC5jb20ifQ.E47E2xhTa9mnuRG3TRLYh97_GpBDQDwyQE4obGrPtVA",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreChiaviValoriInseriti",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9uZSI6MywiZm9ybWF0byI6InBuZyIsImNvbnN1bWF0b3JlIjoicm9zc2lNYXJpb0BnbWFpbC5jb20iLCJydW9sbyI6InVzZXIiLCJlbWFpbF9hbWljbyI6InBpbm9AZ21haWwuY29tIn0.yZPt5L8uugFojN5g8TTc4Zhb2UfLXRrB1EBu1DkIpd0",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreBeneNonTrovato",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjoxMjAsImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InJvc3NpTWFyaW9AZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIiwiZW1haWxfYW1pY28iOiJwaW5vQGdtYWlsLmNvbSJ9.aqsoMjzQTHl-hepPXvwz6l7YmYbZocNhWuoLWQD3qh8",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenNonSufficienti",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjo0LCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJnaW92aUBhbGljZS5pdCIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub0BnbWFpbC5jb20ifQ._G-MNkVmq6irxk570x6DECl5_jBbMBmkLmqu1frnT30",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreFormatoNonEsistente",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicHJvdmEiLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIiwiZW1haWxfYW1pY28iOiJwaW5vQGdtYWlsLmNvbSJ9.bGrxyn_sstUJtdsakO0I9MjzLmI9CKFevqzwV7rIePo",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreFormatoEmailAmico",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjozLCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJzdGVsbGFtYXJpQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciIsImVtYWlsX2FtaWNvIjoicGlub2dtYWlsLmNvbSJ9.u4fu1fBV-d_WP3qv0VPKRSwH7KeeAgwuD7XYoLb74Fw",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreUtenteNoUser",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF9iZW5lIjo0LCJmb3JtYXRvIjoicG5nIiwiY29uc3VtYXRvcmUiOiJiYWJpRnJlQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIiwiZW1haWxfYW1pY28iOiJwaW5vQGdtYWlsLmNvbSJ9.cZrZB7XdxW9IxydbtnxK3pLOP6W8TyJXjEkyDsctSNg",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Regalo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Regalo"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "RotteInesistenti",
-			"item": [
-				{
-					"name": "GetRottaInesistente",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Prova",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Prova"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PostRottaInesistente",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/Prova",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"Prova"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "AcquistoMultiplo",
-			"item": [
-				{
-					"name": "AcquistaMultiplo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.IdhPNEY6oW_KgxxKtYwBuqK-Z7xVpueH_LDW6Am2Q_o",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						},
-						"description": "Per effettuare il download dello zip, premere il pulsante \"send and download\", posto nel menu a tendina accanto al pulsante \"send\""
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreUtenteNonTrovato",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InBpcHBvQGdtYWlsLmNvbSIsInJ1b2xvIjoidXNlciJ9.UYFFAzNvmQ7CyYZDhCNDhUpc_gcrVTUZqbuq1DyRACk",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreRuoloNonCorretto",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJhZG1pbiJ9.RIg7eMb33uEUM0uyYmS3zvdYjXzx-ohxEcqouBdRUCs",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreUtenteNoUser",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6ImJhYmlGcmVAYWxpY2UuaXQiLCJydW9sbyI6InVzZXIifQ.rylWl0rSsv9qfq1Fgl-FNiLu9hRddGKkxr1TwzB-cK0",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenNullo",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6ImNhc3MubG9mQGFsaWNlLml0IiwicnVvbG8iOiJ1c2VyIn0.evJKu5GpwfjiX2OC8LF0QfSpqjKNEkRnjs0LzhfqPW0",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreValoriIdImmagini",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLCJwcm92YSIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.pd4Sj-PjrXv-c57PTPhSakTq0P_BpkVNXVCm1zPSIXQ",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreNoArray",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOjEsImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6InN0ZWxsYW1hcmlAZ21haWwuY29tIiwicnVvbG8iOiJ1c2VyIn0.OmQavgAn_qR15ZCZjI3vvjfy3Nj8Qq8rXgoJ8B8dWA0",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreFormatoNonEsistente",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwcm92YSIsImNvbnN1bWF0b3JlIjoic3RlbGxhbWFyaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.vADOMXeR2Y6FZ3a40xRGHxl3ae-f3oY8ADpetrRNE8Y",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreBeniNonPresenti",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDM1MCwzXSwiZm9ybWF0byI6InBuZyIsImNvbnN1bWF0b3JlIjoic3RlbGxhbWFyaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.oselZYTklgaUVkB8ZFhF1boT6HRzCYhnFPPquqyEeus",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenNonSufficienti",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHMiOlsxLDIsM10sImZvcm1hdG8iOiJwbmciLCJjb25zdW1hdG9yZSI6Im1hcmlhQmlhbmNoaUBnbWFpbC5jb20iLCJydW9sbyI6InVzZXIifQ.yra9fQlgR3HSOGqPd81eRL4eqI2mmlaHa1DtNVtybgs",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenJWTNonPresente",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ErroreTokenInvalido",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "prova",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/AcquistaMultiplo",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"AcquistaMultiplo"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "Per effettuare il download dello zip, premere il pulsante \"send and download\", posto nel menu a tendina accanto al pulsante \"send\""
 		},
 		{
 			"name": "Visualizza Credito",
@@ -3074,6 +3031,49 @@
 							"port": "8080",
 							"path": [
 								"AggiungiUtente"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RotteInesistenti",
+			"item": [
+				{
+					"name": "GetRottaInesistente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Prova",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Prova"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostRottaInesistente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/Prova",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"Prova"
 							]
 						}
 					},

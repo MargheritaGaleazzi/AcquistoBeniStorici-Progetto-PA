@@ -27,7 +27,7 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
 }
 
 /**
- * Funzione che consente di controllare se il filtraggio relativo al tipo risulta essere presente
+ * Funzione che consente di controllare se il tipo inserito risulta essere presente nel database
  * 
  * @param req richiesta del client
  * @param res risposta del server
@@ -75,7 +75,8 @@ export function controlloValoriFiltro(req: any, res: any, next: any) : void {
 }
 
 /**
- * Funzione utilizzata per controllare se l'anno inserito per il filtro è presente nel database
+ * Funzione utilizzata per controllare se è presente un bene con anno e tipo corrispondenti a quelli indicati
+ * nel filtro
  * 
  * @param req richiesta del client
  * @param res risposta del server
@@ -174,7 +175,6 @@ export function controlloPresenzaBene(req: any, res: any, next: any) : void {
     Bene.findAll({attributes: ['id'], raw: true}).then((bene: object[]) => {
         var json = JSON.parse(JSON.stringify(bene));
         var array: number[] = [];
-        console.log(json.length)
         for(var i=0; i<json.length; i++){
             array.push(json[i]['id']);
         }
@@ -201,7 +201,6 @@ export function controlloPresenzaBene(req: any, res: any, next: any) : void {
     Bene.findAll({attributes: ['id'], raw: true}).then((bene: object[]) => {
         var json = JSON.parse(JSON.stringify(bene));
         var array: number[] = [];
-        console.log(json.length)
         for(var i=0; i<json.length; i++){
             array.push(json[i]['id']);
         }
@@ -231,13 +230,9 @@ export function ControlloCreditoAcquistoMultiplo(req: any, res: any, next: any) 
         var totale = 0;
         var i = 1;
         req.body.ids.forEach( async function(id:any){            
-            console.log("id: "+id);
             await Bene.findByPk(id).then((bene:any) => {
-                console.log("prezzo: " + bene.prezzo);
                 totale+= bene.prezzo;
                 if (i==req.body.ids.length){
-                    console.log("totale: " + totale);
-                    console.log(utente.credito);
                     if(totale <= utente.credito){
                         next();
                     }
@@ -298,8 +293,6 @@ export function ControlloCreditoAcquistoMultiplo(req: any, res: any, next: any) 
     Acquisto.findAll({attributes: ['id'], raw: true}).then((acquisto: object[]) => {
         var json = JSON.parse(JSON.stringify(acquisto));
         var array: number[] = [];
-        console.log("parametro:" + req.params.idAcquisto);
-        console.log("parametro 2:" +req.body.id_acquisto);
         var presenza = req.params.idAcquisto != null ? req.params.idAcquisto: req.body.id_acquisto;
         for(var i=0; i<json.length; i++){
             array.push(json[i]['id']);
@@ -320,7 +313,7 @@ export function ControlloCreditoAcquistoMultiplo(req: any, res: any, next: any) 
 }
 
 /**
- * Funzione utilizzata per controllare che i valori inseriti nel token siano del tipo richiesto
+ * Funzione utilizzata per controllare che i valori inseriti per la ricarica siano del tipo richiesto
  * 
  * @param req richiesta del client
  * @param res risposta del server
@@ -357,7 +350,7 @@ export function controlloValoriRicarica(req: any, res: any, next: any) : void {
 
 /**
  * Funzione che consente di controllare se il formato dell'immagine richiesto dall'utente 
- * è contenuto nei formati messi a disposizionr
+ * è contenuto nei formati messi a disposizione
  * 
  * @param req richiesta del client
  * @param res risposta del server
@@ -388,7 +381,6 @@ export function controlloPresenza(email: string, res: any, next: any) : void {
     Utente.findAll({attributes: ['email'], raw: true}).then((utente: object[]) => {
         var json = JSON.parse(JSON.stringify(utente));
         var array: string[] = [];
-        console.log(json.length)
         for(var i=0; i<json.length; i++){
             array.push(json[i]['email']);
         }
@@ -498,8 +490,6 @@ export function ControlloCredito(req: any, res: any, next: any) : void {
 export function controlloDownload(req: any, res: any, next: any) : void {
     console.log(req.params.idAcquisto);
     Acquisto.findByPk(req.params.idAcquisto).then((risultato: any) => {
-        console.log(risultato);
-        console.log(risultato.nDownload);
         if (risultato.nDownload == 0){
             next();
         }
@@ -527,10 +517,7 @@ export function controlloDownload(req: any, res: any, next: any) : void {
  export function controlloProprietarioAcquisto(req: any, res: any, next: any) : void {
     console.log(req.params.idAcquisto);
     var proprietario = req.params.idAcquisto != null ? req.params.idAcquisto : req.body.id_acquisto
-    console.log(proprietario);
     Acquisto.findByPk(proprietario).then((risultato: any) => {
-        console.log(risultato);
-        console.log(risultato.nDownload);
         if (risultato.email_compr == req.body.consumatore){
             next();
         }
@@ -589,7 +576,6 @@ export function ControlloAdmin(req: any, res: any, next: any) : void {
  */
 export function ControlloUser(req: any, res: any, next: any) : void {
     Utente.findByPk(req.body.consumatore).then((utente:any) => {
-        console.log(req.body.ruolo)
         if(utente.ruolo == req.body.ruolo){
             next();
         }
@@ -698,7 +684,6 @@ export function RottaNonTrovata(req: any, res: any, next: any) {
     Utente.findAll({attributes: ['email'], raw: true}).then((utente: object[]) => {
         var json = JSON.parse(JSON.stringify(utente));
         var array: string[] = [];
-        console.log(json.length)
         for(var i=0; i<json.length; i++){
             array.push(json[i]['email']);
         }

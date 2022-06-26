@@ -8,7 +8,6 @@ const gm = require('gm'),
     request = require('request')
 
 const curr_path=__dirname
-console.log("current path: "+curr_path);
 var zip = new admzip();
 
 // File .zip contenente le immagini, salvato su DropBox
@@ -25,7 +24,6 @@ PresenzaImmagini(curr_path,url);
  */
 function controllerErrori(enumMsg: MsgEnum, msg: Error, risp: any) {
     const nuovoMsg = getMsg(enumMsg).getMsg();
-    console.log(msg);
     risp.status(nuovoMsg.codice).json({errore:nuovoMsg.codice, descrizione:nuovoMsg.msg});
 }
 

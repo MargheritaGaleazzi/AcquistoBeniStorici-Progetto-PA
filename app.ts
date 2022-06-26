@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 
 const applicazione:Application = express();
 applicazione.use(express.json());
+//controlla se il payload risulta essere non formato in maniera corretta
 applicazione.use((err: Error, req: any, res: any, next: any) => {
     if (err instanceof SyntaxError) {
         const new_err = getMsg(MsgEnum.ErrPaylodMalformato).getMsg();

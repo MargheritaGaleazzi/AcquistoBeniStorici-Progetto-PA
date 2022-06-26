@@ -298,18 +298,24 @@ export function ControlloCreditoAcquistoMultiplo(req: any, res: any, next: any) 
     Acquisto.findAll({attributes: ['id'], raw: true}).then((acquisto: object[]) => {
         var json = JSON.parse(JSON.stringify(acquisto));
         var array: number[] = [];
-        var presenza = req.params.idAcquisto != null ? req.params.idAcquisto : req.body.id_acquisto
-        console.log(json.length)
+        console.log("parametro:" + req.params.idAcquisto);
+        console.log("parametro 2:" +req.body.id_acquisto);
+        var presenza = req.params.idAcquisto != null ? req.params.idAcquisto: req.body.id_acquisto;
         for(var i=0; i<json.length; i++){
             array.push(json[i]['id']);
         }
-        if(array.find(element => element === presenza)){
-            next();
-        } else {
+
+        var notFound = true;
+        for(var i =0; notFound && i<array.length; i++){
+            if(array[i] == presenza)
+                notFound = false;
+        }
+
+        if(notFound){
             const new_err = getMsg(MsgEnum.ErrAcquistoNonTrovato).getMsg();
             next(res.status(new_err.codice).json({errore:new_err.codice, descrizione:new_err.msg}));
-        }
-        
+        } else
+            next();    
     });
 }
 

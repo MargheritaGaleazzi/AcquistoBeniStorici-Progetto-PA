@@ -564,9 +564,14 @@ middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloFormatoImmagine()
 middleware ->>- CoR:  next()
 CoR ->>- app : next()
-app ->>+ controller: visualizzaCredito()
-controller ->>+ model: Utente.findByPk()
-model ->>- controller: result: utente
+app ->>+ controller: acquistoMultiplo()
+controller ->>+ model : Acquisto.create()
+controller ->>+ model : Bene.findByPk()
+controller ->> model : Utente.decrement()
+model ->>- controller : result: bene
+model ->>- controller : result: acquisto
+controller ->>+ factory : getMsg().getMsg()
+factory ->>- controller: obj:AcquistaBene
 controller ->>- client:  risp.status().json()
 ```
 

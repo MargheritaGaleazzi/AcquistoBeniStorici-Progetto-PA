@@ -564,15 +564,17 @@ middleware ->>- CoR:  next()
 CoR ->>+ middleware: controlloFormatoImmagine()
 middleware ->>- CoR:  next()
 CoR ->>- app : next()
-app ->>+ controller: acquistoMultiplo()
+app ->>+ controller: acquistaMultiplo()
+loop per tutti gli id in ids
 controller ->>+ model : Acquisto.create()
 controller ->>+ model : Bene.findByPk()
 controller ->> model : Utente.decrement()
 model ->>- controller : result: bene
-model ->>- controller : result: acquisto
+model ->>- controller : result: acquisto 
+end
 controller ->>+ factory : getMsg().getMsg()
-factory ->>- controller: obj:AcquistaBene
-controller ->>- client:  risp.status().json()
+factory ->>- controller: obj:acquistaMultiplo
+controller ->>- client:  risp.send()
 ```
 
 #### Fare un regalo ad un amico (Regalo)
